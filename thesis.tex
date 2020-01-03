@@ -1,0 +1,63 @@
+\documentclass[11pt]{report}
+
+\usepackage{fullpage,times}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{amsmath}
+\usepackage{authblk}
+\usepackage{siunitx}
+\usepackage{float}
+
+\usepackage{algorithm}
+\usepackage[noend]{algorithmic}
+\setlength{\algorithmicindent}{2em}
+
+% \usepackage{setspace}
+% \doublespacing
+
+\graphicspath{{figures/}}
+
+\setlist[enumerate]{
+  labelindent=0pt,
+  itemindent=0pt,
+  leftmargin=*,
+  noitemsep,
+  topsep=0.25em
+}
+\setlist[itemize]{
+  labelindent=0pt,
+  itemindent=0pt,
+  leftmargin=*,
+  nosep
+}
+
+
+\title{SMURF-seq: efficient short-read sequencing on long-read sequencers}
+\author{Rishvanth K. Prabakar}
+\affil{Quantitative and Computational Biology Section, \\
+  Department of Biological Sciences, \\
+  University of Southern California, \\
+  1050 Childs Way, \\
+  Los Angeles 90089, USA}
+
+\date{July 15, 2020}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+\listoffigures
+
+%% Introduction
+\include{chapter_1}
+%% Background
+\include{chapter_2}
+%% SMURF-seq
+\include{chapter_3}
+
+
+\newpage
+\bibliographystyle{unsrt}
+\bibliography{thesis}
+
+\end{document}
