@@ -71,11 +71,19 @@ Therefore, we require a approach to determine the optimal $k$.
 A similar problem arose in the context of local alignment. Aligning any
 two sequences always gives an optimal alignment. However, an approach
 was required to differentiate ``meaningful'' alignments from alignment
-of random sequences.
-%% 
-The score of aligning two sequences was compared to the score of
-aligning sequences generated at random to determine the significance of
-alignment \cite{}.
+of unrelated sequences.
+%%
+The significance of the alignment score of sequences were determined
+from a distribution of scores of aligning sequences (with the same
+length and a similar base composition) generated at random.
+%% Differences with the local alignment approach
+%% We are interested in opt frags, and not significant alignment
+However, the fragment identification problem differs from the local
+alignment problem in a crutial manner. For the fragment identification
+problem we have the reference genome, and it is assumed that the reads
+always arise from this genome; the score distribution of sequences
+genreated at random is used to determine the optimal number of
+fragments, and not ``meaningful'' alignments.
 
 We approach the fragment identification problem by defining a score
 function as follows:
