@@ -16,6 +16,73 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Background}
+%% Similarities with the local alignment approach
+A similar problem arose in the context of local alignment\cite{}.
+Aligning any two sequences always gives an optimal alignment. However,
+an approach was required to differentiate ``meaningful'' alignments from
+alignment of unrelated sequences.
+%%
+The significance of the alignment score of sequences were determined
+from a distribution of scores of aligning sequences (with the same
+length and a similar base composition) generated at random.
+%% Differences with the local alignment approach % We are interested in
+%opt frags, and not significant alignment
+However, the fragment identification problem differs from the local
+alignment problem in a crutial manner. For the fragment identification
+problem we have the reference genome, and it is assumed that the reads
+always arise from this genome; the score distribution of sequences
+genreated at random is used to determine the optimal number of
+fragments, and not ``meaningful'' alignments.
+
+In the early days of sequencing, with the advent of nucleotide datbases
+\cite{} and algoritms for sequence alignment \cite{} an importane issue
+was to determine significance of aligned sequences.
+%% Very early studies
+
+%% Simulation studies
+In the context of local alignment, initial studies \cite{} analyzed the
+distribution of alignment score of unrelated sequences with simulations.
+These approaches assumed normaity of of distribution and determined
+significance of a sequence from the number of standard deviations over
+mean.
+
+%% Mike's approach: coing tossing
+% EVD approximation
+% poisson approximation
+
+%% Dembo and Karlin's approach
+
+%% alignment allowing gaps
+
+%% BLAST
+
+%% Profile alignment
+
+%% Global alignment score distribution
+
+%% Differneces between these and the k=1 frag id problem
+
+
+
+
+%% local alignment
+% The local alignment score distribution has been studied extensively,
+% especially in the context of BLAST score statistics
+% \cite{altschul1990basic,altschul199627}.  The distribution of the local
+% alignment score is well approximated by the extreme value distribution
+% (EVD) \cite{karlin1990methods,
+% karlin1990statistical,dembo1994limit,dembo1991strong}.
+
+% It has also been shown that the distribution of the maximum score
+% obtained when a profile sequence is aligned to all possible positions of
+% a random sequence has a limiting extreme value distribution
+% \cite{goldstein1994approximations}.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Fragment Identification problem}
 %% string properties
 Let $\Sigma$ be an alphabet. A string $X$ is a sequence of letters $a_0
@@ -67,23 +134,6 @@ alignment.
 %% So we need a way to detemine the optimal k.
 Therefore, we require a approach to determine the optimal $k$.
 
-%% Similarities with the local alignment approach
-A similar problem arose in the context of local alignment. Aligning any
-two sequences always gives an optimal alignment. However, an approach
-was required to differentiate ``meaningful'' alignments from alignment
-of unrelated sequences.
-%%
-The significance of the alignment score of sequences were determined
-from a distribution of scores of aligning sequences (with the same
-length and a similar base composition) generated at random.
-%% Differences with the local alignment approach
-%% We are interested in opt frags, and not significant alignment
-However, the fragment identification problem differs from the local
-alignment problem in a crutial manner. For the fragment identification
-problem we have the reference genome, and it is assumed that the reads
-always arise from this genome; the score distribution of sequences
-genreated at random is used to determine the optimal number of
-fragments, and not ``meaningful'' alignments.
 
 We approach the fragment identification problem by defining a score
 function as follows:
@@ -110,21 +160,8 @@ probability $p_a$ such that $\sum_{a \in \Sigma} p_a = 1$.
 For a given fragment set $P$, what is the distribution of $score_T(S,
 P)$?
 
+
 \subsection{Score distribution of one fragment}
-%% local alignment
-The local alignment score distribution has been studied extensively,
-especially in the context of BLAST score statistics
-\cite{altschul1990basic,altschul199627}.  The distribution of the local
-alignment score is well approximated by the extreme value distribution
-(EVD) \cite{karlin1990methods,
-karlin1990statistical,dembo1994limit,dembo1991strong}.
-
-%% profile alignmnet
-It has also been shown that the distribution of the maximum score
-obtained when a profile sequence is aligned to all possible positions of
-a random sequence has a limiting extreme value distribution
-\cite{goldstein1994approximations}.
-
 %% How fragment identification problem differs from these
 The distribution of $score_T(S,1)$ differs from the local alignment as
 we require an end-to-end alignment of $S$ to a substring of $T$. It also
