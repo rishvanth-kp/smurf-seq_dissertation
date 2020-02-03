@@ -17,35 +17,45 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Background}
-%% Similarities with the local alignment approach
-A similar problem arose in the context of local alignment\cite{}.
-Aligning any two sequences always gives an optimal alignment. However,
-an approach was required to differentiate ``meaningful'' alignments from
-alignment of unrelated sequences.
-%%
-The significance of the alignment score of sequences were determined
-from a distribution of scores of aligning sequences (with the same
-length and a similar base composition) generated at random.
-%% Differences with the local alignment approach % We are interested in
-%opt frags, and not significant alignment
-However, the fragment identification problem differs from the local
-alignment problem in a crutial manner. For the fragment identification
-problem we have the reference genome, and it is assumed that the reads
-always arise from this genome; the score distribution of sequences
-genreated at random is used to determine the optimal number of
-fragments, and not ``meaningful'' alignments.
+In the early days of DNA sequencing, as the number of nucleotides
+sequenced grew, comparison of DNA sequences became an indispensable tool
+to a biologist.
+%
+DNA sequence comparison can be broadly classified into global alignment
+\cite{needleman1970general} and local alignment
+\cite{smith1981identification}. A global alignment seeks an optimal
+alignment between two sequences such that each base of one sequence is
+aligned to each base of the other sequences. On the other hand, a local
+alignment seeks an optimal alignment between any subsequences of the
+sequences being compared.
 
-In the early days of sequencing, with the advent of nucleotide datbases
-\cite{} and algoritms for sequence alignment \cite{} an importane issue
-was to determine significance of aligned sequences.
-%% Very early studies
+Comparison of two sequences, even unrelated or random sequences, always
+produces an optimal alignment. This motivated the development of
+approaches to differentiate a ``meaningful'' alignment from alignment of
+unrelated sequences. These methods determine the significance of an
+alignment by comparing the alignment score with a null distribution of
+alignment scores of unrelated sequences. Determining the appropriate null
+distribution was the subject of an enormous amount of research, some of
+which are summarized below.
 
 %% Simulation studies
-In the context of local alignment, initial studies \cite{} analyzed the
-distribution of alignment score of unrelated sequences with simulations.
-These approaches assumed normaity of of distribution and determined
-significance of a sequence from the number of standard deviations over
-mean.
+In the context of local alignment, at the time of the initial studies on
+the score distribution of unrelated sequences, mathematical tools to
+understand the null distributions were still lacking, and these studies
+relied on empirical distributions generated from aligning unrelated
+sequences.
+%%
+In \cite{smith1985statistical}, it is shown that the similarity score is
+proportional to the logarithm of the length of the sequences being
+compared, and the standard deviation is independent of the sequence
+length. The significance of an alignment was determined from the number
+of standard deviations over mean of the alignment score.
+%% Dependence on sequence properties
+These studies also highlight that the statistical properties of the
+sequences affect the distribution of the alignment scores
+\cite{lipman1984statistical}.  Generating a null distribution from an
+incorrect model could lead to an alignment of unrelated sequences being
+declared significant.
 
 %% Mike's approach: coing tossing
 % EVD approximation
@@ -134,6 +144,14 @@ alignment.
 %% So we need a way to detemine the optimal k.
 Therefore, we require a approach to determine the optimal $k$.
 
+%% Differences with the local alignment approach
+% We are interested in opt frags, and not significant alignment
+However, the fragment identification problem differs from the local
+alignment problem in a crucial manner. For the fragment identification
+problem we have the reference genome, and it is assumed that the reads
+always arise from this genome; the score distribution of sequences
+generated at random is used to determine the optimal number of
+fragments, and not ``meaningful'' alignments.
 
 We approach the fragment identification problem by defining a score
 function as follows:
