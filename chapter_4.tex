@@ -51,15 +51,43 @@ compared, and the standard deviation is independent of the sequence
 length. The significance of an alignment was determined from the number
 of standard deviations over mean of the alignment score.
 %% Dependence on sequence properties
-These studies also highlight that the statistical properties of the
-sequences affect the distribution of the alignment scores
-\cite{lipman1984statistical}.  Generating a null distribution from an
-incorrect model could lead to an alignment of unrelated sequences being
-declared significant.
+These studies \cite{lipman1984statistical} also highlight that the
+statistical properties \cite{smith1983statistical}, such as nucleotide
+frequencies or codon usage, of the sequences affect the distribution of
+the alignment scores.  Generating a null distribution from an incorrect
+model could lead to an alignment of unrelated sequences being dubiously
+declared significant. Several methods are available to generate random
+sequences preserving these statistical properties
+\cite{fitch1983random,altschul1985significance}.
 
-%% Mike's approach: coing tossing
+%% Mike's approach: coin tossing
+Erdos and Renyi \cite{erdos1975length} presented results for the length
+of the longest headrun in a the first $n$ tosses of a biased coin.  The
+length of the longest headrun in coin tosses is equivalent to the number
+of matches between two DNA sequences when shifts in the starting and
+ending positions of the sequences are not allowed, with the probability
+of head equal to the probability of match between letters of the DNA
+alphabet.
+% coin tossing with shifts and fixed mismatches.
+In \cite{arratia1985erdos}, this is generalized to matches between DNA
+sequences, while allowing shifts. These results indicate that allowing
+shifts doubles the length of the longest headrun. Results for the
+longest headrun allowing for up to $k$ mismatches and sequences
+generated from a Markov chain are also considered.
 % EVD approximation
+In \cite{arratia1986extreme,gordon1986extreme} the distribution of the
+longest matches is shown to a have an extreme value distribution with
+mean that is proportional to the logarithm of the sequences lengths and
+variance independent of sequence length. Here, when considering only
+matches, the asymptotic extreme value distribution is shown by
+considering a maximum of geometric distributions, and when mismatches
+are allowed, it is shown by considering a maximum of negative binomial
+distributions.
 % poisson approximation
+An alternate approach is a Poisson approximation for the distribution of
+the longest match \cite{arratia1989erdos}.
+% This approach does not consider score fucntion
+
 
 %% Dembo and Karlin's approach
 
