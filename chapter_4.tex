@@ -86,10 +86,26 @@ distributions.
 % poisson approximation
 An alternate approach is a Poisson approximation for the distribution of
 the longest match \cite{arratia1989erdos}.
-% This approach does not consider score fucntion
-
 
 %% Dembo and Karlin's approach
+An crutial aspect of in aligning nucleic acid and protein sequnces is
+usesing the appropriate score function. For example, PAM and Dayoff
+matrices is used for protien sequcences \cite{}, and xxx is used for DNA
+sequences \cite{}.  The score function used alters the score of the
+aligned sequences and thus the alignment score distrubution of unaligned
+sequences.
+% Headrun approach does not consider score function
+However, the approach based on the length of the headruns does not
+consider the score function used for an alignmt. 
+%
+In \cite{}, it is shown that the score distrubution of aligning
+unrelated sequences for any score function (that has at least one
+positive score and the expected score is negative) has the form of an
+extreme value distribution, and and explicit formulas that its paramets
+are provided.
+% distribution of letters, and log-odds ratio
+
+
 
 %% alignment allowing gaps
 
@@ -230,16 +246,16 @@ distribution \cite{kotz2000extreme}.
 %% m-dependence
 Here, we have a dependence between $X_j$ and $X_k$ for $|j - k| < m$.
 
+%% distribution and qq plot
+
+%% Distribution as a function of fragment length
+
+%% Distribution as a function of genome length
 
 \subsection{Score distribution for a given fragment set}
 
+
 \subsection{Score distribution for an unknown fragment set}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Estimating the optimal fragment set}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -248,10 +264,20 @@ Here, we have a dependence between $X_j$ and $X_k$ for $|j - k| < m$.
 \section{Identifying optimal fragment boundaries}
 
 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Estimating the number of fragments}
+
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
+
 
 \subsection{Exact matching reads}
 
