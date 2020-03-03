@@ -11,6 +11,85 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Motivation}
+%% Sequencing tech and mapping methods
+New sequencing methods motivate development of new algorithms for
+mapping and analysis of sequences generated using these methods. A few
+significant developments include BLAST \cite{altschul1990basic} and
+FASTA \cite{pearson1988improved} motivated by database searches with the
+advent of Sanger sequencing, BWA \cite{li2009fast} and Bowtie
+\cite{langmead2009ultrafast} inspired by high-throughput short-read
+sequencing, and BLASR \cite{chaisson2012mapping} by single-molecule
+long-read sequencing.
+%% SMURF-seq
+SMURF-seq has enabled efficient short-read sequencing for read-counting
+applications on portable long-read machines.  However, efficient methods
+tailored for mapping SMURF-seq reads are still lacking; Especially as
+SMURF-seq protocol evolves and the fragments become shorter, and thus,
+making the mapping process challenging in terms of identifying accurate
+fragment locations and boundaries.
+
+%% current SMURF-seq
+As currently implemented, SMURF-seq protocol uses a single restriction
+enzyme (SaqAI) to fragment DNA molecules to $\sim$150 bp. However,
+depending on the downstream application, the fragment lengths need to be
+just long enough to ensure unique mappability to a sufficient fraction
+of the genome.
+%% making fragments shorter
+Fragments could be made shorter using methods discussed in section
+\ref{}.  As an example, for copy-number profiling (at low
+resolutions, as used for tumor samples) the fragment lengths could be as
+short as 40 bp.
+
+%% current barriers and how to remove them
+We used BWA-MEM \cite{li2013aligning} to align SMURF-seq reads generated
+with the current protocol, which consists of fragments that are
+typically over 100 bp. Though not designed to align SMURF-seq reads,
+BWA-MEM is designed for split read alignment, and it works sufficiently
+well at these fragment lengths.  SMURF-seq reads can also be aligned
+with other mapping tools capable of split-read alignment such as
+Minimap2 \cite{li2018minimap2} and LAST \cite{kielbasa2011adaptive}.
+However, all of these tools are either designed for aligning short reads
+with low sequencing error or long reads with high sequencing error.
+%
+Moreover, since these tools are not designed for SMURF-seq reads, they
+lack certain capabilities; e.g. they do not provide a method to estimate
+the number of fragments or determine the optimal fragment boundaries in
+a SMURF-seq reads, and these become increasingly important with shorter
+fragments.
+
+%% challenges as the fragments get shorter
+The significance of having accurate fragment boundaries is understood by
+looking at the fraction of the genome that is uniquely mappable. For the
+human reference genome (hg19), when allowing no mismatches or indels,
+the fraction of the genome that is uniquely mappable reduces by 0.06\%
+when going from 150 to 145 bp, whereas it reduces by 2.02\% when going
+from 40bp to 35bp (Fig.~\ref{dzones}). Thus, as the fragments get
+shorter, the probability of a fragment that originated from a unique
+location on the genome to misalign to an ambiguous location or
+vice-versa increases.
+
+\begin{figure}[t!]
+\centering
+\includegraphics{ch4_fig1.pdf}
+\caption{The fraction of genome that is uniquely mappable decreases with
+          fragment length.}
+\label{dzones}
+\end{figure}
+
+%% How will our method remove the current barrier
+We propose a method to estimate the number of fragments on a SMURF-seq
+read. We define a score function for aligning a SMURF-seq read, study
+the distribution of aligning reads and reference generated at random,
+and estimate the number of fragments in a SMURF-seq read by comparing
+its alignment score with the distribution of aligning random reads for
+all possible fragmentations of a read. Then we show the accuracy of our
+method using from simulated genomes and SMURF-seq reads. Further, we
+empirically show that this method could also be used with a general
+score function.
+
+%%%%% How will this improve scientific capacity and knowledge
+
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -96,7 +175,7 @@ aligned sequences and thus the alignment score distrubution of unaligned
 sequences.
 % Headrun approach does not consider score function
 However, the approach based on the length of the headruns does not
-consider the score function used for an alignmt. 
+consider the score function used for an alignmt.
 %
 In \cite{}, it is shown that the score distrubution of aligning
 unrelated sequences for any score function (that has at least one
@@ -237,7 +316,7 @@ follow an extreme value distribution. The heuristic is as follows.
 Let $X_j$ denote the score of aligning $S$ with $T[j \dots j+m-1]$, then
 \[X_j = \sum_{i=0}^{m-1} score(S[i],T[j+i]), j = 0, \dots, n-m+1.\]
 Since the letters of T and S are iid, we have \[X_j \sim binom(m,p)\]
-where \( p = \sum_{a=\Sigma} p_a^2\).  For a large enough $m$, $X_j$ can
+where $p = \sum_{a=\Sigma} p_a^2$.  For a large enough $m$, $X_j$ can
 be approximated by a normal distribution as \[X_j \sim N(mp, mp(1-p)).
 \] $score_T(S,1)$ is the maximum score over all positions in $T$,
 \[score_T(S,1) = \max_{0 \leq j \leq n-m+1} X_j.\] $score_T(S,1)$ is a
