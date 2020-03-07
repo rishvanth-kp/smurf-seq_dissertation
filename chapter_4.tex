@@ -634,7 +634,57 @@ addition to the weighted match/mismatch and indel edges
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Estimating the number of fragments}
+\section{Estimating the optimal fragment set}
+%% Algorithm
+The score distribution of aligning a random read $S_\mathrm{rand}$ to a
+random genome $T_\mathrm{rand}$ can be used to estimate the optimal $k$
+for aligning a SMURF-seq read $S_\mathrm{SMURF}$ to a reference genome
+$T_\mathrm{ref}$.
+%%
+A procedure to do this is as follows: For a SMURF-seq read, find the
+best alignment score $k_\mathrm{score}$ and the fragment set
+$k_\mathrm{P}$ for all $k$ from $1$ to $m$ using the algorithm given
+in section \ref{}. Also, for each $k$ using the fragment set
+$k_\mathrm{P}$, determine the p-value of finding an alignment with score
+greater than $k_\mathrm{score}$ from the random model. The optimal $k$
+for a read is the one with the lowest p-value.
+
+\begin{algorithm}[H]
+\caption{OptimalK $(T,S)$}
+\begin{algorithmic}[1]
+  \STATE $k_\mathrm{opt} \leftarrow 1$
+  \STATE $\Pr_\mathrm{opt} \leftarrow 1$
+  \FOR {$k \leftarrow 1$ \TO $m-1$}
+    \STATE $k_\mathrm{score}, k_\mathrm{P} \leftarrow
+              FragMatch(T_\mathrm{ref},S_\mathrm{SMURF},k)$
+    \STATE $k_{\Pr} \leftarrow \Pr(score_{T_\mathrm{rand}}
+              (S_\mathrm{rand},k_\mathrm{P}) > k_\mathrm{score})$
+    \IF {$k_{\Pr} < \Pr_\mathrm{opt}$}
+      \STATE $\Pr_\mathrm{opt} \leftarrow k_{\Pr}$
+      \STATE $k_\mathrm{opt} \leftarrow k$
+    \ENDIF
+  \ENDFOR
+  \RETURN $k_\mathrm{opt}$
+\end{algorithmic}
+\end{algorithm}
+
+%% Explanation
+Say the optimal $k$ for a read is $k_\mathrm{opt}$, as $k$ goes from $1$
+to $k_\mathrm{opt}-1$, $k$ fragments in the read are likely mapped to
+its true location, whereas the rest of the bases in the read are going
+to be mapped to random locations genome adjacent to the mapped
+fragments. So as $k$ goes toward $k_\mathrm{opt}-1$, the number of bases
+that are mapped to its true location will increase and the bases mapped
+to random locations will decrease, but there will be bases mapped to
+random genome locations. Therefore with each iteration the p-value
+would decrease. At $k=k_\mathrm{opt}$, all the fragments are mapped to
+its true locations and there would be no bases mapped to random
+locations, so the p-value should be at its lowest. For $k >
+k_\mathrm{opt}$, there are no random base mappings but the true mappings
+will be split into shorter fragments. As $k$ increases beyond
+$k_\mathrm{opt}$, the p-value would increase since as the fragments get
+shorter, the more likely they are to align to a random location on the
+reference.
 
 
 
@@ -644,7 +694,6 @@ addition to the weighted match/mismatch and indel edges
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
 
-\subsection{Exact matching reads}
-
 \subsection{Reads with mismatches}
 
+\subsection{Aligning with a general score function}
