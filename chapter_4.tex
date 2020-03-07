@@ -63,10 +63,19 @@ looking at the fraction of the genome that is uniquely mappable. For the
 human reference genome (hg19), when allowing no mismatches or indels,
 the fraction of the genome that is uniquely mappable reduces by 0.06\%
 when going from 150 to 145 bp, whereas it reduces by 2.02\% when going
-from 40bp to 35bp (Fig.~\ref{dzones}). Thus, as the fragments get
-shorter, the probability of a fragment that originated from a unique
-location on the genome to misalign to an ambiguous location or
-vice-versa increases.
+from 40bp to 35bp (Fig.~\ref{dzones}).
+% how it affects SMURF-seq read
+Thus, as the fragments get shorter, the probability of a fragment that
+originated from a unique location on the genome to misalign to an
+ambiguous location or vice-versa increases.
+% reads with errors
+% TODO: Improve sentence below
+Further, as sequencing errors are considered the difference in unique
+mappability due to having inaccurate fragment boundaries is likely to
+increase.
+%
+Thus, as the fragments become shorter, having accurate fragment
+boundaries would improve the sensitivity of aligning SMURF-seq reads.
 
 \begin{figure}[t!]
 \centering
@@ -75,6 +84,7 @@ vice-versa increases.
           fragment length.}
 \label{dzones}
 \end{figure}
+
 
 %% How will our method remove the current barrier
 We propose a method to estimate the number of fragments on a SMURF-seq
@@ -168,20 +178,20 @@ An alternate approach is a Poisson approximation for the distribution of
 the longest match \cite{arratia1989erdos}.
 
 %% Dembo and Karlin's approach
-An crutial aspect of in aligning nucleic acid and protein sequnces is
-usesing the appropriate score function. For example, PAM and Dayoff
-matrices is used for protien sequcences \cite{}, and xxx is used for DNA
+An crucial aspect of in aligning nucleic acid and protein sequences is
+using the appropriate score function. For example, PAM and Dayoff
+matrices is used for protein sequences \cite{}, and xxx is used for DNA
 sequences \cite{}.  The score function used alters the score of the
-aligned sequences and thus the alignment score distrubution of unaligned
+aligned sequences and thus the alignment score distribution of unaligned
 sequences.
 % Headrun approach does not consider score function
 However, the approach based on the length of the headruns does not
-consider the score function used for an alignmt.
+consider the score function used for an alignment.
 %
-In \cite{}, it is shown that the score distrubution of aligning
+In \cite{}, it is shown that the score distribution of aligning
 unrelated sequences for any score function (that has at least one
 positive score and the expected score is negative) has the form of an
-extreme value distribution, and and explicit formulas that its paramets
+extreme value distribution, and and explicit formulas that its parameters
 are provided.
 % distribution of letters, and log-odds ratio
 
@@ -262,7 +272,7 @@ function as follows:
 %% score function
 For a given fragment set $P$, we define the score of aligning $S$ to $T$
 as: \[score_T(S,P) = \sum_{i=1}^{k} \max\{score(T[u \dots v], S[P_i
-\dots P_{i+1}]): 0 \leq u < v \leq n\}.\] 
+\dots P_{i+1}]): 0 \leq u < v \leq n\}.\]
 %
 This allows us to consider the fragment identification problem as two
 inter-related problems: (1) Determining $k$, the size of the fragment
@@ -279,24 +289,24 @@ as a fragment would maximize the score, however, this is a non-sensical
 alignment.
 
 %% Outline of our statistical approach.
-We propose to estimate the number of fragments $k$ by alinging a read
-to the reference genome with differnt $k$. For each of these
+We propose to estimate the number of fragments $k$ by aligning a read
+to the reference genome with different $k$. For each of these
 fragmentations, we determine the p-value by comparing the alignment
-score with the null distribution generated from aliging reads generated
+score with the null distribution generated from aligning reads generated
 at random to a reference genome generated at random. Finally, we choose
 the fragmentation with lowest p-value as the optimal fragmentation.
 
 %% Differences with the local alignment approach We are interested in
 %% opt frags, and not significant alignment
 The fragment identification problem differs from the alignment problems
-describedd in section \ref{ch4_background} in a crucial manner. For the
+described in section \ref{ch4_background} in a crucial manner. For the
 fragment identification problem we have the reference genome, and it is
 assumed that the reads always arise from this genome; the score
 distribution of sequences generated at random is used to determine the
-optimal number of fragments on a SMURF-seq read. Whereas in the contxt
+optimal number of fragments on a SMURF-seq read. Whereas in the context
 of local alignment the score distribution of aligning random reads are
-used to determine a ``meaningful'' alignment by comparing the aligment
-score of sequeces with the random null distribution.
+used to determine a ``meaningful'' alignment by comparing the alignment
+score of sequences with the random null distribution.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -307,10 +317,10 @@ score of sequeces with the random null distribution.
 The strings $T$ and $S$ are generated by drawing letters independently
 from the same distribution from an alphabet $a \in \Sigma$ with
 probability $p_a$ such that $\sum_{a \in \Sigma} p_a = 1$.  For a given
-fragment set $P$ containg $k$ elements, we need to detemine the
-distribution of $score_T(S, P)$. First, we condiser the score
+fragment set $P$ containing $k$ elements, we need to determine the
+distribution of $score_T(S, P)$. First, we consider the score
 distribution when $k = 1$, i.e. the entire read aligns as one fragment.
-Then we condiser the score distribution when $k > 1$.
+Then we consider the score distribution when $k > 1$.
 
 %% Score function
 We use the following score function to obtain the distribution of
