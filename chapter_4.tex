@@ -431,6 +431,204 @@ random from a geometric distribution.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Identifying optimal fragment boundaries}
 
+% why do we need this?
+Having a score function for SMURF-seq reads enables a statistical
+approach to estimate the number of fragments on a read. The proposed
+method depends on an algorithm that can identify the optimal fragment
+boundaries, given the number of fragments, such that the sum of the
+alignment score of each fragment is maximized.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fragment boundary identification under exact matching}
+We first examine the fragment identification problem assuming the score
+function requires exact matching
+\[score(a,b)=
+\begin{cases}
+  1 & \text{if } a = b \\
+  -\infty & \text{otherwise.}
+\end{cases}\]
+The fragment identification problem then becomes an exact matching
+problem where the goal is to minimize the number of fragments such that
+$score_T(P,S)$ is maximized.
+
+A simple linear time solution to this problem can be obtained as
+follows. First, we assume some data structure for $T$ has been
+constructed in linear time and allows for longest prefix matches to be
+computed in time proportional to the length of the query string. The
+data structure could be a suffix tree \cite{mccreight1976space}, or a
+more space efficient and a modern structure like an FM-index
+\cite{ferragina2000opportunistic}. The principle of the algorithm can be
+seen by starting at the beginning of $S$, and identifying the longest
+prefix match of $S$ in $T$. Then retain $j$ as the first position of
+where this longest prefix matches in $T$, and denote the first
+mismatching position on $S$ as $i$. Repeat the procedure solving the
+subproblem of fragment identification for $S[i\dots m]$. Repeating these
+steps, the algorithm iteratively solves the longest prefix match
+problems, retaining as $P_{i+1}$ the position of mismatch that
+terminates matching during iteration $i$. The following pseudocode
+describes the procedure.
+
+\begin{algorithm}[H]
+\caption{ExactFragmentMatching($T, S$):}
+\begin{algorithmic}[1]
+  \STATE $i \leftarrow 0$
+  \WHILE{$i < m$}
+    \STATE $P \leftarrow P\cup \{i\}$
+    \STATE $i \leftarrow \text{longest-match-length}(S,i,T)$
+  \ENDWHILE
+  \RETURN $P$
+\end{algorithmic}
+\end{algorithm}
+
+\textbf{Proof:} Consider an optimal solution to this problem, where the
+identified fragment set $P_{\mathrm{opt}}$ has minimal size. To prove
+the optimality of our algorithm we need to show that it finds the same
+number of fragments as the optimal solution, i.e. $|P| =
+|P_{\mathrm{opt}}|$.
+
+The first iteration of the greedy algorithm will find the longest prefix
+match. If the optimal solution has its first fragmentation ending before
+$P_1$, i.e. $P_{\mathrm{opt1}} < P_1$. Then the longest match starting at
+$P_{\mathrm{opt1}}$ will end at or before $P_2$, the end of the second
+fragment found by the greedy algorithm. If it ends at $P_2$ then the
+greedy algorithm has the same number of fragments as the optimal
+solution so far. And it cannot end before $P_2$, because then the
+optimal solution will have more fragments than found by the greedy
+algorithm. Moreover, we cannot have $P_{\mathrm{opt1}} > P_1$ as this
+would imply a longer prefix than found by the longest prefix match
+exists. With this reasoning we can say that this greedy approach will
+find just as little fragments as the optimal solution.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fragment boundary identification allowing mismatches}
+Here, we examine the fragment identification problem assuming the score
+function that allows matches and mismatches (but not indels)
+\[score(a,b)=
+\begin{cases}
+  1 & \text{if } a = b \\
+  0 & \text{if } a \neq b \\
+  -\infty & \text{otherwise.}
+\end{cases}\]
+
+For a fixed number of mismatches, if we are attempting to determine if
+some fragment set attains that number of mismatches, the optimal number
+of fragments might require fewer mismatches earlier in $S$ and also
+shorter fragments, so that longer fragments are possible later,
+requiring more mismatches. Intuitively this means we cannot rely on
+maximality of prefix matching. Here we explain a dynamic programming
+algorithm to solve the fragment identification problem with a bounded
+number of mismatches summed over all the fragments.
+
+Let $M$ denote a table with $k+1$ rows and $d+1$ columns, where $k$ is
+the maximum number of fragments and $d$ is the maximum number of
+mismatches allowed. We will use entry $M(i,j)$ to represent the longest
+prefix of $S$ that matches $T$ with at most $i$ fragments and $j$
+mismatches summed over all fragments. The following algorithm computes
+the entries of $M$ using a subroutine for identifying approximate
+matches to a pattern within a text.
+
+\begin{algorithm}[H]
+\caption{FragMatchingWithMismatches$(T, S, k, d)$}
+\begin{algorithmic}[1]
+  \STATE $M(0,i) \leftarrow 0 \text{ for all } 0 \leq i \leq d$
+  \FOR {$i \leftarrow 1$ \TO $k$}
+    \FOR {$j \leftarrow 0$ \TO $d$}
+      \FOR {$l \leftarrow 0$ \TO $j$}
+        \STATE $M(i,j) \leftarrow \max \{p | dist(S[M(i-1,l) \dots p],
+                  T) = j-l)\}$
+      \ENDFOR
+    \ENDFOR
+  \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+After computing all the entries in $M$, if $M(i,j) = m$ for any $i$ and
+any $j$ then there exists a set of $k$ fragments in $S$ having at most
+$d$ total mismatches with respect to $T$.
+
+\textbf{Time and space complexity:} $O(f(m,n) + kd^2g(m,n))$, where
+$f(m,n)$ is the time required for pre-possessing $S$ and $T$ in order to
+allow approximate prefix matching queries, and $g(m,n)$ is the time
+required for those queries assuming pre-processing had been done. The
+algorithm uses $O(h(m,n) + kd)$ space, where $h(m,n)$ is the space
+required for a data structure that allows longest prefix match with a
+specified number of mismatches.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Fragment boundary identification allowing mismatches and indels}
+Let $M$ denote a table with $m+1$ rows, $n+1$ columns and $k+1$
+dimensions, where $k$ is the maximum number of fragments ($1 \leq k \leq
+m$).  $\max_{0 \leq j \leq n}M(i,j,l)$ represents the best fragmentation
+of $S[1 \dots i]$ with $l$ fragments. The entries of $M$ are computed as
+follows:
+
+\begin{algorithm}[H]
+\caption{FragBoundaryIdentification$(T, S, k)$}
+\begin{algorithmic}[1]
+  \STATE $M(i,j,0) \leftarrow -\infty
+          \text{ for all } 0 \leq i \leq m, 0 \leq j \leq n$
+  \STATE $M(0,j,1) \leftarrow 0 \text{ for all } 0 \leq j \leq n$
+  \STATE $M(i,0,1) \leftarrow M(i-1,0,1) + score(S[i], \_)
+          \text{ for all } 0 \leq i \leq m$
+  \STATE $M(l-1,j,l) \leftarrow -\infty \text{ for all } 2 \leq l \leq k,
+          0 \leq j \leq n$
+  \STATE $M(i,0,l) \leftarrow -\infty \text{ for all } 2 \leq l \leq k,
+          l \leq i \leq m$
+  \FOR {$l \leftarrow 1$ \TO $k$}
+    \FOR {$i \leftarrow l$ \TO $m$}
+      \FOR {$j \leftarrow 1$ \TO $n$}
+        \STATE $M(i,j,l) \leftarrow \max
+          \begin{cases}
+            M(i-1,j-1,l) + score(S[i], T[j]) \\
+            M(i-1,j,l) + score(S[i], \_) \\
+            M(i,j-1,l) + score(\_\ , T[j]) \\
+            \max_{0 \leq h \leq n}M(i-1,h,l-1) + score(S[i], T[j]).
+          \end{cases} $
+      \ENDFOR
+    \ENDFOR
+  \ENDFOR
+\end{algorithmic}
+\end{algorithm}
+
+\noindent
+\textbf{Time and space complexity:} Each entry of $M$ is computed in
+constant time by storing the value of $\max_{0 \leq j \leq
+n}M(i-1,j,l-1)$ for every row of $M$ in a separate array. The algorithm
+runs in $O(knm)$ time and uses $O(knm + km)$ space, where the additional
+$O(km)$ is used to store the values of $\max_{0 \leq j \leq
+n}M(i-1,j,l-1)$.
+
+%% Traceback
+The optimal alignment and fragment boundaries are determined from the
+usual traceback procedure starting from $\max_{1 \leq j \leq n}M(m,j,k)$
+and ending in $M_{1 \leq j \leq n}(1,j,1)$, with the exception of
+storing if a new fragment maximized the score at a cell.
+
+%% Intuition
+Intuitively, this algorithm is similar to the local alignment algorithm
+but instead of picking an empty alignment when the score of an extension
+is negative, this algorithm starts a new fragment when the score of
+extending a fragment is less than score of starting a new fragment. In
+terms of an alignment graph, each node has a zero-weight incoming edge
+from the node corresponding to $\max_{0 \leq j \leq n}M(i-1,j,l-1)$, in
+addition to the weighted match/mismatch and indel edges
+(Fig.~\ref{frag_alg}).
+
+\begin{figure}[h!]
+\centering
+\includegraphics{ch4_fig5.pdf}
+\caption{Alignment graph for fragment boundary identification algorithm
+  with an arbitrary score function. The direction of arrows are omitted
+  for clarity. The horizontal edges are directed from left to right and
+  all other edges are directed from top to bottom.}
+\label{frag_alg}
+\end{figure}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
