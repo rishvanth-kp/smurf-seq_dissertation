@@ -724,15 +724,54 @@ shorter, the more likely they are to align to a random location on the
 reference.
 
 
-
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Results}
+To evaluate the profromace of your method, we simulated a refrence
+genome, generated simulated SMURF-seq reads from the genome, and
+introduced sequencing errors to the reference genome. The number of
+fragments and the starting location of each fragment on the smulated 
+read is known. These reads are then mapped back to the reference genome
+for values several values of $k$ using algorithm \ref{}, yielding the 
+fragment set that maximizes the aligment score for each $k$. These
+fragment sets were then used to generate the null distribution by
+simulationg a random reference genome with the same base probabilities
+as the reference genome, and aliging random reads with fragment start
+locations based on the fragment set. The p-value for each fragmentation
+was determined using an EVD for $k=1$ and normal distibutions for $k >
+1$ with parametes estimated using the method of moments from the
+simulated reads. The fragmenation with the smallst p-value was considerd
+as the optimal framgnation. These predicted fragmentations were then
+compared with the ground truth to determine the accuracy.  
+
+% We first evaluate the 
 
 \subsection{Reads with mismatches}
 
+% Figure for a single read with alignment score, null distribution and
+% p-value
+
+
+% Figure showing the p-value for 100 reads, and subfigure with the
+% accuracy 
+
+
 \subsection{Fast computation of p-values}
 
+% Figure comparing the fitted empirical score distribution using the two
+% methods
+
+% Figure showing p-value for a 1000 reads
+
+% Figure showing accuracy for seveal fragment lengts and error rates
+
+
 \subsection{Aligning with a general score function}
+
+% negative score for mismatches
+
+% negative score for mismatch and indels
+
+
+
