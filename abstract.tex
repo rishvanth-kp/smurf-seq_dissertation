@@ -1,0 +1,31 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                                                              %%%%%
+%%%%% Abstract                                                     %%%%%
+%%%%%                                                              %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{Abstract}
+Somatic copy number alterations (CNA) play a significant role cancer,
+and can be leveraged for diagnostic and personalized approaches to
+treatment.
+%
+High-throughput short-read sequencing has been extremely efficient in copy
+number profiling; however, its applicability depends on the availability of
+instrument, and time to obtain profiles can vary from a few days to weeks.
+%
+We present SMURF-seq, a protocol to efficiently sequence short DNA molecules
+on a long-read sequencer by randomly ligating them to form long molecules.
+Applying SMURF-seq using the highly portable and inexpensive Oxford Nanopore
+MinION yields up to 30 fragments per read, providing an average of 6.2 and up
+to 7.5 million mappable fragments per run, increasing information throughput
+for read-counting applications. We apply SMURF-seq on the MinION to generate
+copy number profiles, demonstrate that multiple samples can be multiplexed and
+sequenced in a single sequencing run, and show that concordant profiles are
+obtained with reads sequenced in the first 45 minutes of a run. A comparison
+with profiles from Illumina sequencing reveals that SMURF-seq attains similar
+accuracy.
+%% TODO: Need to write about the fragment identification problem
+%
+More broadly, with a fast and simple preparation method and a turnaround time
+measured in hours, the SMURF-seq approach could provide a highly efficient
+methodology for research and clinical laboratories where access to large-scale
+sequencing is limited.
