@@ -1,4 +1,4 @@
-\documentclass[12pt,openany]{book}
+\documentclass[12pt]{report}
 
 \usepackage{fullpage,times}
 \usepackage{graphicx}
@@ -53,21 +53,29 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\frontmatter
+% \frontmatter
 \maketitle
+\doublespacing
+\pagenumbering{roman}
+\setcounter{page}{2}
 
+%% Abstract
 \addcontentsline{toc}{chapter}{Abstract}
 \include{abstract}
+%% Acknowledgements
 \addcontentsline{toc}{chapter}{Acknowledgments}
 \include{acknowledgment}
 
+\singlespacing
+
+%% Table of contents and figures
 \tableofcontents
 \listoffigures
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\mainmatter
+% \mainmatter
 \doublespacing
 
 %% Introduction
@@ -94,7 +102,9 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \begin{appendices}
+\doublespacing
   \include{appendix}
+\singlespacing
 \end{appendices}
 
 \end{document}
