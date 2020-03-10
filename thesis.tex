@@ -1,4 +1,4 @@
-\documentclass[12pt]{report}
+\documentclass[12pt,openany]{book}
 
 \usepackage{fullpage,times}
 \usepackage{graphicx}
@@ -11,6 +11,11 @@
 \usepackage{algorithm}
 \usepackage[noend]{algorithmic}
 \setlength{\algorithmicindent}{2em}
+
+\usepackage[nottoc]{tocbibind}
+\renewcommand\bibname{References}
+
+\usepackage[titletoc]{appendix}
 
 \usepackage{setspace}
 
@@ -30,7 +35,6 @@
   nosep
 }
 
-
 \title{SMURF-seq: efficient short-read sequencing on long-read sequencers}
 \author{Rishvanth K. Prabakar}
 \affil{Quantitative and Computational Biology Section, \\
@@ -42,6 +46,7 @@
 \date{April 21, 2020}
 
 \begin{document}
+\frontmatter
 \maketitle
 
 \include{abstract}
@@ -50,6 +55,7 @@
 \tableofcontents
 \listoffigures
 
+\mainmatter
 \doublespacing
 
 %% Introduction
@@ -61,11 +67,16 @@
 %% Fragmnet identification problem
 \include{chapter_4}
 %% Conclusion
+\include{chapter_5}
 
 \singlespacing
 
 \newpage
 \bibliographystyle{unsrt}
 \bibliography{thesis}
+
+\begin{appendices}
+  \include{appendix}
+\end{appendices}
 
 \end{document}
