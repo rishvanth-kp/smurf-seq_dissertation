@@ -3,7 +3,6 @@
 %%%%% Chapter 4: Identifying SMURF-seq fragment boundaries         %%%%%
 %%%%%                                                              %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \chapter{Identifying fragment boundaries on a SMURF-seq read}
 \label{ch4}
 
@@ -387,7 +386,7 @@ increasing trend in the mean and standard deviation of the distribution
 \includegraphics{k1_evd.pdf}
 \caption{Empirical score distribution of $score_T(S,1)$. (a - b) Empirical
   distribution for $m=40$ and $m=100$ with a fitted EVD using the method
-  of moments estimator. Q-Q plot comparing the theoretical and empirical 
+  of moments estimator. Q-Q plot comparing the theoretical and empirical
   distributions are shown.
   (c) Empirical score distribution for $m$ corresponding to shorter
   fragments.
@@ -445,8 +444,8 @@ generated from at random from a geometric distribution.
 \includegraphics{fl40_norm.pdf}
 \caption{Empirical score distribution of $score_T(S,k)$ with a fitted
   normal using the method of moments estimator. All fragments are 40 bp.
-  Q-Q plot comparing the theoretical and empirical distributions are shown. 
-  (a) $m=800, k=20$. 
+  Q-Q plot comparing the theoretical and empirical distributions are shown.
+  (a) $m=800, k=20$.
   (b) $m=1600, k=40$.}
 \label{norm_const}
 \end{figure}
@@ -456,8 +455,8 @@ generated from at random from a geometric distribution.
 \includegraphics{geom_fl_norm.pdf}
 \caption{Empirical score distribution of $score_T(S,k)$ with a fitted
   normal using the method of moments estimator. The fragment lengths are
-  genrated from a geometric distribution with mean 100. Q-Q plot comparing 
-  the theoretical and empirical distributions are shown. 
+  genrated from a geometric distribution with mean 100. Q-Q plot comparing
+  the theoretical and empirical distributions are shown.
   (a) $m=2188, k=20$.
   (b) $m=3332, k=40$.}
 \label{norm_geom}
@@ -731,9 +730,9 @@ reference.
 To evaluate the profromace of your method, we simulated a refrence
 genome, generated simulated SMURF-seq reads from the genome, and
 introduced sequencing errors to the reference genome. The number of
-fragments and the starting location of each fragment on the smulated 
+fragments and the starting location of each fragment on the smulated
 read is known. These reads are then mapped back to the reference genome
-for values several values of $k$ using algorithm \ref{}, yielding the 
+for values several values of $k$ using algorithm \ref{}, yielding the
 fragment set that maximizes the aligment score for each $k$. These
 fragment sets were then used to generate the null distribution by
 simulationg a random reference genome with the same base probabilities
@@ -743,9 +742,9 @@ was determined using an EVD for $k=1$ and normal distibutions for $k >
 1$ with parametes estimated using the method of moments from the
 simulated reads. The fragmenation with the smallst p-value was considerd
 as the optimal framgnation. These predicted fragmentations were then
-compared with the ground truth to determine the accuracy.  
+compared with the ground truth to determine the accuracy.
 
-% We first evaluate the 
+% We first evaluate the
 
 \subsection{Reads with mismatches}
 
@@ -754,7 +753,7 @@ compared with the ground truth to determine the accuracy.
 
 
 % Figure showing the p-value for 100 reads, and subfigure with the
-% accuracy 
+% accuracy
 
 
 \subsection{Fast computation of p-values}
