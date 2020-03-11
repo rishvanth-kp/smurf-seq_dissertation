@@ -13,9 +13,9 @@
 \section{Motivation}
 CNV profiling, and read-counting in general, can be done on nanopore
 sequencers with long reads following the standard sequencing procedure
-\cite{euskirchen2017same}. A typical Oxford MinION sequencing run
+\citep{euskirchen2017same}. A typical Oxford MinION sequencing run
 generates approximately 500k reads (length $\sim$8 kb)
-\cite{jain2018nanopore,tyson2018minion}.  Read-counting applications in
+\citep{jain2018nanopore,tyson2018minion}.  Read-counting applications in
 general do not benefit from longer reads beyond what is necessary for
 unique mapping to the reference genome. In these applications, for any
 fixed number of nucleotides sequenced, more information is obtained if
@@ -28,7 +28,7 @@ molecule is loaded into a pore, the time spent sequencing is less for
 shorter reads. In addition, for a fixed amount of DNA, shorter molecules
 result in higher molar concentration when loaded onto the machine,
 increasing the rate at which each pore captures molecules
-\cite{muthukumar2010theory,wanunu2008dna}. We verified this rationale by
+\citep{muthukumar2010theory,wanunu2008dna}. We verified this rationale by
 sequencing short DNA molecules (restriction enzyme digested normal
 diploid genome) using the Oxford MinION instrument. The sequencing run
 produced 2.58 million reads with a mean read length of 630.93 bp (data
@@ -154,7 +154,7 @@ are given below:
   ligated at random with T4 DNA ligase enzymes.
   %% influence of time
   The most important factor in a ligation reaction is the
-  concentration of compatible DNA ends \cite{dugaiczyk1975ligation}. At
+  concentration of compatible DNA ends \citep{dugaiczyk1975ligation}. At
   high concentrations, the chances are higher for ligation between two
   molecules than a molecule self-ligating. At low concentrations, the
   chances are higher for self-ligation.
@@ -342,16 +342,16 @@ To generate simulated reads we used the standard long reads from four
 sequencing runs (Flowcell ID: FAB42704, FAB42810, FAB49914, and
 FAF01253) in the public dataset available at \\
 https://github.com/nanopore-wgs-consortium/NA12878/blob/master/Genome.md
-\cite{jain2018nanopore,jain2018nanopore_git}. We downloaded the raw data
+\citep{jain2018nanopore,jain2018nanopore_git}. We downloaded the raw data
 from EBI (Run accession: ERR2184696, ERR2184704, ERR2184712, and
 ERR2184722) and base-called these with Guppy (version: 2.3.5).
 
 
 \subsection{Initial selection of mapping tools}
-We tested the following mapping tools: BWA-MEM\cite{li2013aligning},
-Minimap2\cite{li2018minimap2}, LAST\cite{kielbasa2011adaptive},
-GraphMap\cite{sovic2016fast}, BLASR\cite{chaisson2012mapping},
-rHAT\cite{liu2015rhat}, and LAMSA\cite{liu2017lamsa}. These were
+We tested the following mapping tools: BWA-MEM\citep{li2013aligning},
+Minimap2\citep{li2018minimap2}, LAST\citep{kielbasa2011adaptive},
+GraphMap\citep{sovic2016fast}, BLASR\citep{chaisson2012mapping},
+rHAT\citep{liu2015rhat}, and LAMSA\citep{liu2017lamsa}. These were
 selected either because they are known to perform well on certain
 mapping tasks or have unique properties that plausibly could help in
 mapping SMURF-seq reads. We tested each of these using default
@@ -469,7 +469,7 @@ To demonstrate the utility of SMURF-seq, we generated CNV profiles of
 normal diploid and highly rearranged cancer genomes.  The mapped
 fragments were grouped into variable length ``bins'' across the genome
 and bin counts were used to generate CNV profiles as described in
-\cite{baslan2012genome,kendall2014computational}.
+\citep{baslan2012genome,kendall2014computational}.
 
 \subsection{Normalizing restriction site bias}
 
@@ -510,7 +510,7 @@ using Illumina (5.56 million reads; 130 bp, single-end).  We used this
 to define a ground truth by calling CNV events for each of the
 pre-defined bins (both amplifications and deletions) based on segmented
 signal with a cutoff of 1.25/0.8 (Fig.~\ref{cnv}b)
-\cite{dago2014rapid,berry2017potential}. This resulted in 1,466 events
+\citep{dago2014rapid,berry2017potential}. This resulted in 1,466 events
 (886 amplifications, 580 deletions) from 4,953 bins. We then called
 events using the identical procedure with SMURF-seq data from the same
 SK-BR-3 sample. The precision and recall for SMURF-seq relative to the
@@ -538,12 +538,12 @@ these profiles (data not shown).
 \end{figure}
 
 Several cancer-related studies have employed CNV profiling based on
-low-coverage WGS \cite{macintyre2018copy,kader2016copy}.  It has
+low-coverage WGS \citep{macintyre2018copy,kader2016copy}.  It has
 previously been demonstrated that 250k reads are sufficient for accurate
-genome-wide CNV profiling of single cells \cite{baslan2015optimizing}.
+genome-wide CNV profiling of single cells \citep{baslan2015optimizing}.
 At the same time, the CNV profiles from a population of cells has been
 shown to have a high correlation with single-cell profiles
-\cite{navin2011tumour,baslan2015optimizing}. We reasoned that using 250k
+\citep{navin2011tumour,baslan2015optimizing}. We reasoned that using 250k
 fragments for CNV profiling using a population of cells would give
 useful profiles if they remained sufficiently accurate.  By
 down-sampling our SMURF-seq data, we verified that 10k reads,

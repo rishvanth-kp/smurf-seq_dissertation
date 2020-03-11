@@ -13,11 +13,11 @@
 %% Sequencing tech and mapping methods
 New sequencing methods motivate development of new algorithms for
 mapping and analysis of sequences generated using these methods. A few
-significant developments include BLAST \cite{altschul1990basic} and
-FASTA \cite{pearson1988improved} motivated by database searches with the
-advent of Sanger sequencing, BWA \cite{li2009fast} and Bowtie
-\cite{langmead2009ultrafast} inspired by high-throughput short-read
-sequencing, and BLASR \cite{chaisson2012mapping} by single-molecule
+significant developments include BLAST \citep{altschul1990basic} and
+FASTA \citep{pearson1988improved} motivated by database searches with the
+advent of Sanger sequencing, BWA \citep{li2009fast} and Bowtie
+\citep{langmead2009ultrafast} inspired by high-throughput short-read
+sequencing, and BLASR \citep{chaisson2012mapping} by single-molecule
 long-read sequencing.
 %% SMURF-seq
 SMURF-seq has enabled efficient short-read sequencing for read-counting
@@ -40,13 +40,13 @@ resolutions, as used for tumor samples) the fragment lengths could be as
 short as 40 bp.
 
 %% current barriers and how to remove them
-We used BWA-MEM \cite{li2013aligning} to align SMURF-seq reads generated
+We used BWA-MEM \citep{li2013aligning} to align SMURF-seq reads generated
 with the current protocol, which consists of fragments that are
 typically over 100 bp. Though not designed to align SMURF-seq reads,
 BWA-MEM is designed for split read alignment, and it works sufficiently
 well at these fragment lengths.  SMURF-seq reads can also be aligned
 with other mapping tools capable of split-read alignment such as
-Minimap2 \cite{li2018minimap2} and LAST \cite{kielbasa2011adaptive}.
+Minimap2 \citep{li2018minimap2} and LAST \citep{kielbasa2011adaptive}.
 However, all of these tools are either designed for aligning short reads
 with low sequencing error or long reads with high sequencing error.
 %
@@ -112,8 +112,8 @@ sequenced grew, comparison of DNA sequences became an indispensable tool
 to a biologist.
 %
 DNA sequence comparison can be broadly classified into global alignment
-\cite{needleman1970general} and local alignment
-\cite{smith1981identification}. A global alignment seeks an optimal
+\citep{needleman1970general} and local alignment
+\citep{smith1981identification}. A global alignment seeks an optimal
 alignment between two sequences such that each base of one sequence is
 aligned to each base of the other sequences. On the other hand, a local
 alignment seeks an optimal alignment between any subsequences of the
@@ -135,23 +135,23 @@ understand the null distributions were still lacking, and these studies
 relied on empirical distributions generated from aligning unrelated
 sequences.
 %%
-In \cite{smith1985statistical}, it is shown that the similarity score is
+In \citep{smith1985statistical}, it is shown that the similarity score is
 proportional to the logarithm of the length of the sequences being
 compared, and the standard deviation is independent of the sequence
 length. The significance of an alignment was determined from the number
 of standard deviations over mean of the alignment score.
 %% Dependence on sequence properties
-These studies \cite{lipman1984statistical} also highlight that the
-statistical properties \cite{smith1983statistical}, such as nucleotide
+These studies \citep{lipman1984statistical} also highlight that the
+statistical properties \citep{smith1983statistical}, such as nucleotide
 frequencies or codon usage, of the sequences affect the distribution of
 the alignment scores.  Generating a null distribution from an incorrect
 model could lead to an alignment of unrelated sequences being dubiously
 declared significant. Several methods are available to generate random
 sequences preserving these statistical properties
-\cite{fitch1983random,altschul1985significance}.
+\citep{fitch1983random,altschul1985significance}.
 
 %% Mike's approach: coin tossing
-Erdos and Renyi \cite{erdos1975length} presented results for the length
+Erdos and Renyi \citep{erdos1975length} presented results for the length
 of the longest headrun in a the first $n$ tosses of a biased coin.  The
 length of the longest headrun in coin tosses is equivalent to the number
 of matches between two DNA sequences when shifts in the starting and
@@ -159,13 +159,13 @@ ending positions of the sequences are not allowed, with the probability
 of head equal to the probability of match between letters of the DNA
 alphabet.
 % coin tossing with shifts and fixed mismatches.
-In \cite{arratia1985erdos}, this is generalized to matches between DNA
+In \citep{arratia1985erdos}, this is generalized to matches between DNA
 sequences, while allowing shifts. These results indicate that allowing
 shifts doubles the length of the longest headrun. Results for the
 longest headrun allowing for up to $k$ mismatches and sequences
 generated from a Markov chain are also considered.
 % EVD approximation
-In \cite{arratia1986extreme,gordon1986extreme} the distribution of the
+In \citep{arratia1986extreme,gordon1986extreme} the distribution of the
 longest matches is shown to a have an extreme value distribution with
 mean that is proportional to the logarithm of the sequences lengths and
 variance independent of sequence length. Here, when considering only
@@ -175,20 +175,20 @@ are allowed, it is shown by considering a maximum of negative binomial
 distributions.
 % poisson approximation
 An alternate approach is a Poisson approximation for the distribution of
-the longest match \cite{arratia1989erdos}.
+the longest match \citep{arratia1989erdos}.
 
 %% Dembo and Karlin's approach
 An crucial aspect of in aligning nucleic acid and protein sequences is
 using the appropriate score function. For example, PAM and Dayoff
-matrices is used for protein sequences \cite{}, and xxx is used for DNA
-sequences \cite{}.  The score function used alters the score of the
+matrices is used for protein sequences \citep{}, and xxx is used for DNA
+sequences \citep{}.  The score function used alters the score of the
 aligned sequences and thus the alignment score distribution of unaligned
 sequences.
 % Headrun approach does not consider score function
 However, the approach based on the length of the headruns does not
 consider the score function used for an alignment.
 %
-In \cite{}, it is shown that the score distribution of aligning
+In \citep{}, it is shown that the score distribution of aligning
 unrelated sequences for any score function (that has at least one
 positive score and the expected score is negative) has the form of an
 extreme value distribution, and and explicit formulas that its parameters
@@ -213,15 +213,15 @@ are provided.
 %% local alignment
 % The local alignment score distribution has been studied extensively,
 % especially in the context of BLAST score statistics
-% \cite{altschul1990basic,altschul199627}.  The distribution of the local
+% \citep{altschul1990basic,altschul199627}.  The distribution of the local
 % alignment score is well approximated by the extreme value distribution
-% (EVD) \cite{karlin1990methods,
+% (EVD) \citep{karlin1990methods,
 % karlin1990statistical,dembo1994limit,dembo1991strong}.
 
 % It has also been shown that the distribution of the maximum score
 % obtained when a profile sequence is aligned to all possible positions of
 % a random sequence has a limiting extreme value distribution
-% \cite{goldstein1994approximations}.
+% \citep{goldstein1994approximations}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -347,7 +347,7 @@ distribution obtained with score function defined above.
 \subsection{Score distribution of one fragment}
 %% How fragment identification problem differs from these
 The score distribution of $score_T(S,1)$ has similarities to the score
-distribution of local alignment \cite{} and profile alignment \cite{},
+distribution of local alignment \citep{} and profile alignment \citep{},
 but also differs from these.  The distribution of $score_T(S,1)$ differs
 from the local alignment as we require an end-to-end alignment of $S$ to
 a substring of $T$, and also differs from the profile score distribution
@@ -365,7 +365,7 @@ be approximated by a normal distribution as \[X_j \sim N(mp, mp(1-p)).
 \] $score_T(S,1)$ is the maximum score over all positions in $T$,
 \[score_T(S,1) = \max_{0 \leq j \leq n-m+1} X_j.\] $score_T(S,1)$ is a
 maximum of normal distributions, which follows an extreme value
-distribution (EVD) \cite{kotz2000extreme}.
+distribution (EVD) \citep{kotz2000extreme}.
 %% m-dependence
 Here, we have a dependence between $X_j$ and $X_k$ for $|j - k| < m$.
 
@@ -411,10 +411,10 @@ fragments to aligning to overlapping location on $T$ is extremely small.
 
 %% Sum of EVDs
 The distribution of the sum and linear combination of extreme value
-distributions has been studied \cite{cetinkaya2001scalable,
+distributions has been studied \citep{cetinkaya2001scalable,
 marques2015distribution,loaiciga1999analysis,nadarajah2008exact}.  In
-\cite{loaiciga1999analysis} the exact distribution of two independent
-Gumbel distributions is given and in \cite{nadarajah2008exact} the exact
+\citep{loaiciga1999analysis} the exact distribution of two independent
+Gumbel distributions is given and in \citep{nadarajah2008exact} the exact
 distribution of the linear combination of Gumbel distributions is given.
 %
 However, these distributions do not follow a ``standard'' distribution.
@@ -493,9 +493,9 @@ A simple linear time solution to this problem can be obtained as
 follows. First, we assume some data structure for $T$ has been
 constructed in linear time and allows for longest prefix matches to be
 computed in time proportional to the length of the query string. The
-data structure could be a suffix tree \cite{mccreight1976space}, or a
+data structure could be a suffix tree \citep{mccreight1976space}, or a
 more space efficient and a modern structure like an FM-index
-\cite{ferragina2000opportunistic}. The principle of the algorithm can be
+\citep{ferragina2000opportunistic}. The principle of the algorithm can be
 seen by starting at the beginning of $S$, and identifying the longest
 prefix match of $S$ in $T$. Then retain $j$ as the first position of
 where this longest prefix matches in $T$, and denote the first
