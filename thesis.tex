@@ -56,13 +56,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \frontmatter
 \maketitle
 \doublespacing
 \pagenumbering{roman}
 \setcounter{page}{2}
 
 %% Abstract
+\phantomsection
 \addcontentsline{toc}{chapter}{Abstract}
 \include{abstract}
 
@@ -71,8 +71,10 @@
 \setlength{\epigraphrule}{0pt}
 \vspace*{2in}
 \input{epigram}
+\newpage
 
 %% Acknowledgements
+\phantomsection
 \addcontentsline{toc}{chapter}{Acknowledgments}
 \include{acknowledgment}
 
@@ -81,12 +83,13 @@
 %% Table of contents and figures
 \tableofcontents
 \listoffigures
+\newpage
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% \mainmatter
 \doublespacing
+\pagenumbering{arabic}
 
 %% Introduction
 \include{chapter_1}
