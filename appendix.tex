@@ -3,5 +3,151 @@
 %%%%% Appendix A: Detailed SMURF-seq protocol                      %%%%%
 %%%%%                                                              %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Detailed SMURF-seq protocol}
+\chapter{Supplemental methods}
 \label{appendA}
+
+\section*{DNA samples}
+The normal diploid female DNA was purchased from Promega (Cat. no.
+G1521).  Breast cancer cell line SK-BR-3 (American Type of Culture
+Collection (ATCC), Cat. no. HTB-30) was cultured in RPMI-1640 medium
+(Thermo Fisher Scientific, Cat. no. 11875093) supplemented with 10\%
+fetal bovine serum (FBS) (Thermo Fisher Scientific, Cat. no. 35011CV)
+and was maintained at \SI{37}{\degree} in a humidified chamber supplied
+with 5\% $\text{CO}_2$ and was regularly tested for mycoplasma
+infection.
+
+\section*{Cell lysis and DNA purification}
+The DNA from SK-BR-3 cells was extracted and purified with the QIAamp
+DNA Blood Mini Kit (Qiagen, Cat. no. 51104) following the protocol for
+cultured cells given by the manufacturer. RNA and proteins in the cells
+were degraded using RNase A stock solution
+(\SI{100}{\milli\gram}/\SI{}{\milli\litre}) (Qiagen, Cat.  no. 19101)
+and Protease-K (Qiagen, Cat. no. 19133) respectively. Both purchased
+female diploid DNA and extracted SK-BR-3 DNA were treated with the same
+downstream processes.
+
+\section*{Fragmenting genomic DNA}
+2-\SI{3}{\micro\gram} of genomic DNA was fragmented with restriction
+enzyme Anza 64 SaqAI (Thermo Fisher Scientific, Cat. no. IVGN0644) for
+\SI{30}{\minute} at \SI{37}{\degree}. The fragmented DNA was cleaned
+with the QIAquick PCR purification kit (Qiagen, Cat. no. 8106) and
+eluted with \SI{34}{\micro\litre} nuclease-free water. The concentration
+of DNA was quantified on a Qubit Fluorometer v3 (Thermo Fisher
+Scientific, cat. no. Q33216) with the Qubit dsDNA HS assay kit (Thermo
+Fisher Scientific, cat. no. Q32854).
+
+\section*{Ligation of fragmented DNA}
+\SI{500}{\nano\gram} of fragmented DNA in \SI{10}{\micro\litre}
+nuclease-free water was mixed with \SI{10}{\micro\litre} Anza T4 DNA
+Ligase Master Mix (Thermo Fisher Scientific, Cat. no. IVGN210-4) and
+incubated for \SI{30}{\minute} at room temperature. The ligated DNA was
+cleaned with 2\(\times\) volume Ampure XP beads (Beckman Coulter, Cat.
+no. A63881) and eluted in nuclease-free water. This step was done in
+multiple tubes if more than \SI{500}{\nano\gram} of fragmented DNA was
+needed to be ligated. The concentration of DNA was quantified on a Qubit
+Fluorometer v3 with the Qubit dsDNA HS assay kit to ensure
+\(\geq\)\SI{1}{\micro\gram} (\(\geq\) \SI{400}{\nano\gram}, if the Rapid
+kit was used for library preparation) remained. The size of the ligated
+DNA molecules were assessed with \(1\%\) agarose gel electrophoresis run
+at \SI{90}{\volt} for \SI{30}{\minute}.
+
+\section*{Library preparation (SQK-LSK108 1D DNA by ligation)}
+\SI{1}{\micro\gram} of re-ligated DNA in \SI{45}{\micro\litre} of
+nuclease-free water was end-repaired and dA-tailed (New England Biolabs
+(NEB), Cat. no. E7546), followed by elution in nuclease-free water after
+\(1.5\times\) volume Ampure XP beads clean-up. Sequencing adapters
+(AMX1D) were ligated with Blunt/TA Ligase Master Mix (NEB, Cat.no.
+M0367) and cleaned with \(0.4\times\) volume Ampure XP beads and eluted
+using \SI{15}{\micro\litre} Elution Buffer (ELB) following the
+manufacturer's protocol (Oxford Nanopore Technologies (ONT), 1D genomic
+DNA by ligation protocol).
+
+\section*{Multiplexed library preparation (EXP-NBD103 and SQK-LSK108)}
+\SI{700}{\nano\gram} of each re-ligated sample in \SI{45}{\micro\litre}
+of nuclease-free water was end-repaired, dA-tailed (NEB, Cat. no.
+E7546), cleaned with \(1.5\times\) volume Ampure XP beads and eluted in
+nuclease-free water. Different Native Barcodes (NB-x) for each sample
+was ligated with Blunt/TA Ligase Master Mix (NEB, Cat.no. M0367),
+cleaned with \(2\times\) volume Ampure XP beads and eluted in
+nuclease-free water. Equimolar amounts of each sample was pooled to have
+\SI{700}{\nano\gram} of DNA in \SI{50}{\micro\litre} water. Barcode
+adapters (BAM) were ligated with Quick T4 DNA Ligase (NEB, Cat. no.
+E6056), cleaned with \(0.4\times\) volume Ampure XP beads and eluted
+using \SI{15}{\micro\litre} Elution Buffer (ELB) following the
+manufacturer's protocol (ONT, 1D native barcoding genomic DNA).
+
+\section*{Library preparation (SQK-RAD003 Rapid sequencing)}
+\SI{400}{\nano\gram} of re-ligated DNA was concentrated with \(2\times\)
+volume Ampure XP beads to \SI{7.5}{\micro\litre} nuclease-free water.
+DNA was tagmented with Fragmentation Mix (FRA), and Rapid 1D Adapter
+(RPD) was attached following the manufacturer's protocol (ONT, rapid
+sequencing).
+
+\section*{MinION sequencing and base-calling}
+All the prepared libraries were loaded on R9.5 Flowcells following the
+manufacturer's protocol (ONT) and sequenced for up to 48 hours using the
+script specific to library preparation protocol. Base-calling and
+de-multiplexing barcoded reads were performed using ONT Guppy (2.3.5)
+with the appropriate parameters based on the library preparation kit.
+
+\section*{Sequencing RE digested normal diploid genome}
+% RE digestion
+\SI{1}{\micro\gram} of genomic DNA was fragmented with restriction
+enzyme Anza 64 SaqAI (Thermo Fisher Scientific, Cat. no. IVGN0644) for
+\SI{30}{\minute} at \SI{37}{\degree}. The fragmented DNA was cleaned
+with the QIAquick PCR purification kit (Qiagen, Cat. no. 8106) and
+eluted with \SI{31}{\micro\litre} nuclease-free water. The concentration
+of DNA was quantified on a Qubit Fluorometer v3 (Thermo Fisher
+Scientific, cat. no. Q33216) with the Qubit dsDNA HS assay kit (Thermo
+Fisher Scientific, cat. no. Q32854).
+
+% 1D library prep.
+\SI{0.5}{\micro\gram} of restriction enzyme digested DNA in
+\SI{45}{\micro\litre} of nuclease-free water was end-repaired and
+dA-tailed (New England Biolabs (NEB), Cat. no. E7546), followed by
+elution in nuclease-free water after \(1.5\times\) volume Ampure XP
+beads clean-up. Sequencing adapters (AMX1D) were ligated with Blunt/TA
+Ligase Master Mix (NEB, Cat.no. M0367) and cleaned with \(1.0\times\)
+volume Ampure XP beads (manufacturer's protocol uses \(0.4\times\)
+volume XP beads, we increased to \(1.0\times\) to get as many short
+molecules as possible) and eluted using \SI{15}{\micro\litre} Elution
+Buffer (ELB) following the manufacturer's protocol (Oxford Nanopore
+Technologies (ONT), 1D genomic DNA by ligation protocol).
+
+% MinION sequencing and base-calleing
+The prepared library was loaded on R9.4 Flowcell following the
+manufacturer's protocol (ONT) and sequenced for 48 hours.  Base-calling
+was performed using ONT Guppy (2.3.5).
+
+\section*{Estimation of copy number variations}
+CNV profiles were generated using the procedure described in
+\citep{baslan2012genome,kendall2014computational} with the modification
+employed in \citep{gerdtsson2018multiplex,malihi2018clonal}.  Briefly,
+the human reference genome (hg19) was split into 5,000 (20,000 or
+50,000) bins containing an equal number of uniquely mappable locations
+and the bin counts were determined using uniquely mapped fragments.
+Bins with spuriously high counts (`bad bins', typically around
+centromeric and telomeric regions) were masked for downstream analysis
+\citep{kendall2014computational}.  This procedure normalizes bin counts
+for biases correlated with GC content by fitting a LOWESS curve to the
+GC content by bin count, and subtracting the LOWESS estimate from each
+bin \citep{kendall2014computational}.  Circular binary segmentation
+(CBS) \citep{olshen2004circular}, implemented in DNAcopy
+\citep{seshan2010dnacopy} package, then identifies breakpoints in the
+normalized bin counts.  Following
+\citep{gerdtsson2018multiplex,malihi2018clonal}, after CBS, spurious
+segmentation calls were removed.  The influence of the GC content
+correction can be seen in Additional file 1: Figure~S14.
+
+\section*{Comparison with Illumina WGS of SK-BR-3 genome.}
+DNA from SK-BR-3 cells was used to construct WGS library with the
+NEBNext UltraII FS DNA Library Prep Kit (NEB, Cat. no. E7805) following
+the manufacturer's instructions. After library quality and quantity
+assessment with Qubit 3.0 HS dsDNA assay and BioAnalyzer HS dsDNA assay
+(Agilent), libraries were sequenced on HiSeq 2500 (Illumina) with
+single-end 130 cycles mode.
+
+The reads were mapped with BWA-MEM using the default parameters, PCR
+duplicates were removed, and CNV profiles were generated using exactly
+the same method as used for SMURF-seq reads.  The scatter plots and
+Pearson correlations comparing the CNV profiles were produced using R.
