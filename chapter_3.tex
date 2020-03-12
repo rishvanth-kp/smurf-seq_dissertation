@@ -10,79 +10,57 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Motivation}
-CNV profiling, and read-counting in general, can be done on nanopore
-sequencers with long reads following the standard sequencing procedure
-\citep{euskirchen2017same}. A typical Oxford MinION sequencing run
-generates approximately 500k reads (length $\sim$8 kb)
-\citep{jain2018nanopore,tyson2018minion}.  Read-counting applications in
-general do not benefit from longer reads beyond what is necessary for
-unique mapping to the reference genome. In these applications, for any
-fixed number of nucleotides sequenced, more information is obtained if
-those nucleotides are organized as more DNA molecules, rather than
-longer contiguous fragments.
+\section{Naive approaches to read-counting on nanopore machines}
+%% Long read approach
+Copy number profiling, and read-counting in general, can be done on
+nanopore sequencers with long reads ($\sim$8kb) following the standard
+sequencing procedure.
+% Advantages of long read sequencing
+Since nanopore machines are optimized for long read sequencing, this
+method has the advantage of using any standard library preparation
+protocol that are commercially available. Further, technical nucleotides,
+such as sequencing adapters and barcodes, are sequenced one (or twice)
+every $\sim$8k bases, thus the fraction of time a nanopore spends
+sequencing technical nucleotides is low.
+% Disadvantages of long read sequencing
+However, read-counting applications do not benefit from longer reads
+beyond what is necessary for unique mapping to the reference genome. In
+these applications, for any fixed number of nucleotides sequenced, more
+information would be obtained if those nucleotides are organized as more
+DNA molecules, rather than longer contiguous fragments.
 
+%% Short read sequencing
+An alternate approach to read-counting is to sequence short reads
+($\sim$150 bp) directly on a nanopore sequencer.
+%% Advantages of short read sequencing
 In general, for a given sample of DNA, a nanopore instrument will
 generate more reads if the corresponding molecules are shorter.  Once a
 molecule is loaded into a pore, the time spent sequencing is less for
 shorter reads. In addition, for a fixed amount of DNA, shorter molecules
 result in higher molar concentration when loaded onto the machine,
 increasing the rate at which each pore captures molecules
-\citep{muthukumar2010theory,wanunu2008dna}. We verified this rationale by
-sequencing short DNA molecules (restriction enzyme digested normal
-diploid genome) using the Oxford MinION instrument. The sequencing run
-produced 2.58 million reads with a mean read length of 630.93 bp (data
-not shown).
-%%%%
-Using the same instrument, with SMURF-seq, we report here an average
-of 6.2 million mapped fragments per run, which is substantially more
-fragments than directly sequencing short reads.
-
-
-%% Why does SMURF-seq perform better?
-%% pore reload time
-The most important factor in the performance of SMURF-seq over
-sequencing short molecules directly is that sequencing concatenated
-fragments effectively eliminates the pore reload time for all but the
-first fragment in each read. However, there are a variety of additional
-factors that favor further optimization of the approach employed by
-SMURF-seq.
-%% sequences fewer technical bases
-First, reduction of resources spent on technical nucleotides: SMURF-seq
-uses a single barcode and sequencing adapter per read consisting of
-multiple fragments; sequencing short reads uses one barcode and adapter
-per fragment, adding approximately 50 bases to each fragment. This
-increases the time to sequence each short read. In sequencing short
-reads, as the reads get shorter the time consumed by these technical
-bases increases. In SMURF-seq, sequencing either shorter fragments in
-fixed length reads, or longer reads containing fragments of fixed
-average length, both reduce the time consumed sequencing these technical
+\citep{muthukumar2010theory,wanunu2008dna}. Therefore, sequencing short
+reads on a nanopore machine would generate more reads from a sequencing
+run than sequencing long reads.
+%% Disadvantages of short read sequencing
+However, sequencing short reads requires ad-hoc modifications to the
+library preparation protocol as these are optimized for longer molecules.
+Moreover, technical nucleotides are sequenced every $\sim$150bp,
+increasing the fraction of time a nanopore sequences the technical
 bases.
-%%
-In the limit, assuming 100bp DNA fragments, sequencing those fragments
-as short-reads corresponds to 33\% technical nucleotides; for SMURF-seq,
-the portion of technical nucleotides remains low.
-%% Nanopores sequence at full speed
-Second, more nucleotides sequenced at full speed: We observed that the
-speed of sequencing was lower when sequencing short molecules. For
-example, the average sequencing speed was 315.54 bases per second for
-sequencing the diploid genome without SMURF-seq, and 400.29 bases per
-second when sequencing using SMURF-seq on the MinION sequencer.
-%% Compatible with all library prep kits
-Third, leveraging optimizations to long-read protocols: The rapidly
-evolving nanopore library construction kits are continually optimized
-for long-read sequencing, and would likely require significant ad-hoc
-modifications to optimize sequencing of short molecules of length
-optimal for read-counting applications. SMURF-seq alleviates these
-drawbacks by using the nanopore instrument as intended for long-read
-sequencing, while generating the desired short fragments.
 
+%% SMURF-seq approach
+SMURF-seq approach combines the advantages of both of these methods
+while alleviating the drawbacks by using a nanopore instrument as
+intended for long-read sequencing, while generating the desired short
+fragments. Using the SMURF-seq approach we generate higher read counts per
+run than sequencing long or short molecules directly.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{SMURF-seq protocol}
+\section{SMURF-seq approach to read counting}
 %% SMURF-seq concept
 The SMURF-seq protocol involves cleaving genomic DNA into short
 fragments, with length just sufficient for an acceptable rate of
@@ -120,7 +98,7 @@ aligning to a distinct location in the genome (Fig.~\ref{smurf}).
 \end{figure}
 
 %% Description of SMURF-seq protocol
-More specifically, genomic DNA is fragmented using restriction enzymes
+More specifically, genomic DNA was fragmented using restriction enzymes
 and ligated with T4 DNA ligase, with clean-up steps in between.
 SMURF-seq protocol is completely enzymatic and takes less than 90
 minutes to complete (Fig.~\ref{protocol}).  The details of these steps
@@ -460,6 +438,64 @@ alignment scores for mapping real SMURF-seq read, and all the CNV
 profiles presented are based on these.
 
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Generating higher fragment counts with SMURF-seq}
+%% Long read sequencing
+A typical Oxford MinION sequencing run generates approximately 500k
+reads (length $\sim$8 kb) \citep{jain2018nanopore,tyson2018minion} using
+the standard library preparation and sequencing protocols. Several
+studies have used these long reads for copy number profiling
+\citep{euskirchen2017same,magi2019nano}.
+%% Short read sequencing
+We tested the ability of the Oxford MinION instrument to sequence short
+DNA molecules by sequencing restriction enzyme (SaqAI) digested normal
+diploid genome.  The sequencing run produced 2.58 million reads with a
+mean read length of 630.93 bp.
+%% SMURF-seq
+Using the same instrument, with SMURF-seq, we report here an average of
+6.2 million mapped fragments per run, which is substantially more
+fragments than directly sequencing long or short reads directly.
+Further, the SMURF-seq approach generated fragments at a substantially
+faster rate than sequencing short molecules directly (Fig.~\ref{}).
+
+%% Why does SMURF-seq perform better?
+% pore reload time
+The most important factor in the performance of SMURF-seq over
+sequencing short molecules directly is that sequencing concatenated
+fragments effectively eliminates the pore reload time for all but the
+first fragment in each read. However, there are a variety of additional
+factors that favor further optimization of the approach employed by
+SMURF-seq.
+% sequences fewer technical bases
+First, reduction of resources spent on technical nucleotides: SMURF-seq
+uses a single barcode and sequencing adapter per read consisting of
+multiple fragments; sequencing short reads uses one barcode and adapter
+per fragment, adding approximately 50 bases to each fragment. This
+increases the time to sequence each short read. In sequencing short
+reads, as the reads get shorter the time consumed by these technical
+bases increases. In SMURF-seq, sequencing either shorter fragments in
+fixed length reads, or longer reads containing fragments of fixed
+average length, both reduce the time consumed sequencing these technical
+bases.
+%
+In the limit, assuming 100bp DNA fragments, sequencing those fragments
+as short-reads corresponds to 33\% technical nucleotides; for SMURF-seq,
+the portion of technical nucleotides remains low.
+% Nanopores sequence at full speed
+Second, more nucleotides sequenced at full speed: We observed that the
+speed of sequencing was lower when sequencing short molecules. For
+example, the average sequencing speed was 315.54 bases per second for
+sequencing the diploid genome without SMURF-seq, and 400.29 bases per
+second when sequencing using SMURF-seq on the MinION sequencer.
+% Compatible with all library prep kits
+Third, leveraging optimizations to long-read protocols: The rapidly
+evolving nanopore library construction kits are continually optimized
+for long-read sequencing, and would likely require significant ad-hoc
+modifications to optimize sequencing of short molecules of length
+optimal for read-counting applications.
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -470,8 +506,6 @@ normal diploid and highly rearranged cancer genomes.  The mapped
 fragments were grouped into variable length ``bins'' across the genome
 and bin counts were used to generate CNV profiles as described in
 \citep{baslan2012genome,kendall2014computational}.
-
-\subsection{Normalizing restriction site bias}
 
 \subsection{Accurate CNV profiles using SMURF-seq}
 We sequenced a normal diploid female genome with SMURF-seq, resulting in
