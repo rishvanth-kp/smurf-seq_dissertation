@@ -469,7 +469,20 @@ Using the same instrument, with SMURF-seq, we report here an average of
 6.2 million mapped fragments per run, which is substantially more
 fragments than directly sequencing long or short reads directly.
 Further, the SMURF-seq approach generated fragments at a substantially
-faster rate than sequencing short molecules directly (Fig.~\ref{}).
+faster rate than sequencing short molecules directly
+(Fig.~\ref{frag_time}).
+
+\begin{figure}[t!]
+\centering
+\includegraphics{frag_time.pdf}
+\caption{SMURF-seq generates fragments at a faster rate than sequencing
+short molecules directly. Number of fragments obtained from reads
+plotted as a function of  sequencing time. For SMURF-seq, the average
+number of fragments from runs using the 1D sequencing by ligation kits
+are plotted (Error bars indicate one standard deviation). For short-read
+sequencing run, each read is considered as one fragment.}
+\label{frag_time}
+\end{figure}
 
 %% Why does SMURF-seq perform better?
 % pore reload time
@@ -536,7 +549,7 @@ approximately 600 kb (Fig.~\ref{cnv}b).
 \begin{figure}[b!]
 \centering
 \includegraphics{ch3_fig4.pdf}
-\caption{ Accurate copy number profiles with SMURF-seq.
+\caption{Accurate copy number profiles with SMURF-seq.
   (a) CNV profile of a normal diploid genome. Each blue point is a
   bin ratio to mean and the red line is the segmented bin ratio.
   (b) Superimposed CNV profiles of SK-BR-3 genome generated using SMURF-seq
