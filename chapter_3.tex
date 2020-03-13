@@ -75,7 +75,7 @@ aligning to a distinct location in the genome (Fig.~\ref{smurf}).
 
 \begin{figure}[b!]
 \centering
-\includegraphics{ch3_fig1.pdf}
+\includegraphics{smurf.pdf}
 \caption{
   SMURF-seq efficiently sequences short fragments of DNA for
   read-counting applications with a reference genome on long-read
@@ -160,17 +160,22 @@ are given below:
   used a bead-based clean-up at this step to avoid damage to long DNA
   molecules that are typical of spin-column based methods.
 \end{enumerate}
+
 %% Library construnction using standard protocols
-DNA molecules processed with the SMURF-seq protocol are compatible with
-any standard long-read library preparations kits that are available.
-The detailed SMURF-seq protocol is given in Appendix
-\ref{appendA}.
+DNA molecules that are resultant of the SMURF-seq protocol are long DNA
+molecules that are several kilo-bases long, and therefore, any standard
+library preparation kits that are available for nanopore machines can be
+used with SMURF-seq molecules. These molecules can also be barcoded
+with one (or two) barcode sequences per molecule. Thus, the SMURF-seq
+approcah overcomes the disadvantages of sequencing long or short DNA
+molecues directly on a nanopore machine for read-counting applicatins, 
+and imporves its efficiency for read-counting applications.
 
 We also tested dsDNA Fragmentase enzymes (New England Biolabs) and
 acoustic shearing (Covaris) to fragment DNA. However, these methods
 require an additional end-repair step after fragmentation and the
 ligated molecules failed to reach the lengths we obtained by using
-restriction fragmentation (data not shown).
+restriction fragmentation.
 
 \begin{figure}[t!]
 \centering
@@ -195,11 +200,15 @@ the sequence TTAA and produces molecules with mean lengths of 150.2 bp
 %% re-ligation
 The fragmented DNA molecules are then ligated randomly to form longer
 molecules using T4 DNA ligase enzyme (Fig.~\ref{re_frag}b).
-%%
+%
 In our experiments, the resulting long DNA molecules were sequenced
 using the Oxford Nanopore Technologies 1D DNA by ligation kit
 (SQK-LSK108) or the rapid sequencing kit (SQK-RAD003) following the
-standard manufacturers protocol.
+standard manufacturers protocol. We also multiplexed samples using the
+1D native barcoding genomic DNA kit (EXP-NBD103) followed by library
+prparation using the 1D DNA by ligation kit.
+%
+The detailed SMURF-seq protocol is given in Appendix \ref{appendA}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
