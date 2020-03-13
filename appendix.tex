@@ -151,3 +151,44 @@ The reads were mapped with BWA-MEM using the default parameters, PCR
 duplicates were removed, and CNV profiles were generated using exactly
 the same method as used for SMURF-seq reads.  The scatter plots and
 Pearson correlations comparing the CNV profiles were produced using R.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                                                              %%%%%
+%%%%% Appendix B: Summary of sequencing runs                       %%%%%
+%%%%%                                                              %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Data availability and summary of sequencing runs}
+\label{appendB}
+
+\begin{table}[H]
+  \centering
+  \begin{tabular*}{\columnwidth}{@{\extracolsep{\fill}}lrrrrr}
+    \hline
+    Sample & Kit & Reads & Mean length & Fragments & Accession \\
+    % & & & length & & \\
+    \hline
+    Diploid & SQK-LSK108 & 270.82k & 6.8 kb & 7.28M & SRX5893474 \\
+    Diploid & SQK-LSK108 & 497.92k & 3.7 kb & 7.55M & SRX5893475 \\
+    SK-BR-3 & SQK-LSK108 & 146.98k & 7.6 kb & 4.52M & SRX5893478 \\
+    SK-BR-3 & SQK-LSK108 & 132.64k & 7.3 kb & 4.02M & SRX5893479 \\
+    \hline
+    Diploid & SQK-RAD003 & 213.38k & 3.9 kb & 2.81M & SRX5893473 \\
+    \hline
+    Multiplexed run & EXP-NBD103 + & 442.9k & & &  \\
+    Diploid (BC01) & SQK-LSK108 & 138.19k & 4.8 kb & 2.95M & SRX5893472 \\
+    SK-BR-3 (BC02) &  & 144.57k & 7.7 kb & 4.97M & SRX5893476 \\
+    \hline
+    \hline
+    Diploid (short-read) & SQK-LSK108 & 2.58M & 630.9 bp & & SRX5893480 \\
+    \hline
+    \hline
+    SK-BR-3 (WGS) & Illumina WGS & 5.56M & 130 bp & &  SRX5893477 \\
+    \hline
+  \end{tabular*}
+  \caption{Summary of sequencing run. Samples are processed with the
+    SMURF-seq protocol, unless intdicated otherwise. Sequence data
+    generated during the study are available in SRA with the accession
+    number PRJNA454059.}
+  \label{seq-summary}
+\end{table}
