@@ -18,10 +18,10 @@ sequencing procedure.
 % Advantages of long read sequencing
 Since nanopore machines are optimized for long read sequencing, this
 method has the advantage of using any standard library preparation
-protocol that are commercially available. Further, technical nucleotides,
-such as sequencing adapters and barcodes, are sequenced one (or twice)
-every $\sim$8k bases, thus the fraction of time a nanopore spends
-sequencing technical nucleotides is low.
+protocol that are commercially available. Further, technical
+nucleotides, such as sequencing adapters and barcodes, are sequenced one
+(or twice) every $\sim$8k bases, thus the fraction of time a nanopore
+spends sequencing technical nucleotides is low.
 % Disadvantages of long read sequencing
 However, read-counting applications do not benefit from longer reads
 beyond what is necessary for unique mapping to the reference genome. In
@@ -44,17 +44,17 @@ reads on a nanopore machine would generate more reads from a sequencing
 run than sequencing long reads.
 %% Disadvantages of short read sequencing
 However, sequencing short reads requires ad-hoc modifications to the
-library preparation protocol as these are optimized for longer molecules.
-Moreover, technical nucleotides are sequenced every $\sim$150bp,
-increasing the fraction of time a nanopore sequences the technical
-bases.
+library preparation protocol as these are optimized for longer
+molecules.  Moreover, technical nucleotides are sequenced every
+$\sim$150bp, increasing the fraction of time a nanopore sequences the
+technical bases.
 
 %% SMURF-seq approach
 SMURF-seq approach combines the advantages of both of these methods
 while alleviating the drawbacks by using a nanopore instrument as
 intended for long-read sequencing, while generating the desired short
-fragments. Using the SMURF-seq approach we generate higher read counts per
-run than sequencing long or short molecules directly.
+fragments. Using the SMURF-seq approach we generate higher read counts
+per run than sequencing long or short molecules directly.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -167,9 +167,9 @@ molecules that are several kilo-bases long, and therefore, any standard
 library preparation kits that are available for nanopore machines can be
 used with SMURF-seq molecules. These molecules can also be barcoded
 with one (or two) barcode sequences per molecule. Thus, the SMURF-seq
-approcah overcomes the disadvantages of sequencing long or short DNA
-molecues directly on a nanopore machine for read-counting applicatins, 
-and imporves its efficiency for read-counting applications.
+approach overcomes the disadvantages of sequencing long or short DNA
+molecules directly on a nanopore machine for read-counting applications,
+and improves its efficiency for read-counting applications.
 
 We also tested dsDNA Fragmentase enzymes (New England Biolabs) and
 acoustic shearing (Covaris) to fragment DNA. However, these methods
@@ -206,7 +206,7 @@ using the Oxford Nanopore Technologies 1D DNA by ligation kit
 (SQK-LSK108) or the rapid sequencing kit (SQK-RAD003) following the
 standard manufacturers protocol. We also multiplexed samples using the
 1D native barcoding genomic DNA kit (EXP-NBD103) followed by library
-prparation using the 1D DNA by ligation kit.
+preparation using the 1D DNA by ligation kit.
 %
 The detailed SMURF-seq protocol is given in Appendix~\ref{appendA}.
 
@@ -218,13 +218,13 @@ The detailed SMURF-seq protocol is given in Appendix~\ref{appendA}.
 The reads sequenced using SMURF-seq can be mapped to a reference genome
 by first identifying short matches within the reads, corresponding to
 parts of the individual fragments, and then extending those to locate
-fragment boundaries. 
+fragment boundaries.
 %
 As currently implemented, SMURF-seq fragments are longer than
 $\sim$150bp, and mapping these reads is is handled nicely using the
 seed-and-extend paradigm implemented in many existing long-read mapping
 tools. Although none of these tools were designed to align SMURF-seq
-reads, several long read aligners include setps designed for split-read
+reads, several long read aligners include steps designed for split-read
 alignment, which can be leveraged from aligning SMURF-seq reads.
 
 %% TODO: Need to expand on the four steps below
@@ -248,7 +248,7 @@ of the following steps:
 \item Selecting best alignments: When high-scoring alignments overlap
   within a read, one of them (or both) could be trimmed or one is selected
   and the other discarded. The choices made here could lead to discarding
-  entire fragments.  
+  entire fragments.
 \end{itemize}
 
 %% parameter options
@@ -389,8 +389,6 @@ bases for both predicted positive and condition positive could involve
 multisets, since our simulations used relatively low coverage this
 almost never happened.
 
-
-\subsection{Data sets for generating simulated SMURF-seq reads}
 To generate simulated reads we used the standard long reads from four
 sequencing runs (Flowcell ID: FAB42704, FAB42810, FAB49914, and
 FAF01253) in the public dataset available at \\
@@ -556,18 +554,41 @@ and bin counts were used to generate CNV profiles as described in
 \citep{baslan2012genome,kendall2014computational}.
 
 \subsection{Accurate CNV profiles using SMURF-seq}
+\begin{figure}[b!]
+\centering
+\includegraphics{read_frag_dist.pdf}
+\caption{Read and fragment lengths from a SMURF-seq sequencing run.
+  (a) Sequenced read length distribution.
+  (b) Mapped fragment length distribution.
+  (c) Scatter plot of read length and the number of fragments contained
+  in the read.}
+\label{read_frag_dist}
+\end{figure}
+
+%% Diploid genome
 We sequenced a normal diploid female genome with SMURF-seq, resulting in
 270.8k reads (mean read length of 6.75 kb) in a single run. These reads
-were split into 7.28 million fragments (26.87 mean fragments per read).
+were split into 7.28 million fragments (26.87 mean fragments per read;
+Fig.~\ref{read_frag_dist}).
 A CNV profile for this normal diploid genome, with the expected
-(approximately flat) appearance can be seen in Fig.~\ref{cnv}a.  We
-verified that the SMURF-seq procedure behaves similarly using the Rapid
-Sequencing Kit (the 213.38k sequenced reads had a mean read length of
-3.9 kb, and were split into 2.81 million fragments).  Next we applied
-SMURF-seq to the breast cancer line SK-BR-3, generating 147.0k reads
-with mean length of 7.62 kb, which were split into 4.52 million
-fragments (30.78 mean fragments per read). We then obtained a CNV
-profile using 5,000 bins, corresponding to an average bin size of
+(approximately flat) appearance can be seen in Fig.~\ref{cnv}a.
+% Replicate
+A replicate of this experiment resulted in 497.9k reads (mean read
+length of 3.7 kb), which were split into 7.55 million fragments (15.16
+mean fragments per read).
+
+%% Rapid kit
+The Rapid sequencing kit form Oxford Nanopore Technologies offers an
+extremely fast (10 minute) and simple (2 step) protocol for library
+preparation. We verified that the SMURF-seq procedure behaves similarly
+using the Rapid Sequencing Kit. The 213.38k sequenced reads had a mean
+read length of 3.9 kb, and were split into 2.81 million fragments.
+
+%% skbr3 genome
+Next we applied SMURF-seq to the breast cancer line SK-BR-3, generating
+147.0k reads with mean length of 7.62 kb, which were split into 4.52
+million fragments (30.78 mean fragments per read). We then obtained a
+CNV profile using 5,000 bins, corresponding to an average bin size of
 approximately 600 kb (Fig.~\ref{cnv}b).
 
 \begin{figure}[b!]
@@ -576,13 +597,14 @@ approximately 600 kb (Fig.~\ref{cnv}b).
 \caption{Accurate copy number profiles with SMURF-seq.
   (a) CNV profile of a normal diploid genome. Each blue point is a
   bin ratio to mean and the red line is the segmented bin ratio.
-  (b) Superimposed CNV profiles of SK-BR-3 genome generated using SMURF-seq
-  and Illumina WGS reads.
-  (c) Venn diagram illustrating the accuracy of event calls using SMURF-seq
-  compared with Illumina WGS.
+  (b) Superimposed CNV profiles of SK-BR-3 genome generated using
+  SMURF-seq and Illumina WGS reads.
+  (c) Venn diagram illustrating the accuracy of event calls using
+  SMURF-seq compared with Illumina WGS.
   (d) Zoom-in of copy number changes on chromosome 8.
   (e) Scatter plot of bin ratio of SK-BR-3 genome using
-  SMURF-seq and Illumina WGS reads. Pearson correlation of the data is shown.}
+  SMURF-seq and Illumina WGS reads. Pearson correlation of the data
+  is shown.}
 \label{cnv}
 \end{figure}
 
@@ -600,8 +622,32 @@ Illumina calls was 0.982 and 0.988, respectively (Fig.~\ref{cnv}c).
 Fig.~\ref{cnv}d shows a zoom-in of a region with extreme copy number
 alterations. The bin ratios for the Illumina WGS and the SMURF-seq
 profiles are highly correlated (Pearson $r$ = 0.99; Fig.~\ref{cnv}e).
-Replicates for these genomes show a high degree of reproducibility for
-these profiles (data not shown).
+% replicate
+A replicate of this experiment resulted 132.64k reads (mean read length
+of 7.3 kb), which were split into 4.02 million fragments (30.31 mean
+fragments per read).
+
+\begin{figure}[t!]
+\centering
+\includegraphics{skbr3_hi_res.pdf}
+\caption{
+  High resolution CNV profile generated using SMURF-seq is highly concordant
+  with the profile generated with Illumina WGS.
+  (a, b) Superimposed CNV profiles of SK-BR-3 genome generated using SMURF-seq
+  and Illumina WGS at 20,000 and 50,000 bin resolutions.
+  (c, d) Scatter plot of bin ratios of SK-BR-3 genome using
+  SMURF-seq and Illumina WGS reads at 20,000 and 50,000 bin resolutions. }
+  \label{skbr3_hi_res}
+\end{figure}
+
+%% Hige resolution profiles
+We also generated higher-resolution CNV profiles at 20,000 and 50,000
+bins, corresponding to an average of approximately 150 kb and 60 kb in
+length respectively (Fig.~\ref{skbr3_hi_res}a, b). The profiles obtained
+at these resolutions have a high correlation with the profiles obtained
+using Illumina WGS (Pearson $r>$ 0.97; Fig.~\ref{skbr3_hi_res}c, d).
+
+
 
 \subsection{Concordant profiles from fewer countable fragments}
 \begin{figure}[t!]
@@ -643,4 +689,48 @@ After demultiplexing and mapping the reads, the diploid genome had a CNV
 profile as expected (Fig.~\ref{cnv_mux}c) and the SK-BR-3 CNV profile
 was nearly identical to the profile obtained using Illumina WGS (Pearson
 $r$ = 0.99; Fig.~\ref{cnv_mux}d, e). All the sequencing runs and the
-availability of sequence data is summarized in Appendix~\ref{appendB}
+availability of sequence data is summarized in Appendix~\ref{appendB}.
+
+\begin{figure}[t!]
+\centering
+\includegraphics{cnv_time.pdf}
+\caption{CNV profile with reads obtained in first few minutes of sequencing.
+  (a, c, e) CNV profile  with reads obtained in the first 45, 90,
+  and 180 minutes of sequencing.
+  (b, d, f) Scatter plot of bin ratios of the original
+  SMURF-seq data and data obtained in first 45, 90, and 180
+  minutes of sequencing.}
+  \label{cnv_time}
+\end{figure}
+
+%% Terminating sequencing early
+Further, we verified that the CNV profile with reads generated in the
+first 45, 90, and 180 minutes of starting a sequencing run had a high
+correlation to the profile with reads from the complete run (Pearson $r>$
+0.98; Fig.~\ref{cnv_time}).
+
+In summary, our results demonstrate that SMURF-seq can generate more
+information for CNV analysis in a single run of the Oxford MinION
+sequencer, compared with either producing long reads in the usual way or
+direct short-read sequencing on the same instrument.  This increased
+information is in the form of increased numbers of distinct DNA
+fragments sequenced, and can be leveraged in multiple ways. Applying
+SMURF-seq on a single sample for a full run corresponds to higher counts
+for downstream analysis. In CNV analysis, increased counts either add
+confidence for a fixed resolution, or can allow higher resolution
+analysis (i.e. smaller bins) at the same level of confidence.
+Alternatively, the increased information throughput can effectively
+reduce the time required to produce the same number of counts for CNV
+analysis by terminating the sequencing earlier. Finally, the increased
+information yield can be directed towards reducing the cost of
+generating CNV profiles by allowing a greater degree of multiplexing.
+For CNV analysis at resolutions permitted by 250k mapped fragments, our
+results show SMURF-seq allows roughly 20 and up to 30 samples in a
+single run, compared with 10 per run directly using short-read
+sequencing.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Future of SMURF-seq}
+
