@@ -10,6 +10,60 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Nanopore sequencing}
+%% Intro
+
+%%%% History of nanopore development
+%% Initial idea and expreiments
+The concept of nanopore sequencing is based on the idea that as a
+single-stranded DNA (or RNA) translocates through a nanopore (such as
+transmemberane protein) in the presence of an electric field, the change
+in current level would be proportional to the nucleotide passing through
+the nanopore; Thus, measuring the current over time could be leveraged
+to determine the sequence of nucleotides.
+%
+This idea of using transmemberane proteins for sensing and sequencing
+nucleic acids was independently thought of by several researches
+including David Deamer, Hagan Bayley, and George Church
+\citep{deamer2016three,bayley2015nanopore,branton2010potential}.
+
+%% Initial expreiments
+% Detecting the presence of oligos
+Initial experiments showed that as a single-stranded DNA or RNA
+molecules could be driven through a \emph{Staphylococcus aureus}
+$\alpha$-hemolysin in the presence of an electric field
+\citep{kasianowicz1996characterization}. The current through the pore
+remained constant in the absence of oligomers; The presence of oligomers
+caused transient decreases in current, with the duration of the decrease
+proportional to the length of the oligomer.
+% Detecting the bases in oligos
+Further research demonstrated that decrease in amplitude of current
+could be used to different between poly-purine and poly-pyrimidine
+sequencing of RNA \citep{akeson1999microsecond} and DNA
+\citep{meller2000rapid}.
+
+%% Challenges for sequencing DNA
+Although these experiments demonstrated the potential for nanopores to
+distinguish nucleic acid polymers, several challenges remained to be
+addressed to use this approach for reading individual bases on a DNA or
+RNA molecules.
+%
+The most important of these challenges were...
+
+
+%% Oxford nanopore technologies
+
+%% Current state of nanopore sequencing
+
+%% Capture rate and fractors that affect it
+
+%% Nanopore library construction
+\paragraph{Library preparation for nanopore sequencing}
+
+%% Oxford MinION
+
+%% Properties of nanopore reads
+\paragraph{Properties of nanopore reads}
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -21,11 +75,11 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Prior protocols based on concatenating DNA molecuels}
+\section{Prior protocols based on concatenating DNA molecules}
 % SAGE and its variants
-The concept of ligating short DNA molecueles to improve the efficiency
-of sequencing was introduced in serial analysis of gene expresson
-(SAGE) \citep{}, and subsequenty its variants such as LongSAGE and
+The concept of ligating short DNA molecules to improve the efficiency
+of sequencing was introduced in serial analysis of gene expression
+(SAGE) \citep{}, and subsequently its variants such as LongSAGE and
 SuperSAGE \citep{}. SAGE
 
 % Digital karyotyping
