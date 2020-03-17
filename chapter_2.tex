@@ -12,7 +12,8 @@
 \section{Nanopore sequencing}
 %% Intro
 
-%%%% History of nanopore development
+%%% History of nanopore development
+\paragraph{A brief history of nanopore sequencing}
 %% Initial idea and expreiments
 The concept of nanopore sequencing is based on the idea that as a
 single-stranded DNA (or RNA) translocates through a nanopore (such as
@@ -50,16 +51,68 @@ RNA molecules.
 The most important of these challenges were...
 
 
+%% Capture rate and fractors that affect it
+\paragraph{Factors that affect nanopore sequencing}
+
 %% Oxford nanopore technologies
+\paragraph{Oxford Nanopore Technologies}
+
+%% Oxford MinION
+
 
 %% Current state of nanopore sequencing
 
-%% Capture rate and fractors that affect it
+
 
 %% Nanopore library construction
-\paragraph{Library preparation for nanopore sequencing}
+\paragraph{Nanopore library preparation and sequencing}
+%% TODO: is it called library preparation or sample preparation
+Sequencing nucleic acids requires prepossessing the sample DNA for
+compatibility with the underlying sequencing technology, a process
+traditionally referred to as library preparation.
+%
+Sequencing on a nanopore machine usually requires fragmenting DNA
+molecules to the appropriate length and attaching sequencing adapters.
+%
+Oxford nanopore technologies offers several commercially library
+preparation kits for both DNA and RNA samples.  The most frequently used
+of these kits are the Ligation Sequencing Kit family and the Rapid
+Sequencing Kit family.
 
-%% Oxford MinION
+% Ligation kit
+In theory, there is no limit on the length of a molecule that can be
+sequenced with a nanopore, and thus, the length is determined by the
+downstream application or the limitations of handling high molecular
+weight DNA. For the ligation sequencing kit (), the recommended length is
+$\sim$8 kb when starting with 1ug of sample for appropriate molar
+concentration in the subsequent steps.  DNA molecules can be fragmented
+to the appropriate length using a variety of methods including the g-tube
+(). %
+These molecules are then optionally repaired to remove any nicks, and
+then the DNA ends are prepared to have a dA tail. Finally, sequencing
+adapters (that have a dT tail) are ligated to the end-prepared DNA.
+These adapters contain specific DNA sequenced with attached enzymes
+that regulated translocation of the DNA molecule into a nanopore.
+Library preparation with the ligation kit takes approximately 60 to
+90 minutes.
+
+% Rapid kit
+The rapid library preparation kit offers a faster method, by
+simultaneously fragmenting and tagging the ends of high molecular weight DNA
+(recommended $>$ 30 kb). Adapters are then attached to these tags.
+Library preparation with the rapid kit takes approximately 10 minutes.
+
+% Barcoding capablities
+Both of these kits offer barcoding capabilities for multiplexing several
+samples in a single sequencing run.
+
+% Brief summary of other kits
+
+
+% After lib. prep.: loading and sequencing
+
+% Base-calling reads
+
 
 %% Properties of nanopore reads
 \paragraph{Properties of nanopore reads}
@@ -76,15 +129,22 @@ The most important of these challenges were...
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prior protocols based on concatenating DNA molecules}
-% SAGE and its variants
+%%% SAGE
+\paragraph{Serial analysis of gene expression (SAGE)}
 The concept of ligating short DNA molecules to improve the efficiency
 of sequencing was introduced in serial analysis of gene expression
 (SAGE) \citep{}, and subsequently its variants such as LongSAGE and
 SuperSAGE \citep{}. SAGE
 
+%%% variants of SAGE
+\paragraph{Variants of SAGE}
+
 % Digital karyotyping
+\paragraph{Digital karyotyping}
 
 % SMASH
+\paragraph{SMASH}
 
 % concat-seq
+\paragraph{Concat-seq}
 
