@@ -60,11 +60,14 @@ and determine the optimal fragment boundaries.
 % Seeding
 The initial step of a typical alignment tool, called seeding, is to find
 candidate locations of a read on the reference genome, and limit the
-downstream steps to these locations. 
+downstream steps to these locations.
 %
-This is usually done by finding exact matches \citep{}, non-contiguous
-exact matches \citep{}, or matches with a specified number of mismatches
-\citep{} between the read and the reference genome.
+This is usually using a hash table based data structure to find exact
+matches \citep{altschul1990basic,altschul1997gapped,kent2002blat} or
+non-contiguous exact matches \citep{ma2002patternhunter,chen2009perm},
+or by using a suffix tree based data structure
+\citep{kurtz2004versatile,langmead2009ultrafast,li2009fast,
+li2010fast,li2013aligning}.
 %
 The choice of data structure and parameters such as the length of the
 match, number of matches, etc. are determined by several factors such
@@ -113,8 +116,8 @@ boundaries would improve the sensitivity of aligning SMURF-seq reads.
 
 
 %% How will our method remove the current barrier
-Although both seeding and determing the accurate fragmentation is
-crutial to align a SMURF-seq read, in this study we focus only on the
+Although both seeding and determining the accurate fragmentation is
+crucial to align a SMURF-seq read, in this study we focus only on the
 second. To this end, we define the fragment identification problem for
 identifying the number of fragments and the fragment boundaries on a
 SMURF-seq read.  We approach the fragment identification problem by
@@ -337,6 +340,11 @@ of local alignment the score distribution of aligning random reads are
 used to determine a ``meaningful'' alignment by comparing the alignment
 score of sequences with the random null distribution.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Alignment score of a SMURF-seq read}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -504,9 +512,7 @@ boundaries, given the number of fragments, such that the sum of the
 alignment score of each fragment is maximized.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Fragment boundary identification under exact matching}
+\subsection{Fragment boundary identification under exact matching}
 We first examine the fragment identification problem assuming the score
 function requires exact matching
 \[score(a,b)=
@@ -567,66 +573,7 @@ exists. With this reasoning we can say that this greedy approach will
 find just as little fragments as the optimal solution.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Fragment boundary identification allowing mismatches}
-Here, we examine the fragment identification problem assuming the score
-function that allows matches and mismatches (but not indels)
-\[score(a,b)=
-\begin{cases}
-  1 & \text{if } a = b \\
-  0 & \text{if } a \neq b \\
-  -\infty & \text{otherwise.}
-\end{cases}\]
-
-For a fixed number of mismatches, if we are attempting to determine if
-some fragment set attains that number of mismatches, the optimal number
-of fragments might require fewer mismatches earlier in $S$ and also
-shorter fragments, so that longer fragments are possible later,
-requiring more mismatches. Intuitively this means we cannot rely on
-maximality of prefix matching. Here we explain a dynamic programming
-algorithm to solve the fragment identification problem with a bounded
-number of mismatches summed over all the fragments.
-
-Let $M$ denote a table with $k+1$ rows and $d+1$ columns, where $k$ is
-the maximum number of fragments and $d$ is the maximum number of
-mismatches allowed. We will use entry $M(i,j)$ to represent the longest
-prefix of $S$ that matches $T$ with at most $i$ fragments and $j$
-mismatches summed over all fragments. The following algorithm computes
-the entries of $M$ using a subroutine for identifying approximate
-matches to a pattern within a text.
-
-\begin{algorithm}[H]
-\caption{FragMatchingWithMismatches$(T, S, k, d)$}
-\begin{algorithmic}[1]
-  \STATE $M(0,i) \leftarrow 0 \text{ for all } 0 \leq i \leq d$
-  \FOR {$i \leftarrow 1$ \TO $k$}
-    \FOR {$j \leftarrow 0$ \TO $d$}
-      \FOR {$l \leftarrow 0$ \TO $j$}
-        \STATE $M(i,j) \leftarrow \max \{p | dist(S[M(i-1,l) \dots p],
-                  T) = j-l)\}$
-      \ENDFOR
-    \ENDFOR
-  \ENDFOR
-\end{algorithmic}
-\end{algorithm}
-
-After computing all the entries in $M$, if $M(i,j) = m$ for any $i$ and
-any $j$ then there exists a set of $k$ fragments in $S$ having at most
-$d$ total mismatches with respect to $T$.
-
-\textbf{Time and space complexity:} $O(f(m,n) + kd^2g(m,n))$, where
-$f(m,n)$ is the time required for pre-possessing $S$ and $T$ in order to
-allow approximate prefix matching queries, and $g(m,n)$ is the time
-required for those queries assuming pre-processing had been done. The
-algorithm uses $O(h(m,n) + kd)$ space, where $h(m,n)$ is the space
-required for a data structure that allows longest prefix match with a
-specified number of mismatches.
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Fragment boundary identification allowing mismatches and indels}
+\subsection{Fragment boundary identification allowing mismatches and indels}
 Let $M$ denote a table with $m+1$ rows, $n+1$ columns and $k+1$
 dimensions, where $k$ is the maximum number of fragments ($1 \leq k \leq
 m$).  $\max_{0 \leq j \leq n}M(i,j,l)$ represents the best fragmentation
