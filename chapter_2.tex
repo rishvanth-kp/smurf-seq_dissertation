@@ -83,35 +83,53 @@ Sequencing Kit family.
 In theory, there is no limit on the length of a molecule that can be
 sequenced with a nanopore, and thus, the length is determined by the
 downstream application or the limitations of handling high molecular
-weight DNA. For the ligation sequencing kit (), the recommended length is
-$\sim$8 kb when starting with 1ug of sample for appropriate molar
+weight DNA. For the ligation sequencing kit (SQK-LSK108 1D DNA by
+ligation), the recommended length is
+$\sim$8 kb when starting with 1ug of sample to ensure appropriate molar
 concentration in the subsequent steps.  DNA molecules can be fragmented
-to the appropriate length using a variety of methods including the g-tube
-(). %
+to the appropriate length using a variety of methods including the
+Covaris g-TUBE.
+%
 These molecules are then optionally repaired to remove any nicks, and
 then the DNA ends are prepared to have a dA tail. Finally, sequencing
 adapters (that have a dT tail) are ligated to the end-prepared DNA.
 These adapters contain specific DNA sequenced with attached enzymes
-that regulated translocation of the DNA molecule into a nanopore.
-Library preparation with the ligation kit takes approximately 60 to
-90 minutes.
+that regulate translocation of the DNA molecule into a nanopore.
+Library preparation with the ligation kit takes approximately 60 minutes.
 
 % Rapid kit
-The rapid library preparation kit offers a faster method, by
-simultaneously fragmenting and tagging the ends of high molecular weight
-DNA (recommended $>$ 30 kb). Adapters are then attached to these tags.
-Library preparation with the rapid kit takes approximately 10 minutes.
+The rapid library preparation kit (SQK-RAD003 Rapid sequencing) offers a
+faster method, by simultaneously fragmenting and tagging the ends of
+high molecular weight DNA (recommended $>$ 30 kb). Adapters are then
+attached to these tags.  Library preparation with the rapid kit takes
+approximately 10 minutes.
 
 % Barcoding capablities
 Both of these kits offer barcoding capabilities for multiplexing several
-samples in a single sequencing run.
+samples in a single sequencing run. For example, the Native Barcode Kit
+(EXP-NBD103) is used in addition to the ligation sequencing kit, and
+adds a barcode sequence to the end-prepared DNA molecules prior to
+ligating sequencing adapters. After library preparation with a unique
+barcode for each sample, they can pooled in appropriate molar
+concentrations before sequencing.
 
 % Brief summary of other kits
-
+Oxford Nanopore Technologies offers severs other preparation kits, such
+as the $\text{1D}^2$ kit for higher accuracy reads and PCR based kits when
+starting with nanogram or picogram amounts of DNA.
 
 % After lib. prep.: loading and sequencing
-
+After library construction the sample is ready to be sequenced. The
+flowcell is loaded on the sequencing machine, primed with the appropriate
+buffers, and the sample is loaded. After which the sequencing can be
+started and the reads are available as they are sequenced in real-time.
+%
+The sequencing process is controlled by the MinKNOW tool, and can
+continue for up to 48 hours.
 % Base-calling reads
+The sequenced reads can either be base-called in real time using the
+MinKNOW or at a later time using the Guppy tool.
+
 
 
 %% Properties of nanopore reads
