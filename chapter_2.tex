@@ -16,15 +16,16 @@
 \paragraph{A brief history of nanopore sequencing}
 %% Initial idea and expreiments
 The concept of nanopore sequencing is based on the idea that as a
-single-stranded DNA (or RNA) translocates through a nanopore (such as
-transmemberane protein) in the presence of an electric field, the change
-in current level would be proportional to the nucleotide passing through
-the nanopore; Thus, measuring the current over time could be leveraged
-to determine the sequence of nucleotides.
+single-stranded DNA (or RNA) translocates through a nanometer sized
+pore, a nanopore, in the presence of an electric field, the change in
+current level measured across the nanopore would be dependent on the
+nucleotide passing through the nanopore; Thus, measuring the current
+over time could be leveraged to determine the sequence of nucleotides
+(Fig.~\ref{nanopore}b).
 %
-This idea of using transmemberane proteins for sensing and sequencing
-nucleic acids was independently thought of by several researches
-including David Deamer, Hagan Bayley, and George Church
+This idea of using transmemberane proteins an nanopores for sensing and
+sequencing nucleic acids was independently thought of by several
+researches including David Deamer, Hagan Bayley, and George Church
 \citep{deamer2016three,bayley2015nanopore,branton2010potential}.
 
 %% Initial expreiments
@@ -33,27 +34,39 @@ Initial experiments showed that as a single-stranded DNA or RNA
 molecules could be driven through a \emph{Staphylococcus aureus}
 $\alpha$-hemolysin in the presence of an electric field
 \citep{kasianowicz1996characterization}. The current through the pore
-remained constant in the absence of oligomers; The presence of oligomers
+remained constant in the absence of oligomers; and the presence of oligomers
 caused transient decreases in current, with the duration of the decrease
 proportional to the length of the oligomer.
 % Detecting the bases in oligos
 Further research demonstrated that decrease in amplitude of current
-could be used to different between poly-purine and poly-pyrimidine
-sequencing of RNA \citep{akeson1999microsecond} and DNA
-\citep{meller2000rapid}. It was also observed that that the molecules
-translocate through the nanopore at the rate of xxx.
+could be used to differentiate between poly-purine and poly-pyrimidine
+sequences of RNA \citep{akeson1999microsecond} and DNA
+\citep{meller2000rapid}. It was also observed that the DNA molecules
+translocate through the nanopore at few microseconds per base
+\citep{meller2000rapid}.
+
+\begin{figure}[b!]
+\centering
+\includegraphics{nanopore.pdf}
+\caption{Nanopore sequencing. (a) Current across a nanopore is
+  measured as a DNA molecule translocates through a nanopore. This figure is
+  adapted from Figure 5Ab in \cite{goodwin2016coming}. (b) Oxford Nanopore
+  Technologies MinION instrument.}
+\label{nanopore}
+\end{figure}
 
 %% Challenges for sequencing DNA
 Although these experiments demonstrated the potential for nanopores to
 distinguish nucleic acid polymers, several challenges remained to be
 addressed to use this approach for reading individual bases on a DNA or
-RNA molecules.
+RNA molecule.
 %
 The most important of these were detecting the bases on a molecule at
-single nucleotide resulting and slowing the rate of translocation
-through the nanopore so that a readout can be obtained \citep{}.
+single nucleotide resolution and slowing the rate of translocation
+through the nanopore so that a readout can be obtained
+\citep{bayley2015nanopore,branton2010potential}.
 %
-These challenges were resolved in the forthcoming years, and a few
+These challenges were resolved in the forthcoming years. A few
 notable milestones are described below.
 
 %% Single nucleotide detection
@@ -62,27 +75,27 @@ identified in single-stranded DNA that have a terminal hairpin structure
 \citep{ashkenasy2005recognizing} and single-stranded DNA attached to
 streptavidin with a biotin linker
 \citep{purnell2009discrimination,stoddart2009single}. These structures
-immobilized the DNA in the nanopore (either a $\alpha$-hemolysin or an
-engineered form of it) allowing sufficient time for detection. Thus,
-with the appropriate sequence, each base could be resolved, and further,
-the location within a nanopore that is most sensitive to detect bases
-was also determined.
-%
+immobilized the DNA in the nanopore (either a wildtype
+$\alpha$-hemolysin or an engineered form of it) allowing sufficient time
+for detection. Thus, with the appropriate sequence, each base could be
+resolved, and further, the location within a nanopore that is most
+sensitive to detect bases was also determined.
+
 
 %% engineered nanopores
-The rate of translocation of DNA molecules by a $\alpha$-hemolysin pore was
-increased and the voltage threshold for translocation was decreased by
-engineering the pore to have positive charged groups in the lining of
-the lumen \citep{maglia2008enhanced}.
+The frequency of translocation of DNA molecules through a
+$\alpha$-hemolysin pore was increased and the voltage threshold for
+translocation was decreased by engineering the pore to have positive
+charged groups in the lining of the lumen \citep{maglia2008enhanced}.
 %
 However, a disadvantage of the $\alpha$-hemolysin pores is that the
-region that is sensitive to the nucleotides in the pore is too wide and
-so the current differences are small between nucleotides making single
+region that is sensitive to the nucleotides in the pore is too wide, and
+so the current differences are small between nucleotides, making single
 nucleotide detection difficult.
 %
-Pores derived from \emph{Mycobacterium smegmatis} porin A have a
-narrower sensitive region, and could detect nucleotides at a higher
-resolution \citep{butler2008single,manrao2011nucleotide}.
+Pores derived from \emph{Mycobacterium smegmatis} porin A has a narrower
+sensitive region, and could detect nucleotides at a higher resolution
+\citep{butler2008single,manrao2011nucleotide}.
 
 %% processivity control
 In regard to controlling the rate of translocation through a nanopore,
@@ -102,26 +115,45 @@ the incorporation of each nucleotide
 \citep{benner2007sequence,cockroft2008single,gyarfas2009mapping,
 chu2010real}.
 %
-Subsequently it was shown that phi29 polymerase could be to control
+Subsequently it was shown that $\phi$29 polymerase could be used to control
 ratcheting in both the forward and the reverse direction
 \citep{lieberman2010processive,manrao2012reading,cherf2012automated}.
-phi29 was used to sequence reads up to 4.5 kb from the phi X 174 genome
+$\phi$29 was used to sequence reads up to 4.5 kb from the $\phi$X174 genome
 using nanopores \citep{laszlo2014decoding}.
 
-%% Capture rate and fractors that affect it
-\paragraph{Factors that affect nanopore sequencing}
 
 %% Oxford nanopore technologies
 \paragraph{Oxford Nanopore Technologies}
-Oxford Nanopore Technologies was founded in 2002 and promised...
-This became a reality when the complete genome of a xxx was sequenced in
-a nanopore machine.
+Oxford Nanopore Technologies was founded in 2005 by Hagan Bayley and
+colleagues \citep{deamer2016three}. Oxford Nanopore Technologies
+announced the MinION instrument at the Advances in Genome Biology and
+Technology meeting in 2012 and made it available to early access
+researches in 2014 \citep{deamer2016three,bayley2015nanopore}.
 
 %% Oxford MinION
-
+The MinION sequencer (Fig.~\ref{nanopore}b) is a portable instrument
+requiring just a modest computer for control and data acquisition.  A
+MinION flowcell of 2048 nanopores (at present, a derivative of
+\emph{Escherichia coli} CsgG protein \citep{brown2016nanopore}) embedded
+on a membrane, of which 512 pores can sequence molecules in parallel.
 
 %% Current state of nanopore sequencing
+Whole genomes of several organisms including humans have been sequenced
+using the MinION instrument \citep{loman2015complete,stancu2017mapping,
+jain2018nanopore,bowden2019sequencing,moss2020complete}. It has used in
+several other applications such as disease surveillance
+\citep{quick2016real,faria2016mobile}, metagenomics
+\citep{goordial2017situ,charalampous2019nanopore,leggett2020rapid},
+direct RNA sequencing \citep{garalde2018highly,workman2019nanopore,
+depledge2019direct}, and detecting methylated bases
+\citep{rand2017mapping,simpson2017detecting} among others
+\citep{jain2016oxford}.
 
+%% other decives from ONT
+In addition to the MinION instrument, Oxford Nanopore Technologies
+currently offers various nanopore devices including the bench-top
+GridION and PromethION which allows parallel sequencing with up to 5 and
+48 flowcells, respectively.
 
 
 %% Nanopore library construction
@@ -189,8 +221,6 @@ continue for up to 48 hours.
 % Base-calling reads
 The sequenced reads can either be base-called in real time using the
 MinKNOW or at a later time using the Guppy tool.
-
-
 
 %% Properties of nanopore reads
 \paragraph{Properties of nanopore reads}
