@@ -109,8 +109,10 @@ boundaries would improve the sensitivity of aligning SMURF-seq reads.
 \begin{figure}[t!]
 \centering
 \includegraphics{ch4_fig1.pdf}
-\caption{The fraction of genome that is uniquely mappable decreases with
-          fragment length.}
+\caption[Uniquely mappable fraction of the genome decreases fragment
+  length]{
+  The fraction of genome that is uniquely mappable decreases with
+  fragment length.}
 \label{dzones}
 \end{figure}
 
@@ -479,7 +481,9 @@ addition to the weighted match/mismatch and indel edges
 \begin{figure}[h!]
 \centering
 \includegraphics{ch4_fig5.pdf}
-\caption{Alignment graph for fragment boundary identification algorithm
+\caption[Alignment graph for fragment boundary identification algorithm
+  with an arbitrary score function]{
+  Alignment graph for fragment boundary identification algorithm
   with an arbitrary score function. The direction of arrows are omitted
   for clarity. The horizontal edges are directed from left to right and
   all other edges are directed from top to bottom.}
@@ -549,13 +553,15 @@ highest possible alignment score.
 \centering
 \includegraphics{aln_score.pdf}
 \caption[Alignment score of SMURF-seq read as a function of number of
-  fragments.]
-  {(a) Aligment score of a SMURF-seq read with 20 fragment (40 bp each)
-   that does not have any errors.
-   (b) Alignment score with 10\% errors.
-   (c) Alignment score with 20\% errors.
-   (d) Alignmet score of a read with 20 fragments generated from $20 +
-   \text{Geom}(20)$ distribution and with 20\% errors.}
+  fragments]{
+  Alignment score of SMURF-seq read as a function of number of
+  fragments.
+  (a) Aligment score of a SMURF-seq read with 20 fragment (40 bp each)
+  that does not have any errors.
+  (b) Alignment score with 10\% errors.
+  (c) Alignment score with 20\% errors.
+  (d) Alignmet score of a read with 20 fragments generated from $20 +
+  \text{Geom}(20)$ distribution and with 20\% errors.}
 \label{aln_score}
 \end{figure}
 
@@ -664,10 +670,11 @@ increasing trend in the mean and standard deviation of the distribution
 \begin{figure}[H]
 \centering
 \includegraphics{k1_evd.pdf}
-\caption{Empirical score distribution of $score_T(S,1)$. (a - b) Empirical
-  distribution for $m=40$ and $m=100$ with a fitted EVD using the method
-  of moments estimator. Q-Q plot comparing the theoretical and empirical
-  distributions are shown.
+\caption[Extreme value distribution approximation for $score_T(S,1)$]{
+  Empirical score distribution approximation for $score_T(S,1)$. 
+  (a,b) Empirical distribution for $m=40$ and $m=100$ with a fitted EVD 
+  using the method of moments estimator. Q-Q plot comparing the 
+  theoretical and empirical distributions are shown.
   (c) Empirical score distribution for $m$ corresponding to shorter
   fragments.
   (d) Empirical score distribution form $m$ correspomding to longer
@@ -722,7 +729,10 @@ generated from at random from a geometric distribution.
 \begin{figure}[H]
 \centering
 \includegraphics{fl40_norm.pdf}
-\caption{Empirical score distribution of $score_T(S,k)$ with a fitted
+\caption[Normal approximation for $score_T(S,k)$ with equal fragment
+  lengths]{
+  Normal approximation for $score_T(S,k)$ with equal fragment lengths.
+  Empirical score distribution of $score_T(S,k)$ with a fitted
   normal using the method of moments estimator. All fragments are 40 bp.
   Q-Q plot comparing the theoretical and empirical distributions are shown.
   (a) $m=800, k=20$.
@@ -733,7 +743,10 @@ generated from at random from a geometric distribution.
 \begin{figure}[H]
 \centering
 \includegraphics{geom_fl_norm.pdf}
-\caption{Empirical score distribution of $score_T(S,k)$ with a fitted
+\caption[Normal approximation for $score_T(S,k)$ with random fragment
+  lengths]{
+  Normal approximation for $score_T(S,k)$ with random fragment lengths.
+  Empirical score distribution of $score_T(S,k)$ with a fitted
   normal using the method of moments estimator. The fragment lengths are
   genrated from a geometric distribution with mean 100. Q-Q plot comparing
   the theoretical and empirical distributions are shown.

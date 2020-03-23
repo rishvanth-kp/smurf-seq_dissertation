@@ -76,7 +76,8 @@ aligning to a distinct location in the genome (Fig.~\ref{smurf}).
 \begin{figure}[b!]
 \centering
 \includegraphics{smurf.pdf}
-\caption{
+\caption[SMURF-seq approach to sequencing short fragments]{
+  SMURF-seq approach to sequencing short fragments.
   SMURF-seq efficiently sequences short fragments of DNA for
   read-counting applications with a reference genome on long-read
   sequencers, and yields up to 30 countable fragments per sequenced read.
@@ -91,7 +92,8 @@ aligning to a distinct location in the genome (Fig.~\ref{smurf}).
 \begin{figure}[t!]
 \centering
 \includegraphics{ch3_fig2.pdf}
-\caption{Schematic of SMURF-seq protocol. SMURF-seq consists of four
+\caption[Schematic of SMURF-seq protocol]{
+  Schematic of SMURF-seq protocol. SMURF-seq consists of four
   steps: restriction enzyme digestion, spin-column clean-up, re-ligation
   of fragmented DNA, and Ampure XP beads clean-up.}
 \label{protocol}
@@ -180,7 +182,8 @@ restriction fragmentation.
 \begin{figure}[t!]
 \centering
 \includegraphics{ch3_fig3.pdf}
-\caption{Restriction digestion and ligation of DNA molecules.
+\caption[Restriction digestion and ligation of DNA molecules.]{
+  Restriction digestion and ligation of DNA molecules.
   (a) Distribution of length between restriction sites computed
   by measuring the distance between the recognition sites on the human
   reference genome. SaqAI recognizes the sequence TTAA and leaves a 2 bp
@@ -497,12 +500,14 @@ faster rate than sequencing short molecules directly
 \begin{figure}[t!]
 \centering
 \includegraphics{frag_time.pdf}
-\caption{SMURF-seq generates fragments at a faster rate than sequencing
-short molecules directly. Number of fragments obtained from reads
-plotted as a function of  sequencing time. For SMURF-seq, the average
-number of fragments from runs using the 1D sequencing by ligation kits
-are plotted (Error bars indicate one standard deviation). For short-read
-sequencing run, each read is considered as one fragment.}
+\caption[SMURF-seq generates fragments at a faster rate than
+  sequencing short molecules directly.]{
+  SMURF-seq generates fragments at a faster rate than sequencing
+  short molecules directly. Number of fragments obtained from reads
+  plotted as a function of  sequencing time. For SMURF-seq, the average
+  number of fragments from runs using the 1D sequencing by ligation kits
+  are plotted (Error bars indicate one standard deviation). For short-read
+  sequencing run, each read is considered as one fragment.}
 \label{frag_time}
 \end{figure}
 
@@ -557,7 +562,8 @@ and bin counts were used to generate CNV profiles as described in
 \begin{figure}[b!]
 \centering
 \includegraphics{read_frag_dist.pdf}
-\caption{Read and fragment lengths from a SMURF-seq sequencing run.
+\caption[Read and fragment lengths from a SMURF-seq sequencing run.]{
+  Read and fragment lengths from a SMURF-seq sequencing run.
   (a) Sequenced read length distribution.
   (b) Mapped fragment length distribution.
   (c) Scatter plot of read length and the number of fragments contained
@@ -594,7 +600,8 @@ approximately 600 kb (Fig.~\ref{cnv}b).
 \begin{figure}[b!]
 \centering
 \includegraphics{ch3_fig4.pdf}
-\caption{Accurate copy number profiles with SMURF-seq.
+\caption[Accurate copy number profiles with SMURF-seq.]{
+  Accurate copy number profiles with SMURF-seq.
   (a) CNV profile of a normal diploid genome. Each blue point is a
   bin ratio to mean and the red line is the segmented bin ratio.
   (b) Superimposed CNV profiles of SK-BR-3 genome generated using
@@ -630,7 +637,7 @@ fragments per read).
 \begin{figure}[t!]
 \centering
 \includegraphics{skbr3_hi_res.pdf}
-\caption{
+\caption[High resolution CNV profile with SMURF-seq]{
   High resolution CNV profile generated using SMURF-seq is highly concordant
   with the profile generated with Illumina WGS.
   (a, b) Superimposed CNV profiles of SK-BR-3 genome generated using SMURF-seq
@@ -653,7 +660,8 @@ using Illumina WGS (Pearson $r>$ 0.97; Fig.~\ref{skbr3_hi_res}c, d).
 \begin{figure}[t!]
 \centering
 \includegraphics{ch3_fig5.pdf}
-\caption{Multiple SMURF-seq CNV profiles by multiplexing in a single run.
+\caption[Multiple SMURF-seq CNV profiles by multiplexing in a single run]{
+  Multiple SMURF-seq CNV profiles by multiplexing in a single run.
   (a) CNV profile of SK-BR-3 genome with down-sampled 10k SMURF-seq reads.
   (b) Scatter plot of normalized bin counts of the original SMURF-seq
   data and data down-sampled to 10k SMURF-seq reads. Pearson
@@ -694,7 +702,9 @@ availability of sequence data is summarized in Appendix~\ref{appendB}.
 \begin{figure}[t!]
 \centering
 \includegraphics{cnv_time.pdf}
-\caption{CNV profile with reads obtained in first few minutes of sequencing.
+\caption[CNV profile with reads obtained in first few minutes of
+  sequencing]{
+  CNV profile with reads obtained in first few minutes of sequencing.
   (a, c, e) CNV profile  with reads obtained in the first 45, 90,
   and 180 minutes of sequencing.
   (b, d, f) Scatter plot of bin ratios of the original
