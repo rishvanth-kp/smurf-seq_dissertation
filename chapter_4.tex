@@ -491,12 +491,64 @@ addition to the weighted match/mismatch and indel edges
 \end{figure}
 
 % Disadvantages
-Although this algorithm provides the optimal fragment boundaries for each
-$k$, it has several disadvantages for use with real SMURF-seq reads.
+Although this algorithm provides the exact solution to determine optimal
+fragment boundaries for each $k$, it has several limitations for use
+with real SMURF-seq reads in practice.
+% We will usually know the approximate no for frags
+As discussed in section \ref{}, when mapping SMURF-seq reads the
+approximate mapping locations of fragments would be known after seeding.
+Further, if a mapping algorithms performs a preliminary alignment between
+parts of the SMURF-seq read and the reference genome, the approximate
+fragment boundaries will also be know.
+% Needs to start at k=1
+
+% too much time and space
+% not banded
+% not all parts of the read may be mappable
+% repeats
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Identifying fragment boundaries in practice}
+The initial step in any traditional mapping algorithm is to determine the
+approximate mapping locations of the read on the reference genome using
+a seeding approach.
+%
+Some algorithms further generate proto-alignments using the initial
+seeds.
+For example, BWA-MEM joins seeds that are close to on the read and
+reference coordinates and have the same orientation into a ``chain''
+\citep{}.
+%
+Typically, the final step is to perform a Smith-Waterman alignment
+between the read and a small region on the reference genome.
+
+% Aligning SMURF-seq reads
+Any algorithm to aligning SMURF-seq reads can be expected to have
+similar steps. After seeding a SMURF-seq read, seeds from different
+fragments on a read would cluster at different locations on the genome,
+likely several different location for each fragment due to repeats or
+seeding parameters (such as seed length).
+%
+These seed hits could be further processed to generate preliminary
+alignments between parts of the read and the reference genome.
+%
+Thus, after these steps it is reasonable to assume that approximate
+number of fragments and the boundaries of these fragments are known.
+
+%% Final step
+The final step of the algorithm would be finalize the number of fragments
+and fragment boundaries on a read. For a given number of fragments, the
+fragment boundaries can be easily determined such that the alignment
+score is maximized (this problem is equivalent to finding a longest path
+in a single-source directed acyclic graph).
+%
+For finding the number of fragments on a SMURF-seq read, for each
+fragmentation, we use the
+alignment score distribution of random sequences with the same
+fragment set to determine the p-value for a fragmentation using the
+procedure described in the next section.
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -556,11 +608,11 @@ highest possible alignment score.
   fragments]{
   Alignment score of SMURF-seq read as a function of number of
   fragments.
-  (a) Aligment score of a SMURF-seq read with 20 fragment (40 bp each)
+  (a) Alignment score of a SMURF-seq read with 20 fragment (40 bp each)
   that does not have any errors.
   (b) Alignment score with 10\% errors.
   (c) Alignment score with 20\% errors.
-  (d) Alignmet score of a read with 20 fragments generated from $20 +
+  (d) Alignment score of a read with 20 fragments generated from $20 +
   \text{Geom}(20)$ distribution and with 20\% errors.}
 \label{aln_score}
 \end{figure}
@@ -629,7 +681,7 @@ Then, we consider the score distribution when $k > 1$ as the sum of $k =
 distribution when using a generalized scoring function is similar to the
 distribution obtained with score function defined above.
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Score distribution of one fragment}
 %% How fragment identification problem differs from these
 The score distribution of $score_T(S,1)$ has similarities to the score
@@ -641,6 +693,19 @@ since the letters of $S$ are generated at random.
 %% distribution for k = 1
 Based on these results, the distribution of $score_T(S,1)$ is likely to
 follow an extreme value distribution.
+
+\begin{figure}[t!]
+\centering
+\includegraphics{k1_evd.pdf}
+\caption[Extreme value distribution approximation for $score_T(S,1)$]{
+  Extreme value approximation for $score_T(S,1)$.
+  Empirical score distribution of $score_T(S,1)$ with a fitted
+  EVD using the method of moments estimator.
+  Q-Q plot comparing the theoretical and empirical distributions are shown.
+  (a) $m=40$.
+  (b) $m=100$.}
+\label{evd_approx}
+\end{figure}
 
 % heuristic of proof
 Let $X_j$ denote the score of aligning $S$ with $T[j \dots j+m-1]$, then
@@ -667,23 +732,20 @@ Further, the score distribution for increasing read lengths shows an
 increasing trend in the mean and standard deviation of the distribution
 (Fig.~\ref{evd_approx}c, d).
 
-\begin{figure}[H]
+\begin{figure}[t!]
 \centering
-\includegraphics{k1_evd.pdf}
-\caption[Extreme value distribution approximation for $score_T(S,1)$]{
-  Empirical score distribution approximation for $score_T(S,1)$. 
-  (a,b) Empirical distribution for $m=40$ and $m=100$ with a fitted EVD 
-  using the method of moments estimator. Q-Q plot comparing the 
-  theoretical and empirical distributions are shown.
-  (c) Empirical score distribution for $m$ corresponding to shorter
+\includegraphics{k1_empirical.pdf}
+\caption[Empirical score distribution for $score_T(S,1)$]{
+  Empirical score distribution approximation for $score_T(S,1)$.
+  (a) Empirical score distribution for $m$ corresponding to shorter
   fragments.
-  (d) Empirical score distribution form $m$ correspomding to longer
+  (b) Empirical score distribution form $m$ corresponding to longer
   fragments.}
-\label{evd_approx}
+\label{evd_empirical}
 \end{figure}
 
 
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Score distribution for a given fragment set}
 %% sum of k=1 distributions
 The distribution of $score_T(S,k)$ for $k > 1$ and a given $P$ is the
@@ -695,6 +757,20 @@ P_{i+1}], 1).\]
 The independence of the distributions for each fragment is justified
 because it is required that $n >> m$, and the probability of two
 fragments to aligning to overlapping location on $T$ is extremely small.
+
+\begin{figure}[t!]
+\centering
+\includegraphics{fl40_norm.pdf}
+\caption[Normal approximation for $score_T(S,k)$ with equal fragment
+  lengths]{
+  Normal approximation for $score_T(S,k)$ with equal fragment lengths.
+  Empirical score distribution of $score_T(S,k)$ with a fitted
+  normal using the method of moments estimator. All fragments are 40 bp.
+  Q-Q plot comparing the theoretical and empirical distributions are shown.
+  (a) $m=800, k=20$.
+  (b) $m=1600, k=40$.}
+\label{norm_const}
+\end{figure}
 
 %% Sum of EVDs
 The distribution of the sum and linear combination of extreme value
@@ -726,21 +802,7 @@ empirically verified that this distribution converges to normal
 (Fig.~\ref{norm_geom}). For each $k$, the fragment lengths were
 generated from at random from a geometric distribution.
 
-\begin{figure}[H]
-\centering
-\includegraphics{fl40_norm.pdf}
-\caption[Normal approximation for $score_T(S,k)$ with equal fragment
-  lengths]{
-  Normal approximation for $score_T(S,k)$ with equal fragment lengths.
-  Empirical score distribution of $score_T(S,k)$ with a fitted
-  normal using the method of moments estimator. All fragments are 40 bp.
-  Q-Q plot comparing the theoretical and empirical distributions are shown.
-  (a) $m=800, k=20$.
-  (b) $m=1600, k=40$.}
-\label{norm_const}
-\end{figure}
-
-\begin{figure}[H]
+\begin{figure}[t!]
 \centering
 \includegraphics{geom_fl_norm.pdf}
 \caption[Normal approximation for $score_T(S,k)$ with random fragment
@@ -748,7 +810,7 @@ generated from at random from a geometric distribution.
   Normal approximation for $score_T(S,k)$ with random fragment lengths.
   Empirical score distribution of $score_T(S,k)$ with a fitted
   normal using the method of moments estimator. The fragment lengths are
-  genrated from a geometric distribution with mean 100. Q-Q plot comparing
+  generated from a geometric distribution with mean 100. Q-Q plot comparing
   the theoretical and empirical distributions are shown.
   (a) $m=2188, k=20$.
   (b) $m=3332, k=40$.}
@@ -796,12 +858,8 @@ for a read is the one with the lowest p-value.
 %% Explanation
 
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Results}
-To evaluate the performance of your method, we simulated a reference
+%% example
+As an example, we simulated a reference
 genome, generated simulated SMURF-seq reads from the genome, and
 introduced sequencing errors to the reference genome. The number of
 fragments and the starting location of each fragment on the simulated
@@ -818,26 +876,22 @@ simulated reads. The fragmentation with the smallest p-value was considered
 as the optimal fragmentation. These predicted fragmentations were then
 compared with the ground truth to determine the accuracy.
 
-% We first evaluate the
-
-\subsection{Reads with mismatches}
-
 % Figure for a single read with alignment score, null distribution and
 % p-value
 
-
-% Figure showing the p-value for 100 reads, and subfigure with the
-% accuracy
-
-
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fast computation of p-values}
 
 % Figure comparing the fitted empirical score distribution using the two
 % methods
 
-% Figure showing p-value for a 1000 reads
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Open problems}
 
-% Figure showing accuracy for seveal fragment lengts and error rates
+
+
 
 
 \subsection{Aligning with a general score function}
