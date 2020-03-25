@@ -827,14 +827,27 @@ The score distribution of aligning a random read $S_\mathrm{rand}$ to a
 random genome $T_\mathrm{rand}$ can be used to estimate the optimal $k$
 for aligning a SMURF-seq read $S_\mathrm{SMURF}$ to a reference genome
 $T_\mathrm{ref}$.
-%%
-A procedure to do this is as follows: For a SMURF-seq read, find the
+% Alignm SMURF-seq read
+For a SMURF-seq read and, find the
 best alignment score $k_\mathrm{score}$ and the fragment set
-$k_\mathrm{P}$ for all $k$ from $1$ to $m$ using the algorithm given
-in section \ref{}. Also, for each $k$ using the fragment set
-$k_\mathrm{P}$, determine the p-value of finding an alignment with score
-greater than $k_\mathrm{score}$ from the random model. The optimal $k$
-for a read is the one with the lowest p-value.
+$k_\mathrm{P}$ for all $k$ from $1$ to $m$ using algorithms given
+in section \ref{}. In practice, $k$ can be restricted to a much smaller
+subset of possible values, and the goal is to determine a value of $k$
+that best represents the fragments that were ligated to generated the
+read.
+%
+
+As described in the previous section, the null score distribution of
+aligning a read generated at random for $k=1$ follows an extreme value
+distribution, and a normal distribution for sufficiently large $k$.  For
+each $k$, the parameters for the null distributions can be estimated
+from the empirical distribution by aligning random reads with the
+fragment set $k_\mathrm{P}$.
+%
+The p-value for each $k$ can be determined by finding the probability of
+a score greater than $k_\mathrm{score}$ from the null distribution.
+Finally, the optimal $k$ for a read is the one with the lowest p-value
+(Algorithm \ref{p_val_alg}).
 
 \begin{algorithm}[H]
 \caption{OptimalK $(T,S)$}
@@ -853,31 +866,78 @@ for a read is the one with the lowest p-value.
   \ENDFOR
   \RETURN $k_\mathrm{opt}$
 \end{algorithmic}
+\label{p_val_alg}
 \end{algorithm}
 
 %% Explanation
-
-
-%% example
-As an example, we simulated a reference
-genome, generated simulated SMURF-seq reads from the genome, and
-introduced sequencing errors to the reference genome. The number of
-fragments and the starting location of each fragment on the simulated
-read is known. These reads are then mapped back to the reference genome
-for values several values of $k$ using algorithm \ref{}, yielding the
-fragment set that maximizes the alignment score for each $k$. These
-fragment sets were then used to generate the null distribution by
-simulating a random reference genome with the same base probabilities
-as the reference genome, and aligning random reads with fragment start
-locations based on the fragment set. The p-value for each fragmentation
-was determined using an EVD for $k=1$ and normal distributions for $k >
-1$ with parameters estimated using the method of moments from the
-simulated reads. The fragmentation with the smallest p-value was considered
-as the optimal fragmentation. These predicted fragmentations were then
-compared with the ground truth to determine the accuracy.
+As discussed in section \ref{}, as $k$ increases up to $k_\mathrm{opt}$
+the number of bases on a SMURF-seq that are aligned to its true location
+on the reference genome would increase and the bases aligned to random
+locations would decrease. Thus, getting further away from a random
+alignment with an expected decrease in p-value. At $k = k_\mathrm{opt}$,
+all bases are aligned to their true locations, and would have the lowest
+p-value. As $k$ gets farther away from $k_\mathrm{opt}$, fragments on a
+read are further split into smaller fragments with a small increase in
+alignment score, and eventually with fragment aligning to random
+locations on the reference. Thus, getting closer to a random alignment
+with an expected increase in p-value.
 
 % Figure for a single read with alignment score, null distribution and
 % p-value
+\begin{figure}[t!]
+\centering
+\includegraphics{pval.pdf}
+\caption[Determining the optimal fragmentation of a SMURF-seq read]{
+  Determining the optimal fragmentation of a SMURF-seq read. The black
+  line is the alignment score of a simulated SMURF-seq read with 20
+  fragments of 40 bp each, and with 10\% mismatch errors. The violin plots
+  are the empirical null distributions using fragment set corresponding
+  the best alignment score for each $k$. The red line is the p-value for
+  each $k$ determined from the alignment score and the null distribution.
+  The optimal fragmentation has the lowest p-value.}
+\label{pval_calc}
+\end{figure}
+
+%% example
+As an example, we simulated a reference genome of length 50 kb with the
+DNA alphabet having equal probabilities.
+%
+A simulated SMURF-seq read with 20 fragments each of length 40 bp was
+generated from this genome, and 10\% mismatch sequencing errors was
+introduced.
+%
+This read are then mapped back to the reference genome for values of $k
+= 1$ to $30$ using algorithm \ref{} (scoring a match as 1, a mismatch as
+0, and not allowing indels), yielding the fragment set that maximizes
+the alignment score for each $k$.
+%
+These fragment sets were then used to generate the null distribution by
+simulating a random reference genome with the same base probabilities,
+and aligning 10,000 random reads with fragment start locations based on
+the fragment set.
+%
+The p-value for each fragmentation was determined using an EVD for $k=1$
+and normal distributions for $k > 1$ with parameters estimated using the
+method of moments from the simulated reads (although the normal
+approximation does not hold for small values of $k$, we have included it
+for clarity).
+%
+The fragmentation with the smallest p-value was considered as the
+optimal fragmentation, and as expected, $k = 20$ has the lowest p-value;
+With the p-value increasing on either side of $k = 20$
+(Fig.~\ref{pval_calc}).
+
+The example considered here is simplified to illustrate the procedure
+to determine the optimal fragmentation of a SMURF-seq read. In aligning
+real SMURF-seq reads: (1) The reference genome would be significantly
+larger (e.g. the human genome) with different base (or dinucleotide)
+probabilities. (2) The fragments lengths cannot expected to be constant.
+(3) The sequencing error model will depend on the properties of the
+sequencing technology used. (4) The alignment score used would depend on
+the sequencing error model and would allow indels (with possibly
+different penalties for gap open and gap extend). (5) Parameters for the
+null distribution were determined empirically, which cannot be done in
+practice. Some of these issues are considered in the following sections.  
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fast computation of p-values}
