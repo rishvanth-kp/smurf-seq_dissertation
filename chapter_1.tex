@@ -5,3 +5,51 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Introduction}
 \label{ch1}
+
+In the last decade, massively parallel high-throughput short-read
+sequencing has revolutionized the efficiency and breadth of applications
+for DNA sequencing \citep{kircher2010high}.  These high-throughput
+sequencing methods produce millions to billions of short reads in a
+single run, and have led to the development of many applications that
+depend on ``read-counting'' to measure the abundance of specific
+sequences in a sample. Examples include RNA-seq, ChIP-seq, and whole
+genome copy number profiling.
+
+Recently, long-read technologies have been developed that are filling
+the gap left by short-read sequencers in applications such as genome
+assembly \citep{jain2018nanopore,loman2015complete}, which benefit from
+connecting more distant sequences within a contiguous molecule. Among
+these the MinION instrument, from Oxford Nanopore Technologies, is
+highly portable and inexpensive and has shown its unique value for
+analysis outside of central sequencing facilities \citep{quick2016real}.
+Long-read sequencers such as the MinION typically produce vastly fewer
+reads from a sequencing run, and are therefore less efficient in
+applications that use sequenced reads purely as a means to count
+molecules. However, these technologies have the enormous advantage of
+operating in near real-time, with a turnaround time that can be measured
+in hours for some applications, rather than days or weeks.
+
+Copy number variation (CNV) has been used successfully to understand a
+variety of diseases \citep{sebat2007strong} -- notably cancers, which
+exhibit both extreme variation and recurrent trends that can be used for
+diagnostics and personalized approaches to treatment. For example, the
+amplification and loss of certain genes, such as \textit{RB1} deletion and
+\textit{MYCN} amplification in retinoblastoma, can be prognostic or even
+predictive for treatment \citep{berry2017potential}.  High-throughput short-read
+sequencing has been extremely effective in copy number profiling of
+cancers \citep{chiang2009high}, including profiling single tumor cells
+\citep{navin2011tumour}. However, for many potential users, the
+efficiency of high-throughput short-read sequencing in CNV analysis is
+determined by the availability of instruments and need for heavy
+multiplexing to hit reasonable cost per profile. A sequencing core is
+typically involved and an individual profile must wait for a ``full''
+run before it can be processed. The MinION sequencer has an accessible
+buy-in and is easy to use. Unfortunately the MinION has optimal
+nucleotide throughput when producing reads that are orders of magnitude
+longer than needed for CNV profiling.
+
+To make full use of the advantages offered by the MinION sequencer, we
+introduce sampling molecules using re-ligated fragments (SMURF)-seq, a
+protocol to efficiently sequence short DNA molecules on a long-read
+sequencer. The strategy of SMURF-seq is to concatenate short fragments
+into very long molecules ($\sim$8 kb) prior to sequencing.
