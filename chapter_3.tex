@@ -18,10 +18,13 @@ sequencing procedure.
 % Advantages of long read sequencing
 Since nanopore machines are optimized for long read sequencing, this
 method has the advantage of using any standard library preparation
-protocol that are commercially available. Further, technical
-nucleotides, such as sequencing adapters and barcodes, are sequenced one
-(or twice) every $\sim$8k bases, thus the fraction of time a nanopore
-spends sequencing technical nucleotides is low.
+protocol that are commercially available.  Sequencing these long
+molecules using a nanopore keeps a pore occupied for a longer duration
+once a pore is loaded followed by an open pore waiting for a molecule to
+be reload in a pore.  Further, technical nucleotides, such as sequencing
+adapters and barcodes, are sequenced one (or twice) every $\sim$8k
+bases, thus the fraction of time a nanopore spends sequencing technical
+nucleotides is low.
 % Disadvantages of long read sequencing
 However, read-counting applications do not benefit from longer reads
 beyond what is necessary for unique mapping to the reference genome. In
@@ -45,9 +48,24 @@ run than sequencing long reads.
 %% Disadvantages of short read sequencing
 However, sequencing short reads requires ad-hoc modifications to the
 library preparation protocol as these are optimized for longer
-molecules.  Moreover, technical nucleotides are sequenced every
+molecules.  Sequencing these shorter molecules keeps a pore occupied for
+a shorter duration once a pore is loaded followed by waiting for a pore
+to be reloaded (but the reload time is usually shorter due to the higher
+molar concentration) Moreover, technical nucleotides are sequenced every
 $\sim$150bp, increasing the fraction of time a nanopore sequences the
 technical bases.
+
+\begin{figure}[t!]
+\centering
+\includegraphics{naive_counting.pdf}
+\caption[Naive approaches to read-counting on nanopore machines]{
+  Naive approaches to read-counting on nanopore machines.
+  Sequencing long-reads directly is optimized for nanopore machines but
+  not for read-counting applications.
+  Sequencing short-read is optimized for read-counting applications but
+  not for nanopore sequencing.}
+\label{smurf}
+\end{figure}
 
 %% SMURF-seq approach
 SMURF-seq approach combines the advantages of both of these methods
