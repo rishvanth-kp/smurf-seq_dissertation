@@ -213,34 +213,38 @@ the longest match \citep{arratia1989erdos}.
 
 %% Dembo and Karlin's approach
 An crucial aspect of in aligning nucleic acid and protein sequences is
-using the appropriate score function. For example, PAM and Dayoff
-matrices is used for protein sequences \citep{}, and xxx is used for DNA
-sequences \citep{}.  The score function used alters the score of the
-aligned sequences and thus the alignment score distribution of unaligned
-sequences.
+using the appropriate score function. For example, PAM
+\citep{dayhoff197822} and BLOSUM \citep{henikoff1992amino} matrices are
+commonly for protein sequences.  The score function used alters the
+score of the aligned sequences and thus the alignment score distribution
+of unaligned sequences.
 % Headrun approach does not consider score function
 However, the approach based on the length of the headruns does not
 consider the score function used for an alignment.
 %
-In \citep{}, it is shown that the score distribution of aligning
-unrelated sequences for any score function (that has at least one
-positive score and the expected score is negative) has the form of an
-extreme value distribution, and and explicit formulas that its parameters
-are provided.
-% distribution of letters, and log-odds ratio
+In \citep{karlin1990methods,karlin1990statistical}, it is shown that the
+maximal score of aligning unrelated sequences using any score function
+(that has at least one positive score and the expected score is
+negative) takes the form of an extreme value distribution, and and
+explicit formulas that its parameters are provided. Further, the number
+of high-scoreing alignments is closely approximated by the Poisson
+distribution.
+%
+Thus, enabling the calculation of the probability that an alignment of
+random sequences having a score greated than any given value (usually
+the score of aligning two sequeneces of interest).
+
+%% BLAST
 
 
 
 %% alignment allowing gaps
 
-%% BLAST
 
 %% Profile alignment
 
+
 %% Global alignment score distribution
-
-%% Differneces between these and the k=1 frag id problem
-
 
 
 
@@ -1044,12 +1048,11 @@ fragments are 40 bp with 20 and 40 fragments per read
 
 
 % other score functions
-
-
 \subsection*{Errors in EVD and normal approximation}
 
 \subsection*{Effectiveness of p-value procedure}
 
 \subsection*{Extending to a large genome}
+% random model
 
 \subsection*{Theoretical proof for score distributions}
