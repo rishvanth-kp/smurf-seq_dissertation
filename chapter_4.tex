@@ -1021,6 +1021,21 @@ Thus, we hypothesized that \[score_T(S,1) = \max_{0 \leq j \leq n-m+1}
 X_j.\]  could be approximated with an EVD irrespective of the score
 function used.
 
+\begin{figure}[t!]
+\centering
+\includegraphics{gen_score_evd.pdf}
+\caption[Extreme value approximation for $score_T(S,1)$ with a general
+  score function]{
+  Extreme value approximation for $score_T(S,1)$ with a general score
+  function. A match is scored as 1, mismatch and indels as $-1$.
+  Empirical score distribution of $score_T(S,1)$ with a fitted
+  EVD using the method of moments estimator.
+  Q-Q plot comparing the theoretical and empirical distributions are shown.
+  (a) $m=40$.
+  (b) $m=100$.}
+\label{gen_score_evd}
+\end{figure}
+
 % in local alignment
 In the context of local alignment, the theoretical background for the
 score distributions for a random model were derived when indels were not
@@ -1036,7 +1051,7 @@ match as 1, and mismatch and indels scored as $-1$. We generated a random
 genome of length 50kb from the DNA alphabet with equal probabilities,
 and reads of length 40 bp and 100 bp. For each read length, we
 determined the score distribution by aligning 5,000 reads generated at
-random (Fig.~\ref{evd_score}a, b). The parameters for the EVD was
+random (Fig.~\ref{gen_score_evd}a, b). The parameters for the EVD was
 estimated using the method of moments.
 
 % normal
@@ -1044,7 +1059,22 @@ Then, we also verified empirically that the score distribution for $k >
 1$, which is still the sum of $k$ independent extreme value
 distributions, is well approximated with a normal distribution. The
 fragments are 40 bp with 20 and 40 fragments per read
-(Fig.~\ref{norm_score}a, b).
+(Fig.~\ref{gen_score_norm}a, b).
+
+\begin{figure}[t!]
+\centering
+\includegraphics{gen_score_norm.pdf}
+\caption[Normal approximation for $score_T(S,k)$ with a general score
+  function]{
+  Normal approximation for $score_T(S,k)$ with a general score function.
+  A match is scored as 1, mismatch and indels as $-1$.
+  Empirical score distribution of $score_T(S,k)$ with a fitted
+  normal using the method of moments estimator. All fragments are 40 bp.
+  Q-Q plot comparing the theoretical and empirical distributions are shown.
+  (a) $m=800, k=20$.
+  (b) $m=1600, k=40$.}
+\label{gen_score_norm}
+\end{figure}
 
 
 % other score functions
