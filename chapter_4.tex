@@ -1120,8 +1120,8 @@ reads with a same $k$ but one with shorter fragments and the other with
 longer could have to different error bounds for the normal approximation.
 
 % dependence on score function
-In aligning a real SMURF-seq read, the dependence of these approximation 
-on the choice of score function used needs to evaluated. 
+In aligning a real SMURF-seq read, the dependence of these approximation
+on the choice of score function used needs to evaluated.
 
 
 \subsection*{Effectiveness of p-value procedure}
@@ -1142,34 +1142,109 @@ read. This makes predicting the optimal number of fragments on a read
 challenging.
 % dependence on sequencing error
 Similarly, an increase in sequencing errors on a read would also make
-the prediction challenging. 
+the prediction challenging.
 %
 Thus, the mispredictions of the optimal fragmentation of a read needs to
 evaluated based on these factors.
 
-\subsection*{Extending to a large genome}
+\subsection*{Extending to large genomes}
 Here, we used a genome of length 50 kb generated with letters of the DNA
-alphabet. However, a refernece gneome for use with SMURF-seq can be
-expexted to be significaltly larger (e.g. the human genome). Using a
-larger genome  
+alphabet. However, a reference genome for use with SMURF-seq can be
+expected to be significantly larger (e.g. the human genome). Using a
+larger genome
 
 % random model
-A random model used to deteremine the null distribution would have a
+A random model used to determine the null distribution would have a
 significant effect on the p-value, and so the effectiveness of the
-procudure to determine the optimal number of fragments on a read. For
-example, in the context of local aligninments, using a  ... has .
+procedure to determine the optimal number of fragments on a read. For
+example, in the context of local alignments, using a  ... has .
 Similarly, the effect of the these random models for SMURF-seq reads
-need to assessed.  
+need to assessed.
 
 % Estimating null parameters
-
-
+After determining the appropriate random model and the score function
+use use, the parameters for the null distribution need to be estimated.
+For example, if the method described in section~\ref{} is used, the mean
+and variance of aligning fragment of different lengths need to be
+estimated.
+%
+However, this requires aligning reads generated at random to a large
+genome to determine the maximum alignment score for a read.
+%
+An alternate approach is to determine the dependence of the null
+distribution parameters on the length of the reads and length of the
+reference genome. Then the parameters for the required genome length and
+fragment length could be extrapolated from aligning reads to smaller
+genomes.
 
 \subsection*{Theoretical proof for score distributions}
+We have shown empirically that the alignment score distribution of one
+fragment and multiple fragments are closely approximated by the extreme
+value and normal distributions, respectively. However, we have not
+theoretically proved the convergence to these distributions.
 
+A better theoretic understanding of these approximations would enable,
+among others, determining the error bounds in making these
+approximations.
+%
+Similar to BLAST statistics \citep{}, it could also provide an efficient
+procedure for determining the p-value of aligning a SMURF-seq read.
 
 \subsection*{SMURF-seq read mapping tool}
+Finally, as SMURF-seq evolves and the fragments get shorter, accuracy in
+identifying fragment boundaries will begin to impact the ability of
+aligners to recover fragments, and algorithms designed specifically to
+map SMURF-seq reads will become essential.
+
+% Mapping tool, in genreal
+Mapping tools, in general, typically consists of a ``search'' step and
+and ``alignment'' step.
+%% search step
+The search step finds the candidate mapping locations of a read on
+the reference genome. The algorithm and the parameters used in this step
+determines the number of candidate locations that are passed on to the
+downstream steps. A ``lenient'' algorithm would pass too many candidates
+leading to an increase in the time spent in the subsequent steps. This
+could also lead to ambiguity in the downstream steps by obscuring a true
+alignment. On the other extreme, a too ``stringent'' algorithm would
+lead to a decrease in the sensitivity of the alignments found.
+%% refine step
+Further, the candidate regions found in the search step could be further
+refined, typically produces an intermediate alignment to make the final
+align step efficient. Some tools use this step to further refine the
+candidate locations passed to the align step, and some tools skip this
+step entirely.
+%% align step
+The align step performs a more detailed evaluation of similar
+regions on the read and the reference found in the previous steps,
+typically using a some form of modified Smith-Waterman algorithm.
+
+% Mapping tool for SMURF-seq reads
+% search step
+A mapping tool designed for SMURF-seq reads would vary substantially for
+both of these steps. The search step would require finding the
+candidate location of short fragments in the presence of high
+sequencing errors that is typical of nanopore sequencers.
+% align step
+The align step for SMURF-seq reads requires incorporating a
+procedure to find accurate fragment boundaries and to estimate the
+optimal number of fragments on a read.
 
 % Dealing with islands of error or non-reference sequences
-
+A SMURF-seq reads could have fragments that do not or
+originate from the reference genome (due to DNA molecules from
+contaminants or regions of high-sequencing errors on a read),
 % Too small reads for clt to hold
+or a SMURF-seq read could have too few fragments for the normal
+approximation to hold.
+%
+Developing a mapping tool for SMURF-seq reads would require taking in
+to consideration these and several other factors, such as fragments
+aligning to several locations due to repeats on the genome, that we have
+not considered here.
+
+With shorter fragments on a SMURF-seq read and with a dedicated mapping
+tool for these reads, we expect the number of fragments in a read to
+increase. Thus, improving the efficiency of short-read sequencing on
+long-read machines, and potentially expanding the utility of nanopore
+machines beyond read-counting applications.
