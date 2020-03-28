@@ -234,11 +234,21 @@ Thus, enabling the calculation of the probability that an alignment of
 random sequences having a score greated than any given value (usually
 the score of aligning two sequeneces of interest).
 
-%% BLAST
-
-
-
 %% alignment allowing gaps
+These analytical formulars enable the caluclation of parmets for
+unagpped alignment. However, these formulars do not hold for gapped
+alignments. Empirical studies showed that simiar theory holds for gapped
+alignments as well \citep{pearson1998empirical,smith1985statistical,
+altschul199627}. 
+%
+For gapped alignments, the parmetes for the distribution are estimated
+empirically from the comaprison of random sequences
+\citep{waterman1994sequence,waterman1994rapid,altschul199627}. 
+%% BLAST and FASTA
+These approaches are employed in database search tools such as BLAST
+\citep{altschul1990basic,altschul1997gapped} and FASTA
+\citep{pearson1988improved,pearson1995comparison} to detmine the
+significance of mataches of a query to a database of sequences.
 
 
 %% Profile alignment
