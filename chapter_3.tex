@@ -14,16 +14,16 @@
 %% Long read approach
 Copy number profiling, and read-counting in general, can be done on
 nanopore sequencers with long reads ($\sim$8kb) following the standard
-sequencing procedure.
+sequencing procedure (Fig.~\ref{naive_counting}).
 % Advantages of long read sequencing
 Since nanopore machines are optimized for long read sequencing, this
 method has the advantage of using any standard library preparation
 protocol that are commercially available.  Sequencing these long
 molecules using a nanopore keeps a pore occupied for a longer duration
 once a pore is loaded followed by an open pore waiting for a molecule to
-be reload in a pore.  Further, technical nucleotides, such as sequencing
-adapters and barcodes, are sequenced one (or twice) every $\sim$8k
-bases, thus the fraction of time a nanopore spends sequencing technical
+be reload.  Further, technical nucleotides, such as sequencing adapters
+and barcodes, are sequenced one (or twice) every $\sim$8k bases, and
+thus, the fraction of time a nanopore spends sequencing technical
 nucleotides is low.
 % Disadvantages of long read sequencing
 However, read-counting applications do not benefit from longer reads
@@ -34,7 +34,8 @@ DNA molecules, rather than longer contiguous fragments.
 
 %% Short read sequencing
 An alternate approach to read-counting is to sequence short reads
-($\sim$150 bp) directly on a nanopore sequencer.
+($\sim$150 bp) directly on a nanopore sequencer
+(Fig.~\ref{naive_counting}).
 %% Advantages of short read sequencing
 In general, for a given sample of DNA, a nanopore instrument will
 generate more reads if the corresponding molecules are shorter.  Once a
@@ -51,11 +52,11 @@ library preparation protocol as these are optimized for longer
 molecules.  Sequencing these shorter molecules keeps a pore occupied for
 a shorter duration once a pore is loaded followed by waiting for a pore
 to be reloaded (but the reload time is usually shorter due to the higher
-molar concentration) Moreover, technical nucleotides are sequenced every
-$\sim$150bp, increasing the fraction of time a nanopore sequences the
-technical bases.
+molar concentration). Moreover, technical nucleotides are sequenced
+every $\sim$150bp, increasing the fraction of time a nanopore sequences
+the technical bases.
 
-\begin{figure}[t!]
+\begin{figure}[b!]
 \centering
 \includegraphics{naive_counting.pdf}
 \caption[Naive approaches to read-counting on nanopore machines]{
@@ -64,14 +65,14 @@ technical bases.
   not for read-counting applications.
   Sequencing short-read is optimized for read-counting applications but
   not for nanopore sequencing.}
-\label{smurf}
+\label{naive_counting}
 \end{figure}
 
 %% SMURF-seq approach
 SMURF-seq approach combines the advantages of both of these methods
-while alleviating the drawbacks by using a nanopore instrument as
+and alleviates the drawbacks by using a nanopore instrument as
 intended for long-read sequencing, while generating the desired short
-fragments. Using the SMURF-seq approach we generate higher read counts
+fragments. Using the SMURF-seq approach, we generate higher read counts
 per run than sequencing long or short molecules directly.
 
 
@@ -79,17 +80,6 @@ per run than sequencing long or short molecules directly.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{SMURF-seq approach to read counting}
-%% SMURF-seq concept
-The SMURF-seq protocol involves cleaving genomic DNA into short
-fragments, with length just sufficient for an acceptable rate of
-uniquely mapping fragments in the reference genome.  These fragmented
-molecules are then randomly ligated back together to form artificial
-long DNA molecules, as required for long-read sequencing. The long
-re-ligated molecules are sequenced following the standard MinION library
-preparation protocol. After (or possibly concurrent with) sequencing,
-the SMURF-seq reads are mapped to the reference genome in a way that
-simultaneously splits them into their constituent fragments, each
-aligning to a distinct location in the genome (Fig.~\ref{smurf}).
 
 \begin{figure}[b!]
 \centering
@@ -106,8 +96,19 @@ aligning to a distinct location in the genome (Fig.~\ref{smurf}).
 \label{smurf}
 \end{figure}
 
+%% SMURF-seq concept
+The SMURF-seq protocol involves cleaving genomic DNA into short
+fragments, with length just sufficient for an acceptable rate of
+uniquely mapping fragments in the reference genome.  These fragmented
+molecules are then randomly ligated back together to form artificial
+long DNA molecules, as required for long-read sequencing. The long
+re-ligated molecules are sequenced following the standard MinION library
+preparation protocol. After (or possibly concurrent with) sequencing,
+the SMURF-seq reads are mapped to the reference genome in a way that
+simultaneously splits them into their constituent fragments, each
+aligning to a distinct location in the genome (Fig.~\ref{smurf}).
 
-\begin{figure}[t!]
+\begin{figure}[b!]
 \centering
 \includegraphics{ch3_fig2.pdf}
 \caption[Schematic of SMURF-seq protocol]{
@@ -140,13 +141,13 @@ are given below:
   blunt-ends) and are thus compatible for ligation without an end-repair
   step in between.
 
-\item Clean-up: the reaction containing the restriction
-  enzymes and the fragmented DNA molecules is cleaned to wash out the
-  enzymes and retain the DNA molecules. The choice of clean-up kit used, also
-  determines the length of the DNA molecules that are retained. We used a
-  spin-column based clean-up that typically retains molecules that are over
-  $\sim$70 bp. However, other clean-up kits, such as bead-based kits,
-  could also be used at this step.
+\item Clean-up: the reaction containing the restriction enzymes and the
+  fragmented DNA molecules is cleaned to wash out the enzymes and retain
+  the fragmented DNA molecules. The choice of clean-up kit used determines
+  the length of the DNA molecules that are retained. We used a spin-column
+  based clean-up that typically retains molecules that are over $\sim$70
+  bp. However, other clean-up kits, such as bead-based kits, could also be
+  used at this step.
 
 \item Re-ligation: fragmented DNA molecules with uniform ends are
   ligated at random with T4 DNA ligase enzymes.
@@ -177,25 +178,9 @@ are given below:
 
 \item Bead-based clean-up: the reaction containing the ligase enzymes and
   ligated DNA molecules is cleaned to retain only the ligated molecules. We
-  used a bead-based clean-up at this step to avoid damage to long DNA
+  used a bead-based clean-up to avoid damage to long DNA
   molecules that are typical of spin-column based methods.
 \end{enumerate}
-
-%% Library construnction using standard protocols
-DNA molecules that are resultant of the SMURF-seq protocol are long DNA
-molecules that are several kilo-bases long, and therefore, any standard
-library preparation kits that are available for nanopore machines can be
-used with SMURF-seq molecules. These molecules can also be barcoded
-with one (or two) barcode sequences per molecule. Thus, the SMURF-seq
-approach overcomes the disadvantages of sequencing long or short DNA
-molecules directly on a nanopore machine for read-counting applications,
-and improves its efficiency for read-counting applications.
-
-We also tested dsDNA Fragmentase enzymes (New England Biolabs) and
-acoustic shearing (Covaris) to fragment DNA. However, these methods
-require an additional end-repair step after fragmentation and the
-ligated molecules failed to reach the lengths we obtained by using
-restriction fragmentation.
 
 \begin{figure}[t!]
 \centering
@@ -213,6 +198,23 @@ restriction fragmentation.
 \label{re_frag}
 \end{figure}
 
+%% Library construnction using standard protocols
+DNA molecules that are resultant of the SMURF-seq protocol are long DNA
+molecules that are typically several kilo-bases, and therefore, any
+standard library preparation kits that are available for nanopore
+machines can be used with SMURF-seq molecules. These molecules can also
+be barcoded with one (or two) barcode sequences per molecule. Thus, the
+SMURF-seq approach overcomes the disadvantages of sequencing long or
+short DNA molecules directly on a nanopore machine for read-counting
+applications, and improves its efficiency of read-counting
+applications.
+
+We also tested dsDNA Fragmentase enzymes (New England Biolabs) and
+acoustic shearing (Covaris) to fragment DNA. However, these methods
+require an additional end-repair step after fragmentation and the
+ligated molecules failed to reach the lengths we obtained by using
+restriction fragmentation.
+
 %% The sepecifics of our experiment
 %% restriction digestion
 In our applications, we used SaqAI restriction enzyme, which recognizes
@@ -222,12 +224,14 @@ the sequence TTAA and produces molecules with mean lengths of 150.2 bp
 The fragmented DNA molecules are then ligated randomly to form longer
 molecules using T4 DNA ligase enzyme (Fig.~\ref{re_frag}b).
 %
-In our experiments, the resulting long DNA molecules were sequenced
+In our experiments, the resulting long DNA molecules were prepared for
+sequencing
 using the Oxford Nanopore Technologies 1D DNA by ligation kit
 (SQK-LSK108) or the rapid sequencing kit (SQK-RAD003) following the
 standard manufacturers protocol. We also multiplexed samples using the
 1D native barcoding genomic DNA kit (EXP-NBD103) followed by library
-preparation using the 1D DNA by ligation kit.
+preparation using the 1D DNA by ligation kit. The sequencing was
+performed on a MinION instrument.
 %
 The detailed SMURF-seq protocol is given in Appendix~\ref{appendA}.
 
@@ -242,19 +246,18 @@ parts of the individual fragments, and then extending those to locate
 fragment boundaries.
 %
 As currently implemented, SMURF-seq fragments are longer than
-$\sim$150bp, and mapping these reads is is handled nicely using the
+$\sim$150bp, and mapping these reads is handled nicely using the
 seed-and-extend paradigm implemented in many existing long-read mapping
-tools. 
+tools.
 %
 Although none of these tools were designed to align SMURF-seq reads,
-several long-read aligners such as BWA-MEM \cite{li2013aligning},
-Minimap2 \cite{li2018minimap2}, and LAST \cite{kielbasa2011adaptive}
+several long-read aligners such as BWA-MEM \citep{li2013aligning},
+Minimap2 \citep{li2018minimap2}, and LAST \citep{kielbasa2011adaptive}
 include steps designed for split-read alignment, which can be leveraged
 for aligning SMURF-seq reads.
 
-%% TODO: Need to expand on the four steps below
-Aligning SMURF-seq reads with long-read mapping tools involve variations
-of the following steps:
+Aligning SMURF-seq reads with long-read mapping tools typically involve
+variations of the following steps:
 %% Steps involved in mapping SMURF-seq reads
 \begin{itemize}
 \item Identifying seeds: Mapping tools have a step of identifying seeds,
@@ -264,9 +267,10 @@ of the following steps:
   currently (relatively) small, so speed is not our primary concern. We
   favor the most sensitive seed strategy, but depending on implementation
   too many seed hits could lead to ambiguity later in the mapping process.
-\item Chaining seeds: The identified seeds are further extended into
-  proto alignments, and filtered to avoid aligning potentially false
-  positive seed hits.
+\item Chaining seeds: The identified seeds that are close to one another
+  on the read and the reference reference, and have the same orientations
+  could be merged. These are further extended into proto alignments, and
+  filtered to avoid aligning potentially false positive seed hits.
 \item Aligning within the chains: In this stage a Smith-Waterman
   alignment is performed, typically allowing users to specify a mismatch
   penalty along with penalties for both gap-open and gap-extend.
@@ -293,8 +297,8 @@ On one extreme, a match score of 1 with a mismatch and indel penalty of
 mapping perfectly, but will always map ambiguously. On the other
 extreme, a match score of 1 with a mismatch and indel penalty of
 $-\infty$ will result in any mismatch or indel on the read to be
-considered as a fragment boundary. Therefore to align SMURF-seq reads,
-we need to determine optimal alignment scores to use.
+considered as a fragment boundary. Therefore, it is crucial to determine
+the optimal alignment score for mapping a SMURF-seq read.
 
 We evaluated mapping tools on simulated SMURF-seq data generated by
 concatenating random fragments from real Oxford Nanopore reads. This
@@ -312,7 +316,7 @@ setup, we determined the optimal Smith-Waterman alignment score for use
 with SMURF-seq reads (detailed procedure is given in
 Appendix~\ref{appendB}).
 
-Based on these results BWA-MEM outperformed other tools, and thus we
+Based on these results BWA-MEM outperformed other tools, and thus, we
 used BWA-MEM to align SMURF-seq reads.
 %
 Briefly, BWA-MEM uses short seed hits originating from different parts of
@@ -414,7 +418,7 @@ and bin counts were used to generate CNV profiles as described in
 \citep{baslan2012genome,kendall2014computational}.
 
 \subsection{Accurate CNV profiles using SMURF-seq}
-\begin{figure}[b!]
+\begin{figure}[t!]
 \centering
 \includegraphics{read_frag_dist.pdf}
 \caption[Read and fragment lengths from a SMURF-seq sequencing run.]{
@@ -444,9 +448,10 @@ extremely fast (10 minute) and simple (2 step) protocol for library
 preparation. We verified that the SMURF-seq procedure behaves similarly
 using the Rapid Sequencing Kit. The 213.38k sequenced reads had a mean
 read length of 3.9 kb, and were split into 2.81 million fragments.
+The copy number profile of the diploid genome was flat, as expected.
 
 %% skbr3 genome
-Next we applied SMURF-seq to the breast cancer line SK-BR-3, generating
+Next, we applied SMURF-seq to the breast cancer line SK-BR-3, generating
 147.0k reads with mean length of 7.62 kb, which were split into 4.52
 million fragments (30.78 mean fragments per read). We then obtained a
 CNV profile using 5,000 bins, corresponding to an average bin size of
@@ -503,7 +508,7 @@ fragments per read).
 \end{figure}
 
 %% Hige resolution profiles
-We also generated higher-resolution CNV profiles at 20,000 and 50,000
+We also generated higher-resolution CNV profiles with 20,000 and 50,000
 bins, corresponding to an average of approximately 150 kb and 60 kb in
 length respectively (Fig.~\ref{skbr3_hi_res}a, b). The profiles obtained
 at these resolutions have a high correlation with the profiles obtained
@@ -545,14 +550,14 @@ Given the total capacity of the MinION instrument, this indicates that
 multiple samples can effectively be barcoded and multiplexed in a single
 sequencing run.
 %%
-To verify this we sequenced two DNA samples (normal diploid female and
+To verify this, we sequenced two DNA samples (normal diploid female and
 SK-BR-3) in a single run.  These samples were processed with SMURF-seq
 protocol and then barcoded following the standard library construction.
 After demultiplexing and mapping the reads, the diploid genome had a CNV
 profile as expected (Fig.~\ref{cnv_mux}c) and the SK-BR-3 CNV profile
 was nearly identical to the profile obtained using Illumina WGS (Pearson
 $r$ = 0.99; Fig.~\ref{cnv_mux}d, e). All the sequencing runs and the
-availability of sequence data is summarized in Appendix~\ref{appendC}.
+availability of sequence data are summarized in Appendix~\ref{appendC}.
 
 \begin{figure}[t!]
 \centering
@@ -576,7 +581,7 @@ correlation to the profile with reads from the complete run (Pearson $r>$
 
 In summary, our results demonstrate that SMURF-seq can generate more
 information for CNV analysis in a single run of the Oxford MinION
-sequencer, compared with either producing long reads in the usual way or
+sequencer, compared with either sequencing long reads in the usual way or
 direct short-read sequencing on the same instrument.  This increased
 information is in the form of increased numbers of distinct DNA
 fragments sequenced, and can be leveraged in multiple ways. Applying
@@ -601,38 +606,39 @@ sequencing.
 \label{future_smurf}
 
 \subsection*{SMURF-seq with shorter fragments}
-For CNV profiling with SMURF-seq we used restriction enzyme SaqAI which
-fragments the human genome generation molecules with a mean length of
+For CNV profiling with SMURF-seq, we used restriction enzyme SaqAI which
+fragments the human genome generating molecules with a mean length of
 150 bp. For CNV profiling and other read-counting applications the
 length of the fragmented molecules need to be just long enough to ensure
 unique mappability to a sufficient fraction of the genome. Thus,
-reducing the fragment lengths could increase the number number of
-fragments in a SMURF-seq read and would increase the number of
+reducing the fragment lengths could increase the number of
+fragments in a SMURF-seq read, and would increase the number of
 read-counts obtained per sequencing run.
 
 % RE digestion with multiple enzymes
 The length of the fragmented DNA molecules can be reduced by digestion
-with a combination of restriction enzymes as these would recognize more
+with a combination of restriction enzymes, as these would recognize more
 sites on the genome. Depending on the choice of enzymes used, the
 fragmented molecules could have blunts ends, sticky ends that are not
-compatible for fragmentation, or a combination of blunt and sticky
-ends.
+compatible with one another for ligation, or a combination of blunt and
+sticky ends.
 %
 These fragmented DNA could be end-repaired to have blunt ends on all
 molecules prior to ligation. However, this step adds an end-repair and a
 clean-up step (after end-repair) to the SMURF-seq protocol.
 %
-Another option is to directly ligate the fragmented molecules even though
-they do not have compatible ends. As an example, the fragmented
-molecules can be three types based on their ends after digestion with
-two restriction enzymes that generate different ends. The fragmented
-molecule have either both ends from the first enzyme, both ends from the
-second enzyme, or one end from each of the enzymes. Ligating these
-molecules directly (i.e. without end-repair) would concatenated molecules
-that have the same ends on either side with the molecules that have
-different ends on each side acting as bridges. Although, this protocol
-would have fewer steps, the efficiency of ligation could be reduced and
-would need to be evaluated.
+Another option is to directly ligate the fragmented molecules even
+though they do not have compatible ends. As an example, after digestion
+with two restriction enzymes that generate different ends, the
+fragmented molecules can be of three types: The fragmented molecule
+could have both ends from the first enzyme, both ends from the second
+enzyme, or one end from each of the enzymes. Ligating these molecules
+directly (i.e. without end-repair) would concatenate the two types of
+molecules that have the same ends within each type; the type of molecules
+that have two different ends would act as bridges between the molecules
+that have the same ends. Although, this protocol would have fewer steps,
+the efficiency of ligation could be reduced and would need to be
+evaluated.
 
 % implication on read-counting
 The use of restriction enzymes or a combination of enzymes for
@@ -647,24 +653,21 @@ to assessed based on the enzymes used and the downstream application.
 
 \subsection*{Sequencing fragmented molecules with SMURF-seq}
 % pre-fragmented DNA molecules
-Some read-counting applications such as Ribo-seq \citep{} involve
-extensive steps to produce the molecules of interest. These resultant of
-the protocols are molecules that are already fragmented to length
-optimal for SMURF-seq. Other applications such are targeted-capture
-methods and whole exome sequencing protocols typically produce molecules
-that are $\sim$150-200 bp \citep{}. Further, cell-free DNA molecules
-obtained from blood samples, and are increasingly used in copy number
-profiling, are of length $\sim$150 bp \citep{}.
-%
-Sequencing these molecules using SMURF-seq would require that these
-molecules have compatible ends for ligation, and the quantity of DNA is
-sufficient for nanopore sequencing.
-
+Some read-counting applications, such as Ribo-seq
+\citep{ingolia2009genome}, involve extensive steps to produce the
+molecules of interest. These resultant of the protocols could be
+molecules that are already fragmented to length optimal for SMURF-seq.
+Other applications such are targeted-capture methods and whole exome
+sequencing protocols typically produce molecules that are $\sim$150-200
+bp. Further, cell-free DNA molecules obtained from blood samples are of
+length $\sim$150 bp, and are increasingly used in low-coverage copy
+number profiling \citep{underhill2016fragment,adalsteinsson2017scalable}.
 
 \begin{figure}[t!]
 \centering
 \includegraphics{fraged_smurf.pdf}
-\caption{Extending SMURF-seq protocol to sequence DNA molecules that are
+\caption[SMURF-seq protocol to sequence pre-fragmented DNA molecules]{
+  SMURF-seq protocol to sequence DNA molecules that are
   already fragmented. The light green bands
   on the adapters represent restriction sites. These molecules are
   amplified with an adapter containing a restriction site, followed by
@@ -673,10 +676,14 @@ sufficient for nanopore sequencing.
 \label{fraged_smurf}
 \end{figure}
 
+%
+Sequencing these molecules using SMURF-seq would require that these
+molecules have compatible ends for ligation, and the quantity of DNA is
+sufficient for nanopore sequencing.
 % protocol
 To meet these requirements, the DNA molecules from these protocols
 could be PCR amplified by first dA-tailing and
-ligating an adapter to bind the PCR primers. If these adapters are
+ligating adapters to bind the PCR primers. If these adapters are
 designed to have an
 appropriate restriction site in them, after amplification they could be
 removed with restriction digestion, leaving behind DNA molecules with
@@ -684,14 +691,14 @@ sticky-ends as required for SMURF-seq (Fig~\ref{fraged_smurf}).
 
 %% additional sequence
 Designing the PCR adapters with restriction sites  also provides an
-opportunity to insert an additional sequence on an adapter prior to
+opportunity to insert an additional sequence in an adapter prior to
 restriction site. This sequence could be modified depending on the
 downstream application. For example, it could be a barcode sequence or a
 unique molecular identifier sequence.
 
 However, SMURF-seq is still limited by the number of fragments produced
-from a run on the sequencing instrument. We believe that with the
-evolution of SMURF-seq and improvements to the underlying sequencing
-technology would expand the utility of SMURF-seq enabling applications
+from a run on the sequencing instrument.  We believe that the evolution
+of SMURF-seq and the improvements to the underlying sequencing
+technology would expand the utility of SMURF-seq, enabling applications
 on nanopore instruments that are currently only possible with short-read
 high-throughput machines.
