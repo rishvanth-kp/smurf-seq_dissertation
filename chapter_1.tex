@@ -59,7 +59,7 @@ each aligning to a distinct location in the genome.
 %
 We demonstrate the utility of SMURF-seq with the low-cost MinION
 sequencer to obtain data similar to that expected from typical
-short-read sequencing and generated high-quality copy number profiles
+short-read sequencing, and generated high-quality copy number profiles
 from this output.
 
 More broadly, SMURF-seq is an approach for efficient short-read
@@ -70,9 +70,9 @@ SMURF-seq reads. This study is organized as follows:
 
 %%% Summary of chapters
 % Chapter 2: Background
-In the second chapter, we review the relevant background that.
-First, we discuss the concept of nanopore sequencing and summarize its
-history, the MinION sequencing instrument and , library construction
+In the second chapter, we review the relevant background.  First, we
+discuss the concept of nanopore sequencing and summarize its history,
+the MinION sequencing instrument and its utility, library construction
 methods, and properties of reads sequenced on these machines.
 %
 Then, we discuss the copy number profiling and its implications in
@@ -87,10 +87,10 @@ Concat-seq.
 
 % Chapter 3: SMURF-seq
 In the third chapter, we describe the details of the SMURF-seq approach
-and demonstrate the accuracy of this approach for CNV profiling.
-We start with a discussion of sequencing long-reads or short-reads
-directly for read-counting on nanopore machines, and the merits and
-limitations of these methods.
+and demonstrate the accuracy of this approach for CNV profiling.  We
+start with a discussion of sequencing long-reads or short-reads directly
+for read-counting on nanopore machines, and the merits and limitations
+of these methods.
 %
 Then, we introduce the SMURF-seq protocol for efficient short-read
 sequencing on long-read machines; SMURF-seq combines the merits of
@@ -109,32 +109,31 @@ Finally, we provide future directions for further improving the
 efficiency and for expanding the utility of SMURF-seq.
 
 % Chapter 4: Mapping SMURF-seq reads
-In the fourth chapter is dedicated to algorithmic and statistical
-aspects of mapping SMURF-seq reads. We
-discuss the challenges associated with mapping SMURF-seq reads as the
-fragments get shorter.
+The fourth chapter is dedicated to algorithmic and statistical aspects
+of mapping SMURF-seq reads. We discuss the challenges associated with
+mapping SMURF-seq reads as the fragments get shorter.
 %
 We introduce the fragment identification problem as a way of identifying
 fragment boundaries and estimating the optimal number of fragments on a
 SMURF-seq read.
 %
-Next, we define a score function for aligning SMURF-seq reads and describe
-algorithms to find fragment boundaries on a read such that the score is
-maximized.
+Next, we define a score function for aligning SMURF-seq reads and
+describe algorithms to find fragment boundaries on a read such that the
+score is maximized.
 %
 Then, we determine the null distribution of aligning a SMURF-seq read
 generated at random in order to calculate a p-value for a particular
-fragmentation of a read. We use these p-values to determine the
-optimal number of fragments on a read.
+fragmentation of a read. We use these p-values to determine the optimal
+number of fragments on a read.
 %
 Finally, we suggest future directions of aligning SMURF-seq reads with
 short fragments to large reference genomes.
 
 % Chapter 5: Conclusion
 We conclude this study by highlighting the merits of using the SMURF-seq
-approach for short-read sequencing on long-read sequencers. We envision a
-broadening of the applications of SMURF-seq as the underlying sequencing
-technology evolves and as SMURF-seq itself improves by continual
-decrease in fragment lengths, increase in sequenced read length, and
-data analysis methods optimized for SMURF-seq resulting in an increase
-in information yield per nucleotide sequenced.
+approach for short-read sequencing on long-read sequencers. We envision
+a broadening of the applications of SMURF-seq as the underlying
+sequencing technology evolves and as SMURF-seq itself improves by
+continual decrease in fragment lengths, increase in sequenced read
+length, and data analysis methods optimized for SMURF-seq resulting in
+an increase in information yield per nucleotide sequenced.
