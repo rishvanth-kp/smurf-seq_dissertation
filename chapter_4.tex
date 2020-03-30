@@ -88,24 +88,30 @@ nanopore machines.
 
 
 % Importance of having accurate fragment boundaries
-The significance of having accurate fragment boundaries is understood by
-looking at the fraction of the genome that is uniquely mappable. For the
-human reference genome (hg19), when allowing no mismatches or indels,
-the fraction of the genome that is uniquely mappable reduces by 0.06\%
-when going from 150 to 145 bp, whereas it reduces by 2.02\% when going
-from 40bp to 35bp (Fig.~\ref{dzones}).
-% how it affects SMURF-seq read
-Thus, as the fragments get shorter, the probability of a fragment that
-originated from a unique location on the genome to misalign to an
-ambiguous location or vice-versa increases.
-% reads with errors
-% TODO: Improve sentence below
-Further, as sequencing errors are considered the difference in unique
-mappability due to having inaccurate fragment boundaries is likely to
-increase.
+The other aspect of aligning a SMURF-seq read to split the read into its
+constituent fragments. As the fragments become shorter it becomes crucial
+challenging to determine the number of fragments and fragment
+boundaries on a read.
 %
-Thus, as the fragments become shorter, having accurate fragment
-boundaries would improve the sensitivity of aligning SMURF-seq reads.
+As the fragments become shorter, the number of the fraction of the
+reference genome that is uniquely mappable would decrease. For the human
+reference genome (hg19), when allowing mismatches and indels are not
+allowed, the fraction of the genome that is uniquely mappable reduces by
+0.06\% when going from 150 to 145 bp, whereas it reduces by 2.02\% when
+going from 40bp to 35bp (Fig.~\ref{dzones}).  The unique fraction of the
+genome decreases further when mismatches are allowed
+\citep{derrien2012fast}.
+% fragment boundaries
+Due to shorter fragment, the probability of a fragment that originated
+from a unique location on the genome to misalign to an ambiguous
+location (or vice-versa) due to having incorrect fragment boundaries
+increases.
+% number of fragmets
+%Further, if fragments extend beyond their fragment boundaries, it could
+%
+Thus, as the fragments become shorter, the odds of inaccurate fragment
+boundaries leading to misalignment of fragments or missing fragments
+entirely increases.
 
 \begin{figure}[t!]
 \centering
@@ -121,19 +127,20 @@ boundaries would improve the sensitivity of aligning SMURF-seq reads.
 %% How will our method remove the current barrier
 Although both seeding and determining the accurate fragmentation is
 crucial to align a SMURF-seq read, in this study we focus only on the
-second. To this end, we define the fragment identification problem for
+second.
+%
+To this end, we define the fragment identification problem for
 identifying the number of fragments and the fragment boundaries on a
 SMURF-seq read.  We approach the fragment identification problem by
-defining a score function for aligning a SMURF-seq read, study the null
+defining a score function for aligning a SMURF-seq read, provide
+algorithms to align a read maximizing this score function,
+study the null
 score distribution of aligning reads and reference generated at random,
 and estimate the number of fragments in a SMURF-seq read by comparing
-its alignment score with the null distribution for all possible
-fragmentations of a read.  Then we show the accuracy of our method using
-from simulated genomes and SMURF-seq reads. Further, we empirically show
-that this method could also be used with a general score function.
-
-%%%%% How will this improve scientific capacity and knowledge
-
+its alignment score with the null distribution.
+%
+Finally, we discuss the challenges and future directions to utilize this
+method for aligning real SMURF-seq reads to large reference genomes.
 
 
 
@@ -251,32 +258,28 @@ These approaches are employed in database search tools such as BLAST
 \citep{pearson1988improved,pearson1995comparison} to determine the
 significance of matches of a query to a database of sequences.
 
-
 %% Profile alignment
-
+Multiple sequence alignments of families of similar proteins can be
+summarized in position specific scoring table called a profile
+\citep{gribskov1987profile}.  It has been shown that the maximum
+alignment score of aligning a profile to a genome generated at random is
+well approximated by an extreme value distribution
+\citep{goldstein1994approximations}.
 
 %% Global alignment score distribution
-
-
-
-%% local alignment
-% The local alignment score distribution has been studied extensively,
-% especially in the context of BLAST score statistics
-% \citep{altschul1990basic,altschul199627}.  The distribution of the local
-% alignment score is well approximated by the extreme value distribution
-% (EVD) \citep{karlin1990methods,
-% karlin1990statistical,dembo1994limit,dembo1991strong}.
-
-% It has also been shown that the distribution of the maximum score
-% obtained when a profile sequence is aligned to all possible positions of
-% a random sequence has a limiting extreme value distribution
-% \citep{goldstein1994approximations}.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Fragment Identification problem}
+A SMURF-seq molecule consists of short fragments of DNA from distinct
+regions of the genome concatenated into a longer molecule. After
+sequencing, aligning these reads requires splitting them into their
+constituent fragments, each aligning to a distinct region on the genome.
+Here, we define the fragment identification problem for identifying the
+number of fragments and the fragment boundaries on a SMURF-seq read.
+
 %% string properties
 Let $\Sigma$ be an alphabet. A string $X$ is a sequence of letters $a_0
 a_1 \dots a_{n-1}$, where $a_i \in \Sigma$; $|X|$ denotes the length of
@@ -315,7 +318,7 @@ to the start locations of fragments contained in $S$.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Approach to the fragment identification problem}
+\subsection{Approach to the fragment identification problem}
 We approach the fragment identification problem by defining a score
 function as follows:
 %% score function
@@ -366,19 +369,24 @@ score of sequences with the random null distribution.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Identifying fragment boundaries on a SMURF-seq read}
 \label{frag_bound_id}
+A SMURF-seq read of length $m$ can be fragmented into $k=1$ to $k=m-1$
+fragments. For each of these fragmentations, the $k-1$ fragment
+boundaries on the read can be at any of the O(m/k) positions. Aligning
+a SMURF-seq read requires identifying both the number of fragments $k$
+and the fragment boundaries such that the alignment score is maximized.
 
-%% TODO: Need to change this
-% why do we need this?
-Having a score function for SMURF-seq reads enables a statistical
-approach to estimate the number of fragments on a read. The proposed
-method depends on an algorithm that can identify the optimal fragment
-boundaries, given the number of fragments, such that the sum of the
-alignment score of each fragment is maximized.
+%
+In this section we present algorithms for identifying the optimal
+fragment boundaries for any given value of $k$. First, an algorithm that
+does not allow for mismatches or indels is described, and then an
+algorithm for a generalized score functions. Limitations of these
+algorithms and how the optimal fragment boundaries can be identified on
+a SMURF-seq read in practice are then presented.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fragment boundary identification under exact matching}
-We first examine the fragment identification problem assuming the score
-function requires exact matching
+We first examine the fragment boundary identification problem assuming
+the score function requires exact matching
 \[score(a,b)=
 \begin{cases}
   1 & \text{if } a = b \\
@@ -438,6 +446,12 @@ find just as little fragments as the optimal solution.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Fragment boundary identification allowing mismatches and indels}
+Now we examine fragment boundary identification for a generalized score
+function allowing mismatches and indels. A dynamic programming approach
+is presented. This algorithm is based on and is inspired by the local
+alignment algorithm \citep{smith1981identification} and the local
+alignment with inversions problem \citep{schoniger1992local}.
+
 Let $M$ denote a table with $m+1$ rows, $n+1$ columns and $k+1$
 dimensions, where $k$ is the maximum number of fragments ($1 \leq k \leq
 m$).  $\max_{0 \leq j \leq n}M(i,j,l)$ represents the best fragmentation
@@ -997,7 +1011,7 @@ as the sum of the mean and variance of the distribution of aligning 40
 bp, 100 bp, 70 bp fragments individually to a random genome.
 
 Thus, for a reference genome and a given score function, the parameters
-for the $k=1$ distribution need to determined just once. The paremetes
+for the $k=1$ distribution need to determined just once. The parameters
 for the null distribution for any fragmentation can be computed by
 looking the table and simply adding the values.
 %
