@@ -152,14 +152,206 @@ duplicates were removed, and CNV profiles were generated using exactly
 the same method as used for SMURF-seq reads.  The scatter plots and
 Pearson correlations comparing the CNV profiles were produced using R.
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%                                                              %%%%%
+%%%%% Appendix B: Mapping SMURF-seq reads                          %%%%%
+%%%%%                                                              %%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Mapping SMURF-seq reads with long-read aligners}
+\label{appendB}
+\section*{Simulating SMURF-seq reads to evaluate mapping programs}
+To test these mapping tools, we chose to create simulated reads with the
+technical characteristics we expect in idealized SMURF-seq data. We
+first selected a fragment length $\ell$ and a number $k$ of fragments
+per read. Then, for a given WGS nanopore data set, we took the set of
+mapped long reads as determined by BWA-MEM (with \texttt{-x ont2d}
+option).
+Each of the mapped reads was split into fragments of length $\ell$ (with
+a random offset of $0$ to $\ell-1$ at the start of the long read). Each
+fragment was validated by requiring that it did not overlap a deadzone
+in the genome (as determined by the deadzone program available from
+https://github.com/smithlabcode/utils for 40 bp). The reason for
+excluding deadzones is that even when a short fragment has a ``known''
+mapping location when it is part of a longer read, we cannot compare its
+reported mapping location as a short fragment with that known location,
+since we expect any good mapping algorithm to identify that the fragment
+maps ambiguously. Among these validated fragments, subsets of $k$ were
+sampled uniformly at random and concatenated (in random order and
+orientation) to form simulated SMURF-seq reads.
+
+The first and last fragments in a read should be slightly easier to
+identify and map than the rest, since one of their boundaries is
+known. Using the above procedure, we select $k=20$ so that the
+simulated reads have a sufficient number of fragments to eliminate the
+influence of the first and last fragments in each read on the
+results. There is no need to have large $k$ otherwise.
+
+By lowering $\ell$ and making the fragments shorter, the task of
+mapping the fragments becomes more challenging. Real SMURF-seq reads
+have fragment lengths determined by restriction site density, size
+selection and other aspects of the experiments. But in testing mapping
+algorithms and optimizing parameters, there is no disadvantage to
+making the task more challenging. We only need to be able to
+distinguish the relative performance of different mapping tools and
+parameter combinations. Real SMURF-seq reads have varying fragment
+lengths, but in evaluating mapping tools, there is no need to
+randomize fragment lengths. None of the algorithms we evaluated are
+capable of either deducing or leveraging the fact that all simulated
+fragments have the same length. We selected $\ell = 100$, which
+begins to challenge the various mapping strategies. These values of
+$\ell$ are slightly lower than the average in real SMURF-seq data.
+
+
+\section*{Evaluating performance using simulated SMURF-seq reads}
+Within the simulated reads, the boundaries of each fragment are known
+\textit{a priori}, as are their mapping locations. We used this
+information to evaluate mapping tools in terms of (1) how well they
+identify fragments purely for the purpose of counting molecules, which
+is the primary information used in CNV analysis, and (2) how well they
+identify individual mapping bases within reads. The latter criteria
+becomes important in challenging cases and will be increasingly
+important as fragment sizes are reduced.
+
+Performance on identifying fragments: After mapping these simulated
+reads, each mapping result is called a predicted fragment. Each
+predicted fragment is considered a positive prediction, and we assume
+an arbitrary order over positive predictions. A positive prediction is
+a true positive if:
+\begin{itemize}
+\item The predicted fragment maps uniquely.
+\item The mapping locations of at least half the bases in the
+  predicted fragment are equal to the original mapping locations for
+  those bases, and those bases are all part of the same original
+  fragment (we assume that it is unlikely for two fragments on a simulated
+  read to have the same mapping location but opposite orientation, and thus
+  do not check for the orientation of a fragment). In this case, we say the
+  predicted fragment is associated with that original fragment.
+\item The predicted fragment is the first among predicted fragments
+  associated the same original fragment.
+\end{itemize}
+False positives are predicted fragments that are not true positives. Any
+original fragment with no associated predicted fragment is a false
+negative. These criteria penalize splitting one original fragment or
+merging two original fragments. By defining true positives, false
+positives and false negatives we are able to calculate precision,
+recall, and F-score for a particular mapping strategy.
+%%%
+
+Performance on identifying individual mapping bases: After mapping
+simulated reads, each mapping result is decomposed into individual
+nucleotides and associated with a location in the genome. Those
+locations are retained. We keep multiplicities, so when two mapped
+fragments overlap in the genome we count certain nucleotides twice.
+These are the predicted positive bases in the reference.  The condition
+positive bases are those known \textit{a priori} from the simulation.
+The original fragment mapping locations may overlap in the reference
+genome, leading to multiplicities in the condition positive bases, but
+with low probability. The true positives are the intersection of the
+condition positive and the predicted positive bases. When there are
+multiplicities of mapped fragments and simulated fragments overlapping
+the same bases in the reference genome, this is determined by taking the
+smaller of the two values. After removing the true positives bases, the
+remaining predicted positive bases are false positives, and the
+remaining condition positive bases are false negatives. These criteria
+penalize mapping approaches that do not cover the entire simulated
+SMURF-seq reads, and also penalize approaches that predict fragments
+that overlap within the read. The true positives, false positives, and
+false negatives here allow us to assign precision and recall in terms of
+individual bases and corresponding F-scores. Although the reference
+bases for both predicted positive and condition positive could involve
+multisets, since our simulations used relatively low coverage this
+almost never happened.
+
+To generate simulated reads we used the standard long reads from four
+sequencing runs (Flowcell ID: FAB42704, FAB42810, FAB49914, and
+FAF01253) in the public dataset available at \\
+https://github.com/nanopore-wgs-consortium/NA12878/blob/master/Genome.md
+\citep{jain2018nanopore,jain2018nanopore_git}. We downloaded the raw data
+from EBI (Run accession: ERR2184696, ERR2184704, ERR2184712, and
+ERR2184722) and base-called these with Guppy (version: 2.3.5).
+
+
+\section*{Initial selection of mapping tools}
+We tested the following mapping tools: BWA-MEM\citep{li2013aligning},
+Minimap2\citep{li2018minimap2}, LAST\citep{kielbasa2011adaptive},
+GraphMap\citep{sovic2016fast}, BLASR\citep{chaisson2012mapping},
+rHAT\citep{liu2015rhat}, and LAMSA\citep{liu2017lamsa}. These were
+selected either because they are known to perform well on certain
+mapping tasks or have unique properties that plausibly could help in
+mapping SMURF-seq reads. We tested each of these using default
+parameters on simulated reads and downsampled real SMURF-seq
+reads (data not shown). Among these BWA-MEM, Minimap2, and LAST had
+higher accuracy on simulated data, and the other tools identified at
+most 15 fragments per read on real data. Thus, we explored performance
+of BWA-MEM (0.7.17), LAST (963), and Minimap2 (2.15) in more detail,
+varying parameters to improve performance.
+
+We remark that none of these tools were designed to map SMURF-seq reads;
+results we report here do not reflect the overall performance of the
+various mapping tools, only that the three aforementioned tools happened
+to perform relatively well on a task for which they were not directly
+designed for.
+
+
+\section*{Determining the optimal Smith-Waterman score for
+  SMURF-seq reads}
+%% alignment score grid
+In order to determine the optimal alignment score, we kept the seeding
+related parameters constant, and varied the alignment score combinations
+to perform a grid search. We varied the mismatch penalty from 1 to 6,
+gap open penalty from 0 to 4, and gap extend penalty form 1 to 4.  The
+match score was fixed at 1. Thus for each tool we tested 120 ($6 \times
+5 \times 4$) combinations of alignment scores.
+
+%% seeding parameter for each tool
+The seeding and chaining related parameters for each tool was set at
+follows (along with the four alignment scores):
+\begin{itemize}
+\item BWA-MEM: \texttt{-x ont2d -k 12 -W 12 -T 30}
+\item Minimap2: \texttt{-w 1 -m 10 -s 30}
+\item LAST (NEAR): \texttt{lastal -Q0 -e 20} and \texttt{last-split -m 1 -s 30}
+\end{itemize}
+We set the seeding and chaining parameters in a liberal manner to allow
+for higher sensitivity than the default parameter of each tool, and
+the minimum alignment score to output was set at 30.
+
+%% selecting the best alignment parameter
+After aligning the simulated reads, we calculated the average precision
+and recall, each for the mapped fragment locations and nucleotides, for
+the four datasets. The F-score was computed for each, and the mean of
+the F-scores was used to determine the optimal alignment parameter for
+each tool. Based on these results BWA-MEM outperformed other tools for
+aligning SMURF-seq reads. BWA-MEM performed best with a mismatch, open,
+and extension penalty of 2, 1, 1 respectively.
+
+%% Zooming in on the grid for BWA
+To further refine the optimal alignment parameter for BWA-MEM, we
+aligned the simulated reads with parameter values around the value
+described above with a higher resolution. We varied the mismatch penalty
+from 1.5 to 2.5, and open and extend penalties from 0.5 to 1.5 in
+increments of 0.25.
+%
+However, BWA-MEM does not accept floating point values for alignment
+score parameters. To overcome this, we scaled the alignment score
+proportionately to have integer values, i.e we varied the mismatch
+penalty from 6 to 10, open and extend penalties from 2 to 6, and fixed
+the match score at 4 (125 combinations).
+%
+Based on these results, the highest accuracy was obtained with the
+mismatch, open, and extension penalty of 2.5, 1.5, 0.75 respectively
+(corresponding scaled values are 10, 6 and 3). We used these optimal
+alignment scores for mapping real SMURF-seq read, and all the CNV
+profiles presented are based on these.
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%                                                              %%%%%
-%%%%% Appendix B: Summary of sequencing runs                       %%%%%
+%%%%% Appendix C: Summary of sequencing runs                       %%%%%
 %%%%%                                                              %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Data availability and summary of sequencing runs}
-\label{appendB}
+\label{appendC}
 
 \begin{table}[H]
   \centering
