@@ -86,6 +86,15 @@ aligning these reads requires identifying candidate locations for these
 fragments in the presence of the characteristic error profile of
 nanopore machines.
 
+\begin{figure}[t!]
+\centering
+\includegraphics{dzones.pdf}
+\caption[Uniquely mappable fraction of the genome decreases fragment
+  length]{
+  The fraction of genome that is uniquely mappable decreases with
+  fragment length.}
+\label{dzones}
+\end{figure}
 
 % Importance of having accurate fragment boundaries
 The other aspect of aligning a SMURF-seq read to split the read into its
@@ -112,17 +121,6 @@ increases.
 Thus, as the fragments become shorter, the odds of inaccurate fragment
 boundaries leading to misalignment of fragments or missing fragments
 entirely increases.
-
-\begin{figure}[t!]
-\centering
-\includegraphics{ch4_fig1.pdf}
-\caption[Uniquely mappable fraction of the genome decreases fragment
-  length]{
-  The fraction of genome that is uniquely mappable decreases with
-  fragment length.}
-\label{dzones}
-\end{figure}
-
 
 %% How will our method remove the current barrier
 Although both seeding and determining the accurate fragmentation is
