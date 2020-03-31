@@ -13,12 +13,12 @@
 \section{Naive approaches to read-counting on nanopore machines}
 %% Long read approach
 Copy number profiling, and read-counting in general, can be done on
-nanopore sequencers with long reads ($\sim$8kb) following the standard
+nanopore sequencers with long-reads ($\sim$8kb) following the standard
 sequencing procedure (Fig.~\ref{naive_counting}).
 % Advantages of long read sequencing
-Since nanopore machines are optimized for long read sequencing, this
+Since nanopore machines are optimized for long-read sequencing, this
 method has the advantage of using any standard library preparation
-protocol that are commercially available.  Sequencing these long
+protocol that are commercially available.  Sequencing long
 molecules using a nanopore keeps a pore occupied for a longer duration
 once a pore is loaded followed by an open pore waiting for a molecule to
 be reload.  Further, technical nucleotides, such as sequencing adapters
@@ -33,7 +33,7 @@ information would be obtained if those nucleotides are organized as more
 DNA molecules, rather than longer contiguous fragments.
 
 %% Short read sequencing
-An alternate approach to read-counting is to sequence short reads
+An alternate approach for read-counting is to sequence short reads
 ($\sim$150 bp) directly on a nanopore sequencer
 (Fig.~\ref{naive_counting}).
 %% Advantages of short read sequencing
@@ -132,8 +132,8 @@ are given below:
   %% choice of re used
   The choice of restriction enzyme used is primarily dependent on the
   size of the fragmented molecules produced. Based on the downstream
-  application, they could also be influenced by other factors such as any
-  bias they could introduce.
+  application, this could also be influenced by other factors such as
+  any sequence-specific biases restriction enzymes could introduce.
   %% advantages
   An advantage of using restriction enzymes to fragment DNA molecules,
   over other fragmentation techniques, is that the fragmented molecules
@@ -144,7 +144,7 @@ are given below:
 \item Clean-up: the reaction containing the restriction enzymes and the
   fragmented DNA molecules is cleaned to wash out the enzymes and retain
   the fragmented DNA molecules. The choice of clean-up kit used determines
-  the length of the DNA molecules that are retained. We used a spin-column
+  the length of the retained DNA molecules. We used a spin-column
   based clean-up that typically retains molecules that are over $\sim$70
   bp. However, other clean-up kits, such as bead-based kits, could also be
   used at this step.
@@ -173,7 +173,7 @@ are given below:
   %% our experiments
   In our experiments, the ligation reaction was performed at a DNA
   concentration of \SI{25}{\nano\gram}$/$\SI{}{\micro\litre}
-  (\SI{500}{\nano\gram} of DNA in \SI{10}{\micro\litre} nuclease free
+  (\SI{500}{\nano\gram} of DNA in \SI{10}{\micro\litre} nuclease-free
   water and \SI{10}{\micro\litre} DNA ligase) for \SI{30}{\minute}.
 
 \item Bead-based clean-up: the reaction containing the ligase enzymes and
@@ -268,9 +268,9 @@ variations of the following steps:
   favor the most sensitive seed strategy, but depending on implementation
   too many seed hits could lead to ambiguity later in the mapping process.
 \item Chaining seeds: The identified seeds that are close to one another
-  on the read and the reference reference, and have the same orientations
+  on the read and the reference, and have the same orientations
   could be merged. These are further extended into proto alignments, and
-  filtered to avoid aligning potentially false positive seed hits.
+  filtered to avoid aligning potentially false-positive seed hits.
 \item Aligning within the chains: In this stage a Smith-Waterman
   alignment is performed, typically allowing users to specify a mismatch
   penalty along with penalties for both gap-open and gap-extend.
@@ -312,8 +312,8 @@ they identify individual mapping bases within reads. After mapping these
 reads, we calculated precision and recall for identifying both the
 correct fragment locations, and the individual mapping bases within the
 fragments (i.e. the correct fragment boundaries). Using this simulation
-setup, we determined the optimal Smith-Waterman alignment score for use
-with SMURF-seq reads (detailed procedure is given in
+setup, we determined the optimal Smith-Waterman alignment score for
+mapping SMURF-seq reads (detailed procedure is given in
 Appendix~\ref{appendB}).
 
 Based on these results BWA-MEM outperformed other tools, and thus, we
@@ -328,7 +328,7 @@ resulting in (for most fragments) one alignment per fragment.
 In our analysis, we employed BWA-MEM without any modifications to
 optimize identification of fragment boundaries.  According to our
 simulations, this mode of operation may not perfectly identify fragment
-boundaries, but performs well when identifying mapping locations of
+boundaries, but performs well in identifying mapping locations of
 the individual fragments, which is the information passed to subsequent
 steps in our analysis.
 
@@ -479,18 +479,18 @@ To provide a quantification of accuracy in terms of individual CNV
 events we conducted whole-genome sequencing (WGS) on the same SK-BR-3
 using Illumina (5.56 million reads; 130 bp, single-end).  We used this
 to define a ground truth by calling CNV events for each of the
-pre-defined bins (both amplifications and deletions) based on segmented
+pre-defined bins (both amplifications and deletions) based on the segmented
 signal with a cutoff of 1.25/0.8 (Fig.~\ref{cnv}b)
 \citep{dago2014rapid,berry2017potential}. This resulted in 1,466 events
 (886 amplifications, 580 deletions) from 4,953 bins. We then called
 events using the identical procedure with SMURF-seq data from the same
 SK-BR-3 sample. The precision and recall for SMURF-seq relative to the
-Illumina calls was 0.982 and 0.988, respectively (Fig.~\ref{cnv}c).
+Illumina calls were 0.982 and 0.988, respectively (Fig.~\ref{cnv}c).
 Fig.~\ref{cnv}d shows a zoom-in of a region with extreme copy number
 alterations. The bin ratios for the Illumina WGS and the SMURF-seq
 profiles are highly correlated (Pearson $r$ = 0.99; Fig.~\ref{cnv}e).
 % replicate
-A replicate of this experiment resulted 132.64k reads (mean read length
+A replicate of this experiment resulted in 132.64k reads (mean read length
 of 7.3 kb), which were split into 4.02 million fragments (30.31 mean
 fragments per read).
 
@@ -608,12 +608,12 @@ sequencing.
 \subsection*{SMURF-seq with shorter fragments}
 For CNV profiling with SMURF-seq, we used restriction enzyme SaqAI which
 fragments the human genome generating molecules with a mean length of
-150 bp. For CNV profiling and other read-counting applications the
-length of the fragmented molecules need to be just long enough to ensure
-unique mappability to a sufficient fraction of the genome. Thus,
-reducing the fragment lengths could increase the number of
-fragments in a SMURF-seq read, and would increase the number of
-read-counts obtained per sequencing run.
+150 bp. For CNV profiling and other read-counting applications, the
+length of the fragmented molecules needs to be just long enough to
+ensure unique mappability to a sufficient fraction of the genome. Thus,
+reducing the fragment lengths could increase the number of fragments in
+a SMURF-seq read, and would increase the number of read-counts obtained
+per sequencing run.
 
 % RE digestion with multiple enzymes
 The length of the fragmented DNA molecules can be reduced by digestion
@@ -634,34 +634,35 @@ fragmented molecules can be of three types: The fragmented molecule
 could have both ends from the first enzyme, both ends from the second
 enzyme, or one end from each of the enzymes. Ligating these molecules
 directly (i.e. without end-repair) would concatenate the two types of
-molecules that have the same ends within each type; the type of molecules
-that have two different ends would act as bridges between the molecules
-that have the same ends. Although, this protocol would have fewer steps,
-the efficiency of ligation could be reduced and would need to be
-evaluated.
+molecules that have the same ends within each type; the type of
+molecules that have two different ends would act as bridges between the
+molecules that have the same ends. Although, this protocol would have
+fewer steps, the efficiency of ligation could be reduced and would need
+to be evaluated.
 
 % implication on read-counting
 The use of restriction enzymes or a combination of enzymes for
 fragmentation could lead to a bias in read counts for the downstream
 application. For example, in terms of copy number proofing, the number
-of restriction sites in a bin could vary, causing variation in bin counts
-that do the reflect the sequenced sample. The effect of the biases need
-to assessed based on the enzymes used and the downstream application.
+of restriction sites in a bin could vary, causing variation in bin
+counts that does not reflect the sequenced sample. The effect of the
+biases needs to assessed based on the enzymes used and the downstream
+application.
 
 % other techniques for fragmentation
-
 
 \subsection*{Sequencing fragmented molecules with SMURF-seq}
 % pre-fragmented DNA molecules
 Some read-counting applications, such as Ribo-seq
 \citep{ingolia2009genome}, involve extensive steps to produce the
-molecules of interest. These resultant of the protocols could be
-molecules that are already fragmented to length optimal for SMURF-seq.
-Other applications such are targeted-capture methods and whole exome
+molecules of interest. These resultant DNA molecules from these
+protocols could already fragmented to length optimal for SMURF-seq.
+Other applications such are targeted-capture methods and whole-exome
 sequencing protocols typically produce molecules that are $\sim$150-200
 bp. Further, cell-free DNA molecules obtained from blood samples are of
 length $\sim$150 bp, and are increasingly used in low-coverage copy
-number profiling \citep{underhill2016fragment,adalsteinsson2017scalable}.
+number profiling \citep{underhill2016fragment,
+adalsteinsson2017scalable}.
 
 \begin{figure}[t!]
 \centering
@@ -681,16 +682,15 @@ Sequencing these molecules using SMURF-seq would require that these
 molecules have compatible ends for ligation, and the quantity of DNA is
 sufficient for nanopore sequencing.
 % protocol
-To meet these requirements, the DNA molecules from these protocols
-could be PCR amplified by first dA-tailing and
-ligating adapters to bind the PCR primers. If these adapters are
-designed to have an
-appropriate restriction site in them, after amplification they could be
-removed with restriction digestion, leaving behind DNA molecules with
-sticky-ends as required for SMURF-seq (Fig~\ref{fraged_smurf}).
+To meet these requirements, DNA molecules from these protocols could be
+PCR amplified by first dA-tailing and ligating adapters to bind the PCR
+primers. If these adapters are designed to have an appropriate
+restriction site in them, after amplification they could be removed with
+restriction digestion, leaving behind DNA molecules with sticky-ends as
+required for SMURF-seq (Fig~\ref{fraged_smurf}).
 
 %% additional sequence
-Designing the PCR adapters with restriction sites  also provides an
+Designing PCR adapters with restriction sites  also provides an
 opportunity to insert an additional sequence in an adapter prior to
 restriction site. This sequence could be modified depending on the
 downstream application. For example, it could be a barcode sequence or a
