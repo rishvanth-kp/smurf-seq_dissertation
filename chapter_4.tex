@@ -796,7 +796,9 @@ P_{i+1}], 1).\]
 % independence
 The independence of the distributions for each fragment is justified
 because it is required that $n >> m$, and the probability of two
-fragments to aligning to overlapping location on $T$ is extremely small.
+fragments to aligning to overlapping location on $T$ is extremely small,
+and the mapping location of one fragment does not influence the mapping
+location of other fragments.
 
 \begin{figure}[t!]
 \centering
@@ -820,10 +822,13 @@ marques2015distribution,loaiciga1999analysis,nadarajah2008exact}.  In
 Gumbel distributions is given and in \citep{nadarajah2008exact} the exact
 distribution of the linear combination of Gumbel distributions is given.
 %
-However, these distributions do not follow a ``standard'' distribution.
+However, these distributions are not easily tractable and do not follow a 
+standard named distribution. Here, we take the alternate approach of
+using the central limit theorem for approximating $score_T(S,k)$ as sum
+of independent distributions.
 
 %% Central limit theorem, constant fragment length
-Since each the distribution of score of each fragment is independent,
+The fragments in a SMURF-seq read align independent of one another, and
 when the fragments are of equal lengths, the distribution of
 $score_T(S,k)$ is a sum of i.i.d. random variables. Thus, we can apply
 the central limit theorem to approximate the score distribution to a
