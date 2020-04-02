@@ -21,7 +21,7 @@ pore, a nanopore, in the presence of an electric field, the change in
 current level measured across the nanopore would be dependent on the
 nucleotide passing through the nanopore; Thus, measuring the current
 over time could be leveraged to determine the sequence of nucleotides
-(Fig.~\ref{nanopore}b).
+(Fig.~\ref{nanopore}a).
 %
 This idea of using transmemberane proteins an nanopores for sensing and
 sequencing nucleic acids was independently thought of by several
@@ -221,12 +221,22 @@ started and the reads are available as they are sequenced in real-time.
 The sequencing process is controlled by the MinKNOW tool, and can
 continue for up to 48 hours.
 % Base-calling reads
-The sequenced reads can either be base-called in real time using the
-MinKNOW or at a later time using the Guppy tool.
+The sequenced reads are converted from current level ``squiggles'' into
+base-space using base-calling tools such as Guppy.
 
 %% Properties of nanopore reads
-\paragraph{Properties of nanopore reads}
-
+% Read length
+Reads generated a sequencer run are typically several kilobases long
+\citep{}.
+% idintity
+At present, the reads seqencined with the 1D protocol align
+with approximately 85\% identity to the reference genome \citep{}.
+Errors are generally associated with homopolymeric repeats \citep{}.
+The accuray of reads are a continually improving with imporvemtns to the
+nanopores and the base-calling tools.
+% GC-bias
+Nanopore seqencing does not intorduce significatny GC bias when the
+samples are prepated with a protocol that does not use PCR \cite{},
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -402,12 +412,16 @@ mouliere2018enhanced,underhill2016fragment,cristiano2019genome}.  For
 example, cfDNA tumor faction is associated with number of bone
 metastasis in prostate cancer \citep{choudhury2018tumor}.
 
+
 % Tumor fraction, ploidy, and heterogeniety
 
 
 %% Methods for CNA profiling
 \paragraph{CNA profiling methods}
 % Prior to sequencing
+Initial copy number analysis, prior to high-throughput sequencing, used
+techniques based on
+
 % Sequencing approaches
 
 % Sequencing CNA methods
@@ -423,23 +437,89 @@ metastasis in prostate cancer \citep{choudhury2018tumor}.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Prior protocols based on concatenating DNA molecules}
 %%% SAGE
-\paragraph{Serial analysis of gene expression (SAGE)}
-The concept of ligating short DNA molecules to improve the efficiency
-of sequencing was introduced in serial analysis of gene expression
-(SAGE) \citep{}.
+% \paragraph{Serial analysis of gene expression (SAGE)}
+The concept of ligating short DNA molecules prior
+to sequencing was introduced in serial analysis of gene expression
+(SAGE), a technique to detect thousands of expressed sequence
+tags for transcript analysis \citep{velculescu1995serial}.
 % principals of SAGE
-% Uses of SAGE
+SAGE technique is based on the principle that a short nucleotide sequence
+tag ($\sim$ 9bp) from a defined region of a transcript has sufficient
+information to uniquely identify the transcript, and the concatenation
+of the short tags allows efficient analysis by sequencing multiple tags
+in a single clone. The expression levels of a transcripts are then
+quantified by ``counting'' the number of tags for each transcript
+\citep{velculescu1995serial}.
+%
 
-% SAGE protocol
+%% SAGE protocol
+% cDNA synthesis
+Briefly, to quantity mRNA abundance using SAGE, double-stranded cDNA
+molecules are synthesized from mRNA using biotinylated oligo(dT) primers.
+% Anchoring enzyne digestion
+These cDNA molecules are fragmented with a restriction enzyme (anchoring
+enzyme).
+%
+After digestion, the 3' end of cDNA molecules (from the dA tail to the
+anchoring enzyme recognition site) are isolated with streptavidin beads
+that bind to the biotinylated oligo(dT) primers.
+%
+The isolated molecules are divided into two groups, and each group is
+ligated to a different linker (linker A and B, respectively) using the
+overhangs after the anchoring enzyme digestion. These linkers are
+designed to contain a type IIS restriction site (types IIS restriction
+enzymes cut $~\sim$20 bp away from a recognition site).
+%
+These molecules are they digested with a type IIS enzyme (tagging
+enzyme) releasing the linker and a 9 bp tag.
+%
+The molecule from both the pools are ligated with one another to form
+ditags. Ditags have linker A one end, linker B on the other, and two 9
+bp tags in the middle.
+%
+Ditags are then PCR amplified with the primer binding sites located in
+the linkers.
+%
+These molecules are then cleaved again with the anchoring enzyme to
+remove the linkers, and leaving behind ditags with anchoring enzyme
+overhangs.  These ditags are then ligated to form longer molecules
+that contain several ditags punctuated by the anchoring enzyme site.
+%
+The concatenated molecules are cloned and sequenced.
+
 
 % variants of SAGE
+Subsequently several variants of SAGE were developed for sequencing longer
+tags (LongSAGE \citep{saha2002using,hu2006serial}, SuperSAGE
+\citep{matsumura2003gene}), tags obtained from the 5'
+end of the transcript \citep{wei20045}, sequencing on high-throughput
+instruments \citep{matsumura2010high},  and several others
+\citep{zawada2014massive,peters1999comprehensive}.
+
+% Uses of SAGE
+% SAGE and its variants have been used to...
 
 %% Digital karyotyping
-\paragraph{Digital karyotyping}
+% \paragraph{Digital karyotyping}
+A variant of SAGE, digital karyotyping, was developed for copy number
+analysis \citep{wang2002digital,leary2007digital}. Digital karyotyping
+uses a 21 bp genomic DNA tags from specific locations on the genome (as
+opposed to mRNA tags in SAGE).  These tags are long enough uniquely
+determine their location on the reference genome, and the counts of
+tags along the chromosome are used to quantify copy number changes.
+%
+Since, genomic DNA does not have a dA tail (that is required for SAGE),
+they are first fragmented with a restriction enzyme (mapping enzyme),
+ligated to biotinylated adapters with ends that match the mapping
+enzyme digested ends, digested with another restriction enzyme
+(fragmenting enzyme), isolated with streptavidin beads, and the
+subsequent steps are similar to the SAGE (or LongSAGE) protocol
+\citep{wang2002digital,leary2007digital}.
 
 %% Other protocols
-\paragraph{Other protocols}
-% SMASH
-
-% concat-seq
-
+% \paragraph{Other protocols}
+The concept of ligating short molecules together prior to sequencing was
+also used in short multiply aggregated sequence homologies (SMASH) for
+CNV profiling using Illumina short-read technology \citep{wang2016smash}
+and ConcatSeq for target enrichment workflows on PacBio machines
+\citep{schlecht2017concatseq}.
