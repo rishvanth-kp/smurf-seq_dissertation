@@ -5,3 +5,35 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Conclusions}
 \label{ch5}
+
+Long-read sequencers, especially the Oxford Nanopore Technologies MinION
+instrument, has widened the horizons of genome sequencing applications.
+SMURF-seq pushes this boundary a little bit more by allowing such
+technology to be more efficiently leveraged in short-read sequencing for
+read-counting applications, as required for copy number profiling.
+%
+The SMURF-seq approach sequences highly fragmented DNA molecules by
+concatenating them into longer molecules, and thus, utilizing long-read
+sequencers as optimized for long-read sequencing.
+
+Copy number profiling as a diagnostic and prognostic tool to evaluate
+cancer is expanding. With a fast and simple preparation method and a
+turnaround time measured in hours, the SMURF-seq approach could provide
+a highly efficient methodology for research and clinical laboratories
+where access to large-scale sequencing is limited. Multiplexing samples
+in a single run would drive down the cost of profiling significantly, and
+thereby, we hope, help translate the research on clinical significance of
+copy number profiling into patient outcomes.
+
+Optimizing SMURF-seq for shorter fragments would enable generating
+significantly higher read-counts from a single run of the MinION
+instrument.  However, with shorter fragments, accuracy in identifying
+fragment boundaries will begin to impact the ability of aligners to
+recover fragments, and algorithms designed specifically to map SMURF-seq
+reads will become essential.
+
+We envision a broadening of the applications of SMURF-seq as the
+underlying sequencing technology evolves and as SMURF-seq itself
+improves by continual decrease in fragment lengths, increase in
+sequenced read length, and data analysis methods optimized for SMURF-seq
+resulting in an increase in information yield per nucleotide sequenced.
