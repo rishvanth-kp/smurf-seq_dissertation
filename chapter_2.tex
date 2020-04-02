@@ -418,17 +418,71 @@ metastasis in prostate cancer \citep{choudhury2018tumor}.
 
 %% Methods for CNA profiling
 \paragraph{CNA profiling methods}
-% Prior to sequencing
-Initial copy number analysis, prior to high-throughput sequencing, used
-techniques based on
+%% Prior to sequencing
+% microarray techniques
+Initial copy number analysis, prior to high-throughput sequencing,
+primarily used microarrays based techniques \citep{carter2007methods},
+these include the use of comparative genome hybridization
+\citep{pinkel1998high}, SNP arrays \citep{nannya2005robust}, and
+oligonucleotide arrays \citep{lucito2003representational}.
 
-% Sequencing approaches
+%% Sequencing approaches
+With the advent of high-throughput sequencing, array based approaches
+are increasingly replaced with sequencing based approaches.  Techniques
+for detecting copy number alterations with whole-genome sequence data
+include paired-end read approach \citep{korbel2007paired} and
+read-counting approach \citep{yoon2009sensitive}.  The most commonly
+used, especially for tumor samples, is the read-counting approach, and
+this approach can also be used with whole-exome sequence data
+\citep{krumm2012copy,d2016enhanced}.
 
-% Sequencing CNA methods
-% non-read counting approaches
-% read counting approaches
+% read counting princple
+Read-counting approach is based on the principle that the number of
+reads originating from a region on the genome is directly proportional
+to the copy number that region \citep{baslan2015optimizing}.
+%
+Tools for detecting copy number changes based on this approach typically
+use variations of the following steps:
+%
+(1) Align the reads to the reference genome using any standard mapping
+tool.
+%
+(2) Partition the genome into non-overlapping ``bins'' and determining
+the number of reads mapping to each bin. The size of the bins determine
+the resolution of copy number profile; small bins generate
+high-resolution profiles, but also require more reads. For cancer, the
+size of the copy number alterations are typically in the megabase base
+range for focal alterations or chromosomal arm lengths for broad
+alterations \citep{beroukhim2010landscape}, and thus, it is common to
+bins use that are larger than 100 kb.
+%
+(3) Normalize bin counts to remove the effect of any bias that may have
+been introduced. Bin counts are usually corrected for GC bias and
+mappability bias. GC bias could be introduced due to PCR in the library
+construction step or due to the sequencing process
+\citep{aird2011analyzing,benjamini2012summarizing}. Mappability bias is
+introduced as bins have unequal number of uniquely mappable positions.
+%
+(4) Finally, bin counts are segmented to reduce noise and determine
+regions of uniform copy number. Frequently used approaches include
+circular binary segmentation
+\citep{olshen2004circular,venkatraman2007faster} and hidden markov
+models \citep{ha2014titan}.
 
-%% CNA tools
+% tumor fraction, subclonality, and ploidy
+Tumors consist of a mix of several cell types including various clones
+of tumor cells, non-tumor cells in the tissue microenvironment, and
+immune cells \citep{witz2006tumor}.
+%
+Due to which the tumor fraction of samples vary significantly
+\citep{carter2012absolute,van2010allele,oesper2013theta}. Tumor fraction
+varies across cancer types, with a significant number of lung,
+esophageal, and breast cancer samples having under 50\% tumor fraction
+\citep{carter2012absolute}.
+%
+In addition to detecting copy number alterations with low-coverage
+sequencing, tumor fraction, subclonality, and ploidy of a tumor can also
+be determined \citep{adalsteinsson2017scalable,gusnanto2012correcting}
 
 
 
