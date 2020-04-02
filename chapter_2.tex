@@ -19,7 +19,7 @@ The concept of nanopore sequencing is based on the idea that as a
 single-stranded DNA (or RNA) translocates through a nanometer sized
 pore, a nanopore, in the presence of an electric field, the change in
 current level measured across the nanopore would be dependent on the
-nucleotide passing through the nanopore; Thus, measuring the current
+nucleotide passing through the nanopore; thus, measuring the current
 over time could be leveraged to determine the sequence of nucleotides
 (Fig.~\ref{nanopore}a).
 %
@@ -34,9 +34,9 @@ Initial experiments showed that as a single-stranded DNA or RNA
 molecules could be driven through a \emph{Staphylococcus aureus}
 $\alpha$-hemolysin in the presence of an electric field
 \citep{kasianowicz1996characterization}. The current through the pore
-remained constant in the absence of oligomers; and the presence of oligomers
-caused transient decreases in current, with the duration of the decrease
-proportional to the length of the oligomer.
+remained constant in the absence of oligomers; and the presence of
+oligomers caused transient decreases in current, with the duration of
+the decrease proportional to the length of the oligomer.
 % Detecting the bases in oligos
 Further research demonstrated that decrease in amplitude of current
 could be used to differentiate between poly-purine and poly-pyrimidine
@@ -50,8 +50,8 @@ translocate through the nanopore at few microseconds per base
 \includegraphics{nanopore.pdf}
 \caption[Nanopore sequencing]{
   Nanopore sequencing.
-  (a) Current across a nanopore is
-  measured as a DNA molecule translocates through a nanopore. This figure is
+  (a) Change in current across a nanopore is measured as a DNA molecule
+  translocates through a nanopore. This figure is
   adapted from Figure 5Ab in \cite{goodwin2016coming}.
   (b) Oxford Nanopore Technologies MinION instrument.}
 \label{nanopore}
@@ -63,19 +63,19 @@ distinguish nucleic acid polymers, several challenges remained to be
 addressed to use this approach for reading individual bases on a DNA or
 RNA molecule.
 %
-The most important of these were detecting the bases on a molecule at
-single nucleotide resolution and slowing the rate of translocation
-through the nanopore so that a readout can be obtained
+The most important of these were detecting the bases at a single
+nucleotide resolution and slowing the rate of translocation through the
+nanopore so that a readout can be obtained
 \citep{bayley2015nanopore,branton2010potential}.
 %
-These challenges were resolved in the forthcoming years. A few
-notable milestones are described below.
+These challenges were resolved in the forthcoming years. A few notable
+milestones are described below.
 
 %% Single nucleotide detection
 In regard to identifying individual nucleobases, all four bases were
-identified in single-stranded DNA that have a terminal hairpin structure
-\citep{ashkenasy2005recognizing} and single-stranded DNA attached to
-streptavidin with a biotin linker
+identified in a single-stranded DNA that had a terminal hairpin
+structure \citep{ashkenasy2005recognizing} and single-stranded DNA
+attached to streptavidin with a biotin linker
 \citep{purnell2009discrimination,stoddart2009single}. These structures
 immobilized the DNA in the nanopore (either a wildtype
 $\alpha$-hemolysin or an engineered form of it) allowing sufficient time
@@ -95,16 +95,16 @@ region that is sensitive to the nucleotides in the pore is too wide, and
 so the current differences are small between nucleotides, making single
 nucleotide detection difficult.
 %
-Pores derived from \emph{Mycobacterium smegmatis} porin A has a narrower
-sensitive region, and could detect nucleotides at a higher resolution
-\citep{butler2008single,manrao2011nucleotide}.
+Pores derived from \emph{Mycobacterium smegmatis} porin A have a
+narrower sensitive region, and could detect nucleotides at a higher
+resolution \citep{butler2008single,manrao2011nucleotide}.
 
 %% processivity control
 In regard to controlling the rate of translocation through a nanopore,
 there were two approaches, exo-sequencing and strand-sequencing.
 % exo-sequencing
 In the exo-sequencing approach, individual bases from a DNA are cleaved
-into a nanopore with an exonuclease and unidentified one at a time
+into a nanopore with an exonuclease and identified one at a time
 \citep{astier2006toward,clarke2009continuous}.
 % strand-sequencing
 Alternatively, in the strand sequencing approach a DNA molecule is
@@ -135,7 +135,7 @@ researches in 2014 \citep{deamer2016three,bayley2015nanopore}.
 %% Oxford MinION
 The MinION sequencer (Fig.~\ref{nanopore}b) is a portable instrument
 requiring just a modest computer for control and data acquisition.  A
-MinION flowcell of 2048 nanopores (at present, a derivative of
+MinION flowcell consists of 2,048 nanopores (at present, a derivative of
 \emph{Escherichia coli} CsgG protein \citep{brown2016nanopore}) embedded
 on a membrane, of which 512 pores can sequence molecules in parallel.
 
@@ -148,48 +148,47 @@ been used in several other applications such as disease surveillance
 \citep{goordial2017situ,charalampous2019nanopore,leggett2020rapid},
 direct RNA sequencing \citep{garalde2018highly,workman2019nanopore,
 depledge2019direct}, and detecting methylated bases
-\citep{rand2017mapping,simpson2017detecting,liu2019accurate} among
+\citep{rand2017mapping,simpson2017detecting,liu2019accurate}, among
 others \citep{jain2016oxford}.
 
 %% other decives from ONT
 In addition to the MinION instrument, Oxford Nanopore Technologies
 currently offers various nanopore devices including the bench-top
-GridION and PromethION which allows parallel sequencing with up to 5 and
-48 flowcells, respectively.
+GridION and PromethION which allow for parallel sequencing with up to 5
+and 48 flowcells, respectively.
 
 
 %% Nanopore library construction
 \paragraph{Nanopore library preparation and sequencing}
-%% TODO: is it called library preparation or sample preparation
-Sequencing nucleic acids requires prepossessing the sample DNA for
+Sequencing nucleic acids requires preprocessing the sample DNA for
 compatibility with the underlying sequencing technology, a process
 traditionally referred to as library preparation.
 %
 Sequencing on a nanopore machine usually requires fragmenting DNA
 molecules to the appropriate length and attaching sequencing adapters.
 %
-Oxford nanopore technologies offers several commercially library
-preparation kits for both DNA and RNA samples.  The most frequently used
-of these kits are the Ligation Sequencing Kit family and the Rapid
-Sequencing Kit family.
+Oxford Nanopore Technologies offers several commercially library
+preparation kits for both DNA and RNA samples.  Of the available kits,
+most commonly used are the ligation sequencing kit family and the rapid
+sequencing kit family.
 
 % Ligation kit
 In theory, there is no limit on the length of a molecule that can be
 sequenced with a nanopore, and thus, the length is determined by the
 downstream application or the limitations of handling high molecular
 weight DNA. For the ligation sequencing kit (SQK-LSK108 1D DNA by
-ligation), the recommended length is
-$\sim$8 kb when starting with 1ug of sample to ensure appropriate molar
-concentration in the subsequent steps.  DNA molecules can be fragmented
-to the appropriate length using a variety of methods including the
-Covaris g-TUBE.
+ligation), the recommended length is $\sim$8 kb when starting with
+\SI{1}{\micro\gram} of sample to ensure appropriate molar concentration
+in the subsequent steps.  DNA molecules can be fragmented to the
+appropriate length using a variety of methods including the Covaris
+g-TUBE.
 %
 These molecules are then optionally repaired to remove any nicks, and
 then the DNA ends are prepared to have a dA tail. Finally, sequencing
 adapters (that have a dT tail) are ligated to the end-prepared DNA.
-These adapters contain specific DNA sequenced with attached enzymes
-that regulate translocation of the DNA molecule into a nanopore.
-Library preparation with the ligation kit takes approximately 60 minutes.
+These adapters contain specific DNA sequenced with attached enzymes that
+regulate translocation of the DNA molecule into a nanopore.  Library
+preparation with the ligation kit takes approximately 60 minutes.
 
 % Rapid kit
 The rapid library preparation kit (SQK-RAD003 Rapid sequencing) offers a
@@ -200,15 +199,15 @@ approximately 10 minutes.
 
 % Barcoding capablities
 Both of these kits offer barcoding capabilities for multiplexing several
-samples in a single sequencing run. For example, the Native Barcode Kit
-(EXP-NBD103) is used in addition to the ligation sequencing kit, and
+samples in a single sequencing run. For example, the native barcode kit
+(EXP-NBD103) is used together with the ligation sequencing kit, and
 adds a barcode sequence to the end-prepared DNA molecules prior to
 ligating sequencing adapters. After library preparation with a unique
-barcode for each sample, they can pooled in appropriate molar
+barcode for each sample, they are pooled in appropriate molar
 concentrations before sequencing.
 
 % Brief summary of other kits
-Oxford Nanopore Technologies offers severs other preparation kits, such
+Oxford Nanopore Technologies offers several other preparation kits, such
 as the $\text{1D}^2$ kit for higher accuracy reads and PCR based kits when
 starting with nanogram or picogram amounts of DNA.
 
@@ -227,15 +226,16 @@ Technologies).
 
 %% Properties of nanopore reads
 % Read length
-Reads generated a sequencer run are typically several kilobases long.
+Reads generated from a sequencing run are typically several kilobases
+long.
 % idintity
-At present, the reads sequenced with the 1D protocol align
-with approximately 85\% identity to the reference genome
-\citep{bowden2019sequencing,jain2018nanopore,carter2017robust}.
-The accuracy of reads are a continually improving with improvements to
-both the nanopore and the base-calling tools.
+At present, the reads sequenced with the 1D protocol align with
+approximately 85\% identity to the reference genome
+\citep{bowden2019sequencing,jain2018nanopore,carter2017robust}.  The
+accuracy of reads are a continually improving with improvements to both
+the nanopore and the base-calling tools.
 % GC-bias
-Nanopore sequencing does not introduce significant GC bias when the
+Nanopore sequencing does not introduce significant a GC bias when the
 samples are prepared with a protocol that does not use PCR
 \citep{carter2017robust}.
 
@@ -247,17 +247,17 @@ samples are prepared with a protocol that does not use PCR
 %% Background
 \paragraph{Copy number variation}
 % genetic variations
-Sources of genomic variation in humans include
-single-nucleotide polymorphisms (SNPs), short insertions and deletions, and
-repeats \citep{}.
+Sources of genomic variation in humans include single-nucleotide
+polymorphisms (SNPs), short insertions and deletions, and variable
+number tandem repeats.
 % CNV
-Another source of variation, copy number variation (CNV), is the change in
-number of copies of a region of the genome larger than 1 kb with
+Another source of variation, copy number variation (CNV), is the change
+in number of copies of a region of the genome larger than 1 kb with
 respect to a reference genome
 \citep{redon2006global,feuk2006structural}.  The number of copies of a
 region of the genome could increase resulting in a copy number ``gain''
-(also referred to as amplification or duplication), or decrease resulting in a
-copy number ``loss'' (also referred to as deletion).
+(also referred to as amplification or duplication), or decrease
+resulting in a copy number ``loss'' (also referred to as deletion).
 % source of cnv
 Changes in copy number can occur due to mechanisms such as homologous
 recombination and non-homologous DNA repair mechanisms
@@ -275,7 +275,7 @@ cancer, are referred to as somatic copy number alterations or
 CNA, in short.)
 
 % cnv in diversity
-\paragraph{CNV in diversity}
+\paragraph{Copy number variation in diversity}
 CNVs as a significant source of diversity in humans was established by
 \cite{sebat2004large} and \cite{iafrate2004detection}.
 %
@@ -289,7 +289,7 @@ variations ranged from 150 kb to 425 kb.
 %
 These studies were extended to larger populations and to populations of
 different ancestry \citep{redon2006global,li2009whole}.  CNVs in the
-human genome and that those contribute to diversity are reviewed in
+human genome and those that contribute to diversity are reviewed in
 \citep{freeman2006copy,feuk2006structural,zarrei2015copy}.
 
 %% CNV in diseases
@@ -299,16 +299,16 @@ several diseases. The most notable example is the trisomy of chromosome
 21 in Down's syndrome \citep{antonarakis2004chromosome}.
 %
 Mechanisms by which copy number variations alter phoenotype include:
-over-expression of amplified genes and under-experession of deleted genes
-(gene dosage effects), unmasking of a mutant recessive allele after
-deletion of dominatnt allele, altered expressin of gene that overlaps a
-stuctural valiation (such as a inversion, translocation, or deletion),
-or a structural variation could disrupt regulator
-elements of a gene \citep{feuk2006structural}.
+over-expression of amplified genes and under-expression of deleted
+genes (gene dosage effects), unmasking of a mutant recessive allele
+after deletion of dominant allele, altered expression of gene that
+overlaps a structural variation (such as a inversion, translocation, or
+deletion), or a structural variation could disrupt regulatory elements
+of a gene \citep{feuk2006structural}.
 %
 Changes in copy number are associated with autism
 \citep{sebat2007strong}, sporadic schizophrenia \citep{xu2008strong},
-psoriasis \citep{hollox2008psoriasis}, susseptibility to HIV-1/AIDS
+psoriasis \citep{hollox2008psoriasis}, susceptibility to HIV-1/AIDS
 \citep{gonzalez2005influence}, and several other diseases
 \citep{stankiewicz2010structural,fanciulli2010gene}.
 
@@ -335,7 +335,7 @@ cancer types.
 CNA profiles exhibit several recurrent alterations that occur in a
 significant fraction of samples within a population. These recurrent
 alterations are considered to be ``driver'' alterations and play an
-active role in tumor progression; Whereas alterations that are unique to
+active role in tumor progression; whereas alterations that are unique to
 few samples are considered to be ``passenger'' alterations which are
 neutral to the evolution of tumor \citep{bignell2010signatures,
 beroukhim2010landscape}.
@@ -357,8 +357,8 @@ CNA profiling for diagnostic and prognostic applications would involve
 profiling a tumor from a patient, and making treatment decisions based
 on prior knowledge of copy number alterations.
 %
-These include deciding the effectiveness of treatment and predicting the
-survival of breast cancer patients
+These could include deciding the effectiveness of treatment and
+predicting the survival of breast cancer patients
 \citep{stuart2009linking,hicks2006novel}.
 % Effectiveness of treatment and drug resistance
 Amplification of chromosome 19q12 and 20q11.22-q13.12 is associated with
@@ -382,21 +382,22 @@ progression and response to treatment \citep{shattuck2008met,
 gorre2001clinical,villanueva2013concurrent}.
 
 %% Liquid-biopsy
-In the recent years, ``liquid biopsies'' are increasingly used for cancer
-screening. As opposed to a tumor biopsy (that is derived from the
+In the recent years, ``liquid biopsies'' are increasingly used for
+cancer screening. As opposed to a tumor biopsy (that is derived from the
 tumor mass), a liquid biopsy is derived from analytes in body fluids.
-Sources include extra-cellular DNA extracted from blood serum or plasma
-\citep{leary2012detection,chan2013cancer,li2017cell} or other
-fluids such as aqueous humor \citep{berry2017potential}
-and cerebrospinal fluid \citep{mouliere2018detection} (called cell-free
-DNA or cfDNA), circulating tumor cells \citep{dago2014rapid}, and
-extra-cellular RNA \citep{zaporozhchenko2018potential}.  (Use of liquid
-biopsies in cancer is reviewed in
-\citep{heitzer2019current,crowley2013liquid, schwarzenbach2011cell}.)
+Sources include extra-cellular DNA (called cell-free DNA or cfDNA)
+extracted from blood serum or plasma
+\citep{leary2012detection,chan2013cancer,li2017cell} or other fluids
+such as aqueous humor \citep{berry2017potential} and cerebrospinal fluid
+\citep{mouliere2018detection}, circulating tumor cells
+\citep{dago2014rapid}, and extra-cellular RNA
+\citep{zaporozhchenko2018potential}.  (Use of liquid biopsies in cancer
+is reviewed in \citep{heitzer2019current,crowley2013liquid,
+schwarzenbach2011cell}.)
 %
 Among others, an enormous advantage of a liquid biopsy is the minimally
 invasive procedure used to obtain the analyte, which could be as simple
-as blood draw \citep{heitzer2019current}.
+as a blood draw \citep{heitzer2019current}.
 %
 CNA profiles obtained from a liquid biopsy has been shown to be
 concordant with profiles obtained from a solid biopsy of the same
@@ -414,9 +415,6 @@ example, cfDNA tumor faction is associated with number of bone
 metastasis in prostate cancer \citep{choudhury2018tumor}.
 
 
-% Tumor fraction, ploidy, and heterogeniety
-
-
 %% Methods for CNA profiling
 \paragraph{CNA profiling methods}
 %% Prior to sequencing
@@ -431,15 +429,15 @@ oligonucleotide arrays \citep{lucito2003representational}.
 With the advent of high-throughput sequencing, array based approaches
 are increasingly replaced with sequencing based approaches.  Techniques
 for detecting copy number alterations with whole-genome sequence data
-include paired-end read approach \citep{korbel2007paired} and
-read-counting approach \citep{yoon2009sensitive}.  The most commonly
-used, especially for tumor samples, is the read-counting approach, and
-this approach can also be used with whole-exome sequence data
-\citep{krumm2012copy,d2016enhanced}.
+include paired-end read approach \citep{korbel2007paired,
+campbell2008identification} and read-counting approach
+\citep{yoon2009sensitive}.  The most commonly used, especially for tumor
+samples, is the read-counting approach, and this approach can also be
+used with whole-exome sequence data \citep{krumm2012copy,d2016enhanced}.
 
 % read counting princple
 Read-counting approach is based on the principle that the number of
-reads originating from a region on the genome is directly proportional
+reads originating from a region of the genome is directly proportional
 to the copy number that region \citep{baslan2015optimizing}.
 %
 Tools for detecting copy number changes based on this approach typically
@@ -448,14 +446,14 @@ use variations of the following steps:
 (1) Align the reads to the reference genome using any standard mapping
 tool.
 %
-(2) Partition the genome into non-overlapping ``bins'' and determining
-the number of reads mapping to each bin. The size of the bins determine
+(2) Partition the genome into non-overlapping ``bins'' and determine
+the number of reads mapped to each bin. The size of the bins determine
 the resolution of copy number profile; small bins generate
 high-resolution profiles, but also require more reads. For cancer, the
 size of the copy number alterations are typically in the megabase base
 range for focal alterations or chromosomal arm lengths for broad
 alterations \citep{beroukhim2010landscape}, and thus, it is common to
-bins use that are larger than 100 kb.
+use bins that are larger than 100 kb.
 %
 (3) Normalize bin counts to remove the effect of any bias that may have
 been introduced. Bin counts are usually corrected for GC bias and
@@ -525,7 +523,7 @@ overhangs after the anchoring enzyme digestion. These linkers are
 designed to contain a type IIS restriction site (types IIS restriction
 enzymes cut $~\sim$20 bp away from a recognition site).
 %
-These molecules are they digested with a type IIS enzyme (tagging
+These molecules are then digested with a type IIS enzyme (tagging
 enzyme) releasing the linker and a 9 bp tag.
 %
 The molecule from both the pools are ligated with one another to form
@@ -536,7 +534,7 @@ Ditags are then PCR amplified with the primer binding sites located in
 the linkers.
 %
 These molecules are then cleaved again with the anchoring enzyme to
-remove the linkers, and leaving behind ditags with anchoring enzyme
+remove the linkers, and leaving behind ditags with the anchoring enzyme
 overhangs.  These ditags are then ligated to form longer molecules
 that contain several ditags punctuated by the anchoring enzyme site.
 %

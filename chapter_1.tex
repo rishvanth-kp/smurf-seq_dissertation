@@ -29,33 +29,34 @@ molecules. However, these technologies have the enormous advantage of
 operating in near real-time, with a turnaround time that can be measured
 in hours for some applications, rather than days or weeks.
 
-Copy number variation (CNV) has been used successfully to understand a
-variety of diseases \citep{sebat2007strong} -- notably cancers, which
+Copy number alteration (CNA) has been used successfully to understand a
+variety of diseases \citep{fanciulli2010gene} -- notably cancers, which
 exhibit both extreme variation and recurrent trends that can be used for
 diagnostics and personalized approaches to treatment. For example, the
-amplification and loss of certain genes, such as \textit{RB1} deletion and
-\textit{MYCN} amplification in retinoblastoma, can be prognostic or even
-predictive for treatment \citep{berry2017potential}.  High-throughput short-read
-sequencing has been extremely effective in copy number profiling of
-cancers \citep{chiang2009high}, including profiling single tumor cells
-\citep{navin2011tumour}. However, for many potential users, the
-efficiency of high-throughput short-read sequencing in CNV analysis is
-determined by the availability of instruments and need for heavy
-multiplexing to hit reasonable cost per profile. A sequencing core is
-typically involved and an individual profile must wait for a ``full''
-run before it can be processed. The MinION sequencer has an accessible
-buy-in and is easy to use. Unfortunately the MinION has optimal
-nucleotide throughput when producing reads that are orders of magnitude
-longer than needed for CNV profiling.
+amplification and loss of certain genes, such as \textit{RB1} deletion
+and \textit{MYCN} amplification in retinoblastoma, can be prognostic or
+even predictive for treatment \citep{berry2017potential}.
+High-throughput short-read sequencing has been extremely effective in
+copy number profiling of cancers \citep{chiang2009high}, including
+profiling single tumor cells \citep{navin2011tumour}. However, for many
+potential users, the efficiency of high-throughput short-read sequencing
+in CNA analysis is determined by the availability of instruments and
+need for heavy multiplexing to hit reasonable cost per profile. A
+sequencing core is typically involved and an individual profile must
+wait for a ``full'' run before it can be processed. The MinION sequencer
+has an accessible buy-in and is easy to use. Unfortunately the MinION
+has optimal nucleotide throughput when producing reads that are orders
+of magnitude longer than needed for CNA profiling.
 
 To make full use of the advantages offered by the MinION sequencer, we
 introduce sampling molecules using re-ligated fragments (SMURF)-seq, a
 protocol to efficiently sequence short DNA molecules on a long-read
-sequencer. The strategy of SMURF-seq is to concatenate short fragments
-into very long molecules ($\sim$8 kb) prior to sequencing. After (or
-possibly concurrent with) sequencing, the SMURF-seq reads are mapped to
-the reference genome by splitting them into their constituent fragments,
-each aligning to a distinct location in the genome.
+sequencer \citep{prabakar2019smurf}. The strategy of SMURF-seq is to
+concatenate short fragments into very long molecules ($\sim$8 kb) prior
+to sequencing. After (or possibly concurrent with) sequencing, the
+SMURF-seq reads are mapped to the reference genome by splitting them
+into their constituent fragments, each aligning to a distinct location
+in the genome.
 %
 We demonstrate the utility of SMURF-seq with the low-cost MinION
 sequencer to obtain data similar to that expected from typical
@@ -73,13 +74,13 @@ SMURF-seq reads. This study is organized as follows:
 In the second chapter, we review the relevant background.  First, we
 discuss the concept of nanopore sequencing and summarize its history,
 the MinION sequencing instrument and its utility, library construction
-methods, and properties of reads sequenced on these machines.
+methods, and sequencing on these machines.
 %
 Then, we discuss the copy number profiling and its implications in
 diversity and disease; especially its involvement in cancer, and the
 utility of copy number analysis in understanding the biology of cancer
-and diagnostic evaluation of tumors. We summarize protocols for copy
-number profiling and computational methods to for generating profiles.
+and diagnostic evaluation of tumors. We summarize methods and
+computational approaches for generating copy number profiles.
 %
 Finally, we discuss prior protocols that are similar in spirit to
 SMURF-seq; these protocols include SAGE and its variants, SMASH, and
@@ -87,7 +88,7 @@ Concat-seq.
 
 % Chapter 3: SMURF-seq
 In the third chapter, we describe the details of the SMURF-seq approach
-and demonstrate the accuracy of this approach for CNV profiling.  We
+and demonstrate the accuracy of this approach for CNA profiling.  We
 start with a discussion of sequencing long-reads or short-reads directly
 for read-counting on nanopore machines, and the merits and limitations
 of these methods.
@@ -132,6 +133,6 @@ short fragments to large reference genomes.
 % Chapter 5: Conclusion
 We conclude this study by highlighting our vision of using the SMURF-seq
 approach for short-read sequencing on long-read sequencers; we envision
-that with further optimizations of SMURF-seq, to both the protocol and
+that with further optimizations to SMURF-seq, to both the protocol and
 mapping algorithms, would drive down the cost of sequencing and broaden
 the applications of long-read sequencers.
