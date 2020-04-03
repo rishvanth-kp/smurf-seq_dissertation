@@ -4,25 +4,40 @@
 %%%%%                                                              %%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter*{Abstract}
-Somatic copy number alterations (CNA) play a significant role cancer,
-and can be leveraged for diagnostic and personalized approaches to
-treatment.
+% SMURF-seq
+We present SMURF-seq, a protocol to efficiently sequence short DNA
+molecules on a long-read sequencer by randomly ligating them to form
+long molecules.
 %
-High-throughput short-read sequencing has been extremely efficient in copy
-number profiling; however, its applicability depends on the availability of
-instrument, and time to obtain profiles can vary from a few days to weeks.
-%
-We present SMURF-seq, a protocol to efficiently sequence short DNA molecules
-on a long-read sequencer by randomly ligating them to form long molecules.
-Applying SMURF-seq using the highly portable and inexpensive Oxford Nanopore
-MinION yields up to 30 fragments per read, providing an average of 6.2 and up
-to 7.5 million mappable fragments per run, increasing information throughput
-for read-counting applications. We apply SMURF-seq on the MinION to generate
-copy number profiles, demonstrate that multiple samples can be multiplexed and
-sequenced in a single sequencing run, and show that concordant profiles are
-obtained with reads sequenced in the first 45 minutes of a run. A comparison
-with profiles from Illumina sequencing reveals that SMURF-seq attains similar
-accuracy.
-%
+Applying SMURF-seq using the highly portable and inexpensive Oxford
+Nanopore MinION yields up to 30 fragments per read, providing an average
+of 6.2 and up to 7.5 million mappable fragments per run, increasing
+information throughput for read-counting applications.
+
+% Copy number
+Somatic copy number alterations play a significant role cancer, and can
+be leveraged for diagnostic and personalized approaches to treatment.
+% Drawbacks of high-throughput short-read
+High-throughput short-read sequencing has been extremely efficient in
+copy number profiling; however, its applicability depends on the
+availability of instrument, and time to obtain profiles can vary from a
+few days to weeks.
+% Copy number profiling on MinION
+We apply SMURF-seq on the MinION to generate copy number profiles and
+demonstrate that multiple samples can be multiplexed in a single
+sequencing run.  A comparison with profiles from Illumina sequencing
+reveals that SMURF-seq attains similar accuracy.
+
+% aligning SMURF-seq reads
+A SMURF-seq read is aligned to the reference genome by splitting them
+into their  constituent fragments, each aligning to a distinct location
+in the genome.
+% Fragment identification
+We define a score function for aligning a SMURF-seq read and describe an
+approach to determine the optimal fragmentation of a read.
+
+% big picture
 More broadly, SMURF-seq expands the utility of long-read sequencers for
-read-counting applications.
+efficient short-read sequencing, enabling applications on long-read
+sequencers that are currently only efficient on high-throughput
+short-read sequencers.
