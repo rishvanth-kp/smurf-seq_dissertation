@@ -20,7 +20,7 @@ Since nanopore machines are optimized for long-read sequencing, this
 method has the advantage of using any standard library preparation
 protocol that are commercially available.  Sequencing long
 molecules using a nanopore keeps a pore occupied for a longer duration
-once a pore is loaded followed by an open pore waiting for a molecule to
+once a pore is loaded, followed by an open pore waiting for a molecule to
 be reload.  Further, technical nucleotides, such as sequencing adapters
 and barcodes, are sequenced one (or twice) every $\sim$8k bases, and
 thus, the fraction of time a nanopore spends sequencing technical
@@ -50,7 +50,7 @@ run than sequencing long reads.
 However, sequencing short reads requires ad-hoc modifications to the
 library preparation protocol as these are optimized for longer
 molecules.  Sequencing these shorter molecules keeps a pore occupied for
-a shorter duration once a pore is loaded followed by waiting for a pore
+a shorter duration once a pore is loaded, followed by waiting for a pore
 to be reloaded (but the reload time is usually shorter due to the higher
 molar concentration). Moreover, technical nucleotides are sequenced
 every $\sim$150bp, increasing the fraction of time a nanopore sequences
@@ -132,12 +132,12 @@ are given below:
   %% choice of re used
   The choice of restriction enzyme used is primarily dependent on the
   size of the fragmented molecules produced. Based on the downstream
-  application, this could also be influenced by other factors such as
+  application, this choice could also be influenced by other factors such as
   any sequence-specific biases restriction enzymes could introduce.
   %% advantages
   An advantage of using restriction enzymes to fragment DNA molecules,
   over other fragmentation techniques, is that the fragmented molecules
-  have a uniform ends (either overhangs with the same sequence or
+  have a uniform ends (either sticky-ends with the same overhangs or
   blunt-ends) and are thus compatible for ligation without an end-repair
   step in between.
 
@@ -182,16 +182,16 @@ are given below:
   molecules that are typical of spin-column based methods.
 \end{enumerate}
 
-\begin{figure}[t!]
+\begin{figure}[b!]
 \centering
 \includegraphics{ch3_fig3.pdf}
 \caption[Restriction digestion and ligation of DNA molecules.]{
   Restriction digestion and ligation of DNA molecules.
-  (a) Distribution of length between restriction sites computed
+  (a) Length distribution between restriction sites computed
   by measuring the distance between the recognition sites on the human
   reference genome. SaqAI recognizes the sequence TTAA and leaves a 2 bp
   overhang.
-  (b) Negative gel image of fragmented and ligated normal diploid DNA
+  (b) Negative gel image of fragmented and ligated DNA
   using SaqAI restriction enzyme and T4 DNA ligase.  Sticky-end and
   blunt-end ligation (by end-repair) of fragmented DNA are shown, and
   both yield ligated molecules of approximately the same length.}
@@ -206,10 +206,9 @@ machines can be used with SMURF-seq molecules. These molecules can also
 be barcoded with one (or two) barcode sequences per molecule. Thus, the
 SMURF-seq approach overcomes the disadvantages of sequencing long or
 short DNA molecules directly on a nanopore machine for read-counting
-applications, and improves its efficiency of read-counting
-applications.
+applications, and improves its efficiency of read-counting applications.
 
-We also tested dsDNA Fragmentase enzymes (New England Biolabs) and
+We also tested dsDNA fragmentase enzymes (New England Biolabs) and
 acoustic shearing (Covaris) to fragment DNA. However, these methods
 require an additional end-repair step after fragmentation and the
 ligated molecules failed to reach the lengths we obtained by using
@@ -225,8 +224,7 @@ The fragmented DNA molecules are then ligated randomly to form longer
 molecules using T4 DNA ligase enzyme (Fig.~\ref{re_frag}b).
 %
 In our experiments, the resulting long DNA molecules were prepared for
-sequencing
-using the Oxford Nanopore Technologies 1D DNA by ligation kit
+sequencing using the Oxford Nanopore Technologies 1D DNA by ligation kit
 (SQK-LSK108) or the rapid sequencing kit (SQK-RAD003) following the
 standard manufacturers protocol. We also multiplexed samples using the
 1D native barcoding genomic DNA kit (EXP-NBD103) followed by library
@@ -307,7 +305,7 @@ boundaries of each fragment are known \textit{a priori}, as are their
 mapping locations when in the context of their original long reads. We
 used this information to evaluate mapping tools in terms of (1) how well
 they identify fragments purely for the purpose of counting molecules,
-which is the primary information used in CNV analysis, and (2) how well
+which is the primary information used in CNA analysis, and (2) how well
 they identify individual mapping bases within reads. After mapping these
 reads, we calculated precision and recall for identifying both the
 correct fragment locations, and the individual mapping bases within the
@@ -319,17 +317,17 @@ Appendix~\ref{appendB}).
 Based on these results BWA-MEM outperformed other tools, and thus, we
 used BWA-MEM to align SMURF-seq reads.
 %
-Briefly, BWA-MEM uses short seed hits originating from different parts of
-the long reads (and therefore, in our application, different fragments
-within those long reads), to form clusters of seed hits in the reference
-genome. Nearby clusters are joined, and then extended, eventually
-resulting in (for most fragments) one alignment per fragment.
+Briefly, BWA-MEM uses short seed hits originating from different parts
+of the long reads (and therefore, in our application, different
+fragments within those long reads), to form clusters of seed hits in the
+reference genome. Nearby clusters are joined, and then extended,
+eventually resulting in (for most fragments) one alignment per fragment.
 %
 In our analysis, we employed BWA-MEM without any modifications to
 optimize identification of fragment boundaries.  According to our
 simulations, this mode of operation may not perfectly identify fragment
-boundaries, but performs well in identifying mapping locations of
-the individual fragments, which is the information passed to subsequent
+boundaries, but performs well in identifying mapping locations of the
+individual fragments, which is the information passed to subsequent
 steps in our analysis.
 
 
@@ -343,6 +341,7 @@ reads (length $\sim$8 kb) \citep{jain2018nanopore,tyson2018minion} using
 the standard library preparation and sequencing protocols. Several
 studies have used these long reads for copy number profiling
 \citep{euskirchen2017same,magi2019nano}.
+
 %% Short read sequencing
 We tested the ability of the Oxford MinION instrument to sequence short
 DNA molecules by sequencing restriction enzyme (SaqAI) digested normal
@@ -410,14 +409,14 @@ optimal for read-counting applications.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Efficient CNV profiling using SMURF-seq}
-To demonstrate the utility of SMURF-seq, we generated CNV profiles of
+\section{Efficient CNA profiling using SMURF-seq}
+To demonstrate the utility of SMURF-seq, we generated CNA profiles of
 normal diploid and highly rearranged cancer genomes.  The mapped
 fragments were grouped into variable length ``bins'' across the genome
-and bin counts were used to generate CNV profiles as described in
+and bin counts were used to generate CNA profiles as described in
 \citep{baslan2012genome,kendall2014computational}.
 
-\subsection{Accurate CNV profiles using SMURF-seq}
+\subsection{Accurate CNA profiles using SMURF-seq}
 \begin{figure}[t!]
 \centering
 \includegraphics{read_frag_dist.pdf}
@@ -434,27 +433,27 @@ and bin counts were used to generate CNV profiles as described in
 We sequenced a normal diploid female genome with SMURF-seq, resulting in
 270.8k reads (mean read length of 6.75 kb) in a single run. These reads
 were split into 7.28 million fragments (26.87 mean fragments per read;
-Fig.~\ref{read_frag_dist}).
-A CNV profile for this normal diploid genome, with the expected
-(approximately flat) appearance can be seen in Fig.~\ref{cnv}a.
+Fig.~\ref{read_frag_dist}).  A CNA profile for this normal diploid
+genome, with the expected (approximately flat) appearance can be seen in
+Fig.~\ref{cnv}a.
 % Replicate
 A replicate of this experiment resulted in 497.9k reads (mean read
 length of 3.7 kb), which were split into 7.55 million fragments (15.16
 mean fragments per read).
 
 %% Rapid kit
-The Rapid sequencing kit form Oxford Nanopore Technologies offers an
+The rapid sequencing kit form Oxford Nanopore Technologies offers an
 extremely fast (10 minute) and simple (2 step) protocol for library
 preparation. We verified that the SMURF-seq procedure behaves similarly
-using the Rapid Sequencing Kit. The 213.38k sequenced reads had a mean
-read length of 3.9 kb, and were split into 2.81 million fragments.
-The copy number profile of the diploid genome was flat, as expected.
+using the rapid sequencing kit. The 213.38k sequenced reads had a mean
+read length of 3.9 kb, and were split into 2.81 million fragments.  The
+copy number profile of the diploid genome was flat, as expected.
 
 %% skbr3 genome
 Next, we applied SMURF-seq to the breast cancer line SK-BR-3, generating
 147.0k reads with mean length of 7.62 kb, which were split into 4.52
 million fragments (30.78 mean fragments per read). We then obtained a
-CNV profile using 5,000 bins, corresponding to an average bin size of
+CNA profile using 5,000 bins, corresponding to an average bin size of
 approximately 600 kb (Fig.~\ref{cnv}b).
 
 \begin{figure}[b!]
@@ -462,9 +461,9 @@ approximately 600 kb (Fig.~\ref{cnv}b).
 \includegraphics{ch3_fig4.pdf}
 \caption[Accurate copy number profiles with SMURF-seq.]{
   Accurate copy number profiles with SMURF-seq.
-  (a) CNV profile of a normal diploid genome. Each blue point is a
+  (a) CNA profile of a normal diploid genome. Each blue point is a
   bin ratio to mean and the red line is the segmented bin ratio.
-  (b) Superimposed CNV profiles of SK-BR-3 genome generated using
+  (b) Superimposed CNA profiles of SK-BR-3 genome generated using
   SMURF-seq and Illumina WGS reads.
   (c) Venn diagram illustrating the accuracy of event calls using
   SMURF-seq compared with Illumina WGS.
@@ -475,12 +474,12 @@ approximately 600 kb (Fig.~\ref{cnv}b).
 \label{cnv}
 \end{figure}
 
-To provide a quantification of accuracy in terms of individual CNV
+To provide a quantification of accuracy in terms of individual CNA
 events we conducted whole-genome sequencing (WGS) on the same SK-BR-3
 using Illumina (5.56 million reads; 130 bp, single-end).  We used this
-to define a ground truth by calling CNV events for each of the
-pre-defined bins (both amplifications and deletions) based on the segmented
-signal with a cutoff of 1.25/0.8 (Fig.~\ref{cnv}b)
+to define a ground truth by calling CNA events for each of the
+pre-defined bins (both amplifications and deletions) based on the
+segmented signal with a cutoff of 1.25/0.8 (Fig.~\ref{cnv}b)
 \citep{dago2014rapid,berry2017potential}. This resulted in 1,466 events
 (886 amplifications, 580 deletions) from 4,953 bins. We then called
 events using the identical procedure with SMURF-seq data from the same
@@ -490,60 +489,59 @@ Fig.~\ref{cnv}d shows a zoom-in of a region with extreme copy number
 alterations. The bin ratios for the Illumina WGS and the SMURF-seq
 profiles are highly correlated (Pearson $r$ = 0.99; Fig.~\ref{cnv}e).
 % replicate
-A replicate of this experiment resulted in 132.64k reads (mean read length
-of 7.3 kb), which were split into 4.02 million fragments (30.31 mean
-fragments per read).
+A replicate of this experiment resulted in 132.64k reads (mean read
+length of 7.3 kb), which were split into 4.02 million fragments (30.31
+mean fragments per read).
 
 \begin{figure}[t!]
 \centering
 \includegraphics{skbr3_hi_res.pdf}
-\caption[High resolution CNV profile with SMURF-seq]{
-  High resolution CNV profile generated using SMURF-seq is highly concordant
+\caption[High resolution CNA profile with SMURF-seq]{
+  High resolution CNA profile generated using SMURF-seq is highly concordant
   with the profile generated with Illumina WGS.
-  (a, b) Superimposed CNV profiles of SK-BR-3 genome generated using SMURF-seq
+  (a, b) Superimposed CNA profiles of SK-BR-3 genome generated using SMURF-seq
   and Illumina WGS at 20,000 and 50,000 bin resolutions.
   (c, d) Scatter plot of bin ratios of SK-BR-3 genome using
-  SMURF-seq and Illumina WGS reads at 20,000 and 50,000 bin resolutions. }
+  SMURF-seq and Illumina WGS reads at 20,000 and 50,000 bin resolutions.
+  Pearson correlation of the data is shown.}
   \label{skbr3_hi_res}
 \end{figure}
 
 %% Hige resolution profiles
-We also generated higher-resolution CNV profiles with 20,000 and 50,000
+We also generated higher-resolution CNA profiles with 20,000 and 50,000
 bins, corresponding to an average of approximately 150 kb and 60 kb in
 length respectively (Fig.~\ref{skbr3_hi_res}a, b). The profiles obtained
 at these resolutions have a high correlation with the profiles obtained
 using Illumina WGS (Pearson $r>$ 0.97; Fig.~\ref{skbr3_hi_res}c, d).
 
-
-
 \subsection{Concordant profiles from fewer countable fragments}
 \begin{figure}[t!]
 \centering
 \includegraphics{ch3_fig5.pdf}
-\caption[Multiple SMURF-seq CNV profiles by multiplexing in a single run]{
-  Multiple SMURF-seq CNV profiles by multiplexing in a single run.
-  (a) CNV profile of SK-BR-3 genome with down-sampled 10k SMURF-seq reads.
+\caption[Multiple SMURF-seq CNA profiles by multiplexing in a single run]{
+  Multiple SMURF-seq CNA profiles by multiplexing in a single run.
+  (a) CNA profile of SK-BR-3 genome with down-sampled 10k SMURF-seq reads.
   (b) Scatter plot of normalized bin counts of the original SMURF-seq
   data and data down-sampled to 10k SMURF-seq reads. Pearson
   correlation of the data is shown.
-  (c) CNV profile of barcode01 (Normal diploid genome) reads.
-  (d) CNV profile of barcode02 (SK-BR-3 cancer genome) reads.
+  (c) CNA profile of barcode01 (Normal diploid genome) reads.
+  (d) CNA profile of barcode02 (SK-BR-3 cancer genome) reads.
   (e) Scatter plot of bin ratios of SK-BR-3 genome using
   multiplexed SMURF-seq and Illumina WGS reads.}
 \label{cnv_mux}
 \end{figure}
 
-Several cancer-related studies have employed CNV profiling based on
+Several cancer-related studies have employed CNA profiling based on
 low-coverage WGS \citep{macintyre2018copy,kader2016copy}.  It has
 previously been demonstrated that 250k reads are sufficient for accurate
-genome-wide CNV profiling of single cells \citep{baslan2015optimizing}.
-At the same time, the CNV profiles from a population of cells has been
+genome-wide CNA profiling of single cells \citep{baslan2015optimizing}.
+At the same time, the CNA profiles from a population of cells has been
 shown to have a high correlation with single-cell profiles
-\citep{navin2011tumour,baslan2015optimizing}. We reasoned that using 250k
-fragments for CNV profiling using a population of cells would give
+\citep{navin2011tumour,baslan2015optimizing}. We reasoned that using
+250k fragments for CNA profiling using a population of cells would give
 useful profiles if they remained sufficiently accurate.  By
 down-sampling our SMURF-seq data, we verified that 10k reads,
-approximately 250k fragments, result in highly-correlated CNV profiles
+approximately 250k fragments, result in highly-correlated CNA profiles
 (Pearson $r$ = 0.98; Fig.~\ref{cnv_mux}a, b).
 
 Given the total capacity of the MinION instrument, this indicates that
@@ -553,8 +551,8 @@ sequencing run.
 To verify this, we sequenced two DNA samples (normal diploid female and
 SK-BR-3) in a single run.  These samples were processed with SMURF-seq
 protocol and then barcoded following the standard library construction.
-After demultiplexing and mapping the reads, the diploid genome had a CNV
-profile as expected (Fig.~\ref{cnv_mux}c) and the SK-BR-3 CNV profile
+After demultiplexing and mapping the reads, the diploid genome had a CNA
+profile as expected (Fig.~\ref{cnv_mux}c) and the SK-BR-3 CNA profile
 was nearly identical to the profile obtained using Illumina WGS (Pearson
 $r$ = 0.99; Fig.~\ref{cnv_mux}d, e). All the sequencing runs and the
 availability of sequence data are summarized in Appendix~\ref{appendC}.
@@ -562,39 +560,39 @@ availability of sequence data are summarized in Appendix~\ref{appendC}.
 \begin{figure}[t!]
 \centering
 \includegraphics{cnv_time.pdf}
-\caption[CNV profile with reads obtained in first few minutes of
+\caption[CNA profile with reads obtained in first few minutes of
   sequencing]{
-  CNV profile with reads obtained in first few minutes of sequencing.
-  (a, c, e) CNV profile  with reads obtained in the first 45, 90,
+  CNA profile with reads obtained in first few minutes of sequencing.
+  (a, c, e) CNA profile  with reads obtained in the first 45, 90,
   and 180 minutes of sequencing.
   (b, d, f) Scatter plot of bin ratios of the original
   SMURF-seq data and data obtained in first 45, 90, and 180
-  minutes of sequencing.}
+  minutes of sequencing. Pearson correlation of the data is shown.}
   \label{cnv_time}
 \end{figure}
 
 %% Terminating sequencing early
-Further, we verified that the CNV profile with reads generated in the
+Further, we verified that the CNA profile with reads generated in the
 first 45, 90, and 180 minutes of starting a sequencing run had a high
-correlation to the profile with reads from the complete run (Pearson $r>$
-0.98; Fig.~\ref{cnv_time}).
+correlation to the profile with reads from the complete run (Pearson
+$r>$ 0.98; Fig.~\ref{cnv_time}).
 
 In summary, our results demonstrate that SMURF-seq can generate more
-information for CNV analysis in a single run of the Oxford MinION
-sequencer, compared with either sequencing long reads in the usual way or
-direct short-read sequencing on the same instrument.  This increased
+information for CNA analysis in a single run of the Oxford MinION
+sequencer, compared with either sequencing long reads in the usual way
+or direct short-read sequencing on the same instrument.  This increased
 information is in the form of increased numbers of distinct DNA
 fragments sequenced, and can be leveraged in multiple ways. Applying
 SMURF-seq on a single sample for a full run corresponds to higher counts
-for downstream analysis. In CNV analysis, increased counts either add
+for downstream analysis. In CNA analysis, increased counts either add
 confidence for a fixed resolution, or can allow higher resolution
 analysis (i.e. smaller bins) at the same level of confidence.
 Alternatively, the increased information throughput can effectively
-reduce the time required to produce the same number of counts for CNV
+reduce the time required to produce the same number of counts for CNA
 analysis by terminating the sequencing earlier. Finally, the increased
 information yield can be directed towards reducing the cost of
-generating CNV profiles by allowing a greater degree of multiplexing.
-For CNV analysis at resolutions permitted by 250k mapped fragments, our
+generating CNA profiles by allowing a greater degree of multiplexing.
+For CNA analysis at resolutions permitted by 250k mapped fragments, our
 results show SMURF-seq allows roughly 20 and up to 30 samples in a
 single run, compared with 10 per run directly using short-read
 sequencing.
@@ -606,9 +604,9 @@ sequencing.
 \label{future_smurf}
 
 \subsection*{SMURF-seq with shorter fragments}
-For CNV profiling with SMURF-seq, we used restriction enzyme SaqAI which
+For CNA profiling with SMURF-seq, we used restriction enzyme SaqAI which
 fragments the human genome generating molecules with a mean length of
-150 bp. For CNV profiling and other read-counting applications, the
+150 bp. For CNA profiling and other read-counting applications, the
 length of the fragmented molecules needs to be just long enough to
 ensure unique mappability to a sufficient fraction of the genome. Thus,
 reducing the fragment lengths could increase the number of fragments in
@@ -656,7 +654,7 @@ application.
 Some read-counting applications, such as Ribo-seq
 \citep{ingolia2009genome}, involve extensive steps to produce the
 molecules of interest. These resultant DNA molecules from these
-protocols could already fragmented to length optimal for SMURF-seq.
+protocols could already be fragmented to length optimal for SMURF-seq.
 Other applications such are targeted-capture methods and whole-exome
 sequencing protocols typically produce molecules that are $\sim$150-200
 bp. Further, cell-free DNA molecules obtained from blood samples are of
@@ -677,7 +675,6 @@ adalsteinsson2017scalable}.
 \label{fraged_smurf}
 \end{figure}
 
-%
 Sequencing these molecules using SMURF-seq would require that these
 molecules have compatible ends for ligation, and the quantity of DNA is
 sufficient for nanopore sequencing.
