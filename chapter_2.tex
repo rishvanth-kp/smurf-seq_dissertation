@@ -107,10 +107,10 @@ In the exo-sequencing approach, individual bases from a DNA are cleaved
 into a nanopore with an exonuclease and identified one at a time
 \citep{astier2006toward,clarke2009continuous}.
 % strand-sequencing
-Alternatively, in the strand sequencing approach a DNA molecule is
+Alternatively, in the strand-sequencing approach a DNA molecule is
 threaded though a nanopore at a controlled rate and the bases are
 identified from the continuous change in current levels. Initial
-approaches in strand sequencing used a DNA polymerase (derived from
+approaches in strand-sequencing used a DNA polymerase (derived from
 \emph{Escherichia coli} Kleenow fragment or bacteriophage T7) and
 recorded the current levels as the DNA translocates through a pore with
 the incorporation of each nucleotide
@@ -160,17 +160,17 @@ and 48 flowcells, respectively.
 
 %% Nanopore library construction
 \paragraph{Nanopore library preparation and sequencing}
-Sequencing nucleic acids requires preprocessing the sample DNA for
+Sequencing nucleic acids requires preprocessing the sample for
 compatibility with the underlying sequencing technology, a process
 traditionally referred to as library preparation.
 %
-Sequencing on a nanopore machine usually requires fragmenting DNA
+Sequencing on a nanopore machine usually requires fragmenting these
 molecules to the appropriate length and attaching sequencing adapters.
 %
 Oxford Nanopore Technologies offers several commercially library
 preparation kits for both DNA and RNA samples.  Of the available kits,
-most commonly used are the ligation sequencing kit family and the rapid
-sequencing kit family.
+most commonly used for DNA samples are the ligation sequencing kit
+family and the rapid sequencing kit family.
 
 % Ligation kit
 In theory, there is no limit on the length of a molecule that can be
@@ -218,7 +218,7 @@ buffers, and the sample is loaded. After which the sequencing can be
 started and the reads are available as they are sequenced in real-time.
 %
 The sequencing process is controlled by the MinKNOW tool, and can
-continue for up to 48 hours.
+continue for up to 48 hours (at present, on the MinION instrument).
 % Base-calling reads
 The sequenced reads are converted from current level ``squiggles'' into
 base-space using base-calling tools such as Guppy (Oxford Nanopore
@@ -235,7 +235,7 @@ approximately 85\% identity to the reference genome
 accuracy of reads are a continually improving with improvements to both
 the nanopore and the base-calling tools.
 % GC-bias
-Nanopore sequencing does not introduce significant a GC bias when the
+Nanopore sequencing does not introduce a significant GC bias when the
 samples are prepared with a protocol that does not use PCR
 \citep{carter2017robust}.
 
@@ -256,8 +256,8 @@ in number of copies of a region of the genome larger than 1 kb with
 respect to a reference genome
 \citep{redon2006global,feuk2006structural}.  The number of copies of a
 region of the genome could increase resulting in a copy number ``gain''
-(also referred to as amplification or duplication), or decrease
-resulting in a copy number ``loss'' (also referred to as deletion).
+(also referred to as an amplification or a duplication), or decrease
+resulting in a copy number ``loss'' (also referred to as a deletion).
 % source of cnv
 Changes in copy number can occur due to mechanisms such as homologous
 recombination and non-homologous DNA repair mechanisms
@@ -290,19 +290,20 @@ variations ranged from 150 kb to 425 kb.
 These studies were extended to larger populations and to populations of
 different ancestry \citep{redon2006global,li2009whole}.  CNVs in the
 human genome and those that contribute to diversity are reviewed in
-\citep{freeman2006copy,feuk2006structural,zarrei2015copy}.
+\cite{freeman2006copy}, \cite{feuk2006structural}, and
+\cite{zarrei2015copy}.
 
 %% CNV in diseases
 \paragraph{Copy number variation in diseases}
 Changes in copy number of genes or whole chromosomes are implicated in
 several diseases. The most notable example is the trisomy of chromosome
-21 in Down's syndrome \citep{antonarakis2004chromosome}.
+21 in Down syndrome \citep{antonarakis2004chromosome}.
 %
 Mechanisms by which copy number variations alter phoenotype include:
-over-expression of amplified genes and under-expression of deleted
-genes (gene dosage effects), unmasking of a mutant recessive allele
-after deletion of dominant allele, altered expression of gene that
-overlaps a structural variation (such as a inversion, translocation, or
+over-expression of amplified genes and under-expression of deleted genes
+(gene dosage effects), unmasking of a mutant recessive allele after
+deletion of dominant allele, altered expression of a gene that overlaps
+a structural variation (such as a inversion, translocation, or
 deletion), or a structural variation could disrupt regulatory elements
 of a gene \citep{feuk2006structural}.
 %
@@ -392,8 +393,8 @@ such as aqueous humor \citep{berry2017potential} and cerebrospinal fluid
 \citep{mouliere2018detection}, circulating tumor cells
 \citep{dago2014rapid}, and extra-cellular RNA
 \citep{zaporozhchenko2018potential}.  (Use of liquid biopsies in cancer
-is reviewed in \citep{heitzer2019current,crowley2013liquid,
-schwarzenbach2011cell}.)
+is reviewed in \cite{heitzer2019current} , \cite{crowley2013liquid},
+and \cite{schwarzenbach2011cell}.)
 %
 Among others, an enormous advantage of a liquid biopsy is the minimally
 invasive procedure used to obtain the analyte, which could be as simple
@@ -433,7 +434,7 @@ include paired-end read approach \citep{korbel2007paired,
 campbell2008identification} and read-counting approach
 \citep{yoon2009sensitive}.  The most commonly used, especially for tumor
 samples, is the read-counting approach, and this approach can also be
-used with whole-exome sequence data \citep{krumm2012copy,d2016enhanced}.
+used with whole-exome sequencing data \citep{krumm2012copy,d2016enhanced}.
 
 % read counting princple
 Read-counting approach is based on the principle that the number of
@@ -450,7 +451,7 @@ tool.
 the number of reads mapped to each bin. The size of the bins determine
 the resolution of copy number profile; small bins generate
 high-resolution profiles, but also require more reads. For cancer, the
-size of the copy number alterations are typically in the megabase base
+size of the copy number alterations are typically in the megabase
 range for focal alterations or chromosomal arm lengths for broad
 alterations \citep{beroukhim2010landscape}, and thus, it is common to
 use bins that are larger than 100 kb.
@@ -481,7 +482,7 @@ esophageal, and breast cancer samples having under 50\% tumor fraction
 %
 In addition to detecting copy number alterations with low-coverage
 sequencing, tumor fraction, subclonality, and ploidy of a tumor can also
-be determined \citep{adalsteinsson2017scalable,gusnanto2012correcting}
+be determined \citep{adalsteinsson2017scalable,gusnanto2012correcting}.
 
 
 
@@ -520,7 +521,7 @@ that bind to the biotinylated oligo(dT) primers.
 The isolated molecules are divided into two groups, and each group is
 ligated to a different linker (linker A and B, respectively) using the
 overhangs after the anchoring enzyme digestion. These linkers are
-designed to contain a type IIS restriction site (types IIS restriction
+designed to contain a type IIS restriction site (type IIS restriction
 enzymes cut $~\sim$20 bp away from a recognition site).
 %
 These molecules are then digested with a type IIS enzyme (tagging
@@ -557,11 +558,11 @@ instruments \citep{matsumura2010high},  and several others
 A variant of SAGE, digital karyotyping, was developed for copy number
 analysis \citep{wang2002digital,leary2007digital}. Digital karyotyping
 uses a 21 bp genomic DNA tags from specific locations on the genome (as
-opposed to mRNA tags in SAGE).  These tags are long enough uniquely
+opposed to mRNA tags in SAGE).  These tags are long enough to uniquely
 determine their location on the reference genome, and the counts of
 tags along the chromosome are used to quantify copy number changes.
 %
-Since, genomic DNA does not have a dA tail (that is required for SAGE),
+Since genomic DNA does not have a dA tail (that is required for SAGE),
 they are first fragmented with a restriction enzyme (mapping enzyme),
 ligated to biotinylated adapters with ends that match the mapping
 enzyme digested ends, digested with another restriction enzyme

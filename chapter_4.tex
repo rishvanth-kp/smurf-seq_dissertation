@@ -22,7 +22,7 @@ long-read sequencing.
 %% SMURF-seq
 SMURF-seq has enabled efficient short-read sequencing for read-counting
 applications on portable long-read machines.  However, efficient methods
-tailored for mapping SMURF-seq reads are still lacking; Especially as
+tailored for mapping SMURF-seq reads are still lacking; especially as
 SMURF-seq protocol evolves and the fragments become shorter, and thus,
 making the mapping process challenging in terms of identifying accurate
 fragment locations and boundaries.
@@ -318,7 +318,7 @@ to the start locations of fragments contained in $S$.
 We approach the fragment identification problem by defining a score
 function as follows:
 %% score function
-For a given fragment set $P$, we define the score of aligning $S$ to $T$
+for a given fragment set $P$, we define the score of aligning $S$ to $T$
 as: \[score_T(S,P) = \sum_{i=1}^{k} \max\{score(T[u \dots v], S[P_i
 \dots P_{i+1}]): 0 \leq u < v \leq n\}.\]
 %
@@ -390,7 +390,7 @@ the score function requires exact matching
 \end{cases}\]
 The fragment identification problem then becomes an exact matching
 problem where the goal is to minimize the number of fragments such that
-$score_T(P,S)$ is maximized.
+$score_T(S,P)$ is maximized.
 
 A simple linear time solution to this problem can be obtained as
 follows. First, we assume some data structure for $T$ has been
@@ -511,9 +511,9 @@ addition to the weighted match/mismatch and indel edges
 \centering
 \includegraphics{frag_id_graph.pdf}
 \caption[Alignment graph for fragment boundary identification algorithm
-  with an arbitrary score function]{
+  with a general score function]{
   Alignment graph for fragment boundary identification algorithm
-  with an arbitrary score function. The direction of arrows are omitted
+  with a general score function. The direction of arrows are omitted
   for clarity. The horizontal edges are directed from left to right and
   all other edges are directed from top to bottom.}
 \label{frag_alg}
@@ -579,8 +579,9 @@ a longest path in a single-source directed acyclic graph).
 %
 For finding the number of fragments on a SMURF-seq read, for each
 fragmentation, we use the alignment score distribution of random
-sequences with the same fragment set to determine the p-value for a
-fragmentation using the procedure described in the next section.
+sequences with the same fragment set to determine the p-value for the
+fragmentation using the procedure described in
+section~\ref{smurf_rand_dist}.
 
 
 
@@ -603,7 +604,7 @@ with a score at least as high as with $k$ fragments.
 
 As an example of how the alignment score of a SMURF-seq read grows as a
 function of $k$, consider a read consisting of $f$ fragments (typically
-$>$ 20 for a SMURF-seq read), however, $f$ is not known \emph{a priori}.
+$f > 20$ for a SMURF-seq read), however, $f$ is not known \emph{a priori}.
 % one fragment
 If the read is aligned to the reference genome as one fragment, it is
 likely going to align to a random location on the reference genome;
@@ -658,7 +659,7 @@ any sequencing errors. Fig.~\ref{aln_score}a shows the alignment score
 as a function of the number of fragments $k$, with scoring a match as
 1, a mismatch as 0, and not allowing indels. At $k=1$, the score is at
 the lowest, and increases with $k$. At $k=20$ every fragment is mapped
-to it true location, and since the read does not have any sequencing
+to its true location, and since the read does not have any sequencing
 errors, the score is equal to the read length. For $k > 20$, the score
 remains at the maximum.
 
@@ -685,6 +686,7 @@ not prominent.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Score distribution under a random model}
+\label{smurf_rand_dist}
 % Whey do we need this
 Calculation of p-value for aligning a SMURF-seq read with a given
 fragmentation requires the null distribution of aligning reads
@@ -698,7 +700,8 @@ fragment set $P$ containing $k$ elements, we need to determine the
 distribution of $score_T(S, P)$.
 %% Score function
 We use the following score function to obtain the distribution of
-$score_T(S,k)$:
+$score_T(S,k)$ (we use $score_T(S,k)$ as short-hand notation for
+$score_T(S, P)$ with $|P| = k$):
 \begin{equation*}
 \label{exact_score}
 score(a,b)=\begin{cases} 1 & \text{if } a = b \\
@@ -708,7 +711,7 @@ score(a,b)=\begin{cases} 1 & \text{if } a = b \\
 \end{equation*}
 
 % Summary of what follows
-To determine the distribution of $score_T(S, P)$, we first consider the score
+To determine the distribution of $score_T(S, k)$, we first consider the score
 distribution when $k = 1$, i.e. the entire read aligns as one fragment.
 Then, we consider the score distribution when $k > 1$ as the sum of $k =
 1$ distributions.
@@ -828,8 +831,8 @@ The fragments in a SMURF-seq read align independent of one another, and
 when the fragments are of equal lengths, the distribution of
 $score_T(S,k)$ is a sum of i.i.d. random variables. Thus, we can apply
 the central limit theorem to approximate the score distribution to a
-normal distribution as $k \to \infty$. To test the convergence to
-$score_T(S,k)$ to normal, we compared the empirical score distribution
+normal distribution as $k \to \infty$. To test the approximation of
+$score_T(S,k)$ to a normal, we compared the empirical score distribution
 to the normal distribution for $k = 20$ and 40, values that are typical
 for a SMURF-seq read (Fig.~\ref{norm_const}). The fragments lengths for
 all the comparisons were kept constant at 40 bp, and the parameters for
@@ -840,8 +843,8 @@ estimator.
 In aligning a SMURF-seq read, we cannot expect the fragment lengths to
 be equal. The distribution of $score_T(S,k)$, when the fragment lengths
 differ, is a sum of independent, but not identical, random variables. We
-empirically verified that this distribution converges to normal
-(Fig.~\ref{norm_geom}). For each $k$, the fragment lengths were
+empirically verified that this distribution is well approximated by a
+normal (Fig.~\ref{norm_geom}). For each $k$, the fragment lengths were
 generated from at random from a geometric distribution.
 
 \begin{figure}[t!]
@@ -1025,7 +1028,7 @@ as the sum of the mean and variance of the distribution of aligning 40
 bp, 100 bp, 70 bp fragments individually to a random genome.
 
 Thus, for a reference genome and a given score function, the parameters
-for the $k=1$ distribution need to determined just once. The parameters
+for the $k=1$ distribution needs to determined just once. The parameters
 for the null distribution for any fragmentation can be computed by
 looking-up the table and simply adding the values.
 %
@@ -1085,11 +1088,12 @@ $X_j$, which denotes the score of aligning a read $S$ to a substring of
 the reference $T[j \dots j+m-1]$, will not follow a binomial
 distribution.
 %
-The extreme value distribution can still be used to approximate the
-maximum of any independent and identical distributions (i.e. not just
-the normal distribution) \citep{kotz2000extreme}.  Thus, we hypothesized
-that \[score_T(S,1) = \max_{0 \leq j \leq n-m+1} X_j\]  could be
-approximated with an EVD irrespective of the score function used.
+However, the extreme value distribution can still be used to approximate
+the maximum of any independent and identical distributions (i.e. not
+just the normal distribution) \citep{kotz2000extreme}.  Thus, we
+hypothesized that \[score_T(S,1) = \max_{0 \leq j \leq n-m+1} X_j\]
+could be approximated with an EVD irrespective of the score function
+used.
 
 % in local alignment
 In the context of local alignment, the theoretical background for the
@@ -1160,7 +1164,7 @@ on fragment length needs to be determined.
 Aligning a SMURF-seq read with more than one fragment ($k > 1$) is
 approximated as a normal distribution, and the natural question is how
 large does $k$ have to be for a good approximation. Further,
-understanding the dependence of the number of fragments and the fragment
+understanding the dependence of the number of fragments on the fragment
 lengths are also crucial for determining the effectiveness of
 calculating the p-value for a fragmentation. For example, aligning two
 reads with a same $k$ but one with shorter fragments and the other with
@@ -1200,7 +1204,7 @@ A random model used to determine the null distribution would have a
 significant effect on the p-value, and so on the effectiveness of the
 procedure to determine the optimal number of fragments on a read. Random
 models preserving nucleotide frequencies, dinucleotide frequencies, or
-local base composition can be used.  The effect of the these random
+local base composition could be used.  The effect of the these random
 models for aligning SMURF-seq reads needs to be assessed.
 
 \subsection*{Extending to large genomes}
@@ -1260,9 +1264,7 @@ lead to a decrease in the sensitivity of the alignments found.
 %% refine step
 The candidate regions found in the search step could be further refined,
 typically generating an intermediate alignment to make the final align
-step efficient. Some tools use this step to further refine the candidate
-locations passed to the align step, and some tools skip this step
-entirely.
+step efficient.
 %% align step
 The align step performs a more detailed evaluation of similar regions on
 the read and the reference found in the previous steps, typically using
