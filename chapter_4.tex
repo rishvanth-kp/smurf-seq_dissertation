@@ -52,10 +52,11 @@ with low sequencing error or long reads with high sequencing error.
 
 % Challenges as the fragments get shorter
 Aligning SMURF-seq reads, especially as the fragments get shorter, would
-differ significantly from these tools in the following aspects: (1) A
-seeding approach designed for short fragments sequenced with a high
-error-rate.  (2) An approach to estimate the number of fragments on a
-SMURF-seq read and determine the optimal fragment boundaries.
+differ significantly from these tools in the following aspects: (1) It
+would require a seeding approach designed for short fragments sequenced
+with a high error-rate, and  (2) an approach to estimate the number of
+fragments on a SMURF-seq read and determine the optimal fragment
+boundaries.
 
 % Seeding
 The initial step of a typical alignment tool, called seeding, is to find
@@ -219,7 +220,7 @@ the longest match \citep{arratia1989erdos}.
 A crucial aspect of in aligning nucleic acid and protein sequences is
 using an appropriate score function. For example, PAM
 \citep{dayhoff197822} and BLOSUM \citep{henikoff1992amino} matrices are
-commonly for protein sequences.  The score function used alters the
+commonly used for protein sequences.  The score function used alters the
 score of the aligned sequences and thus the alignment score
 distribution.
 % Headrun approach does not consider score function
@@ -333,8 +334,8 @@ fragment set $P$ requires the knowledge of the number of fragments $k$,
 and this is not known \emph{a priori}. Further, the $k$ that maximizes
 the score function would almost never correspond to the optimal fragment
 set. As an example, taking $k=m-1$ which corresponds to taking each base
-as a fragment would maximize the score, however, this is a nonsensical
-alignment.
+as a fragment would maximize the score, however, this alignment would be
+non-informative.
 
 %% Outline of our statistical approach.
 We propose to estimate the number of fragments $k$ by aligning a
@@ -990,7 +991,7 @@ practice. Some of these issues are considered in the following sections.
 When aligning a SMURF-seq read, p-values need to calculated for a read
 to determine an optimal fragmentation among the potential
 fragmentations. It is thus important to be able to determine the p-value
-using an efficient procedure requiring the least computation.
+using an efficient procedure requiring the least amount of computation.
 %
 However, the procedure used above requires generating an empirical
 distribution for each fragmentation to determine the parameters for the
@@ -1145,7 +1146,7 @@ function that is used to align SMURF-seq reads. Further, we have also
 not verified the validity of these approximation when gap open penalties
 are used in addition to gap extend and mismatch penalties.
 
-\subsection*{Errors bounds for extreme value and normal approximations}
+\subsection*{Error bounds for extreme value and normal approximations}
 Any approximation for the null score distributions are just
 approximations, and would have associated limitations. We have not
 assessed the limitations and error bounds in making these

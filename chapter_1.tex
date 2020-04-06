@@ -19,7 +19,7 @@ Recently, long-read technologies have been developed that are filling
 the gap left by short-read sequencers in applications such as genome
 assembly \citep{jain2018nanopore,loman2015complete}, which benefit from
 connecting more distant sequences within a contiguous molecule. Among
-these the MinION instrument, from Oxford Nanopore Technologies, is
+these, the MinION instrument, from Oxford Nanopore Technologies, is
 highly portable and inexpensive and has shown its unique value for
 analysis outside of central sequencing facilities \citep{quick2016real}.
 Long-read sequencers such as the MinION typically produce vastly fewer
@@ -40,11 +40,11 @@ High-throughput short-read sequencing has been extremely effective in
 copy number profiling of cancers \citep{chiang2009high}, including
 profiling single tumor cells \citep{navin2011tumour}. However, for many
 potential users, the efficiency of high-throughput short-read sequencing
-in CNA analysis is determined by the availability of instruments and
-need for heavy multiplexing to hit reasonable cost per profile. A
+in CNA analysis is determined by the availability of instruments and the
+need for heavy multiplexing to hit a reasonable cost per profile. A
 sequencing core is typically involved and an individual profile must
 wait for a ``full'' run before it can be processed. The MinION sequencer
-has an accessible buy-in and is easy to use. Unfortunately the MinION
+has an accessible buy-in and is easy to use. Unfortunately, the MinION
 has optimal nucleotide throughput when producing reads that are orders
 of magnitude longer than needed for CNA profiling.
 
@@ -94,11 +94,11 @@ of these methods.
 %
 Then, we introduce the SMURF-seq protocol for efficient short-read
 sequencing on long-read machines; SMURF-seq combines the merits of
-sequencing long or short reads directly, while alleviating the
+sequencing long or short reads directly while alleviating the
 limitations.
 %
 We demonstrate that SMURF-seq generates higher read-counts from a
-sequencing run in comparison to these other method, the copy number
+sequencing run in comparison to these other methods, the copy number
 profiles generated with SMURF-seq are as accurate as profiles generated
 using an Illumina platform, multiple samples can be multiplexed and
 sequencing in the same sequencing run, and the reads generated in the
@@ -122,7 +122,7 @@ describe algorithms to find fragment boundaries on a read such that the
 score is maximized.
 %
 Then, we determine the null distribution of aligning a SMURF-seq read
-generated at random in order to calculate a p-value for a particular
+generated at random to calculate a p-value for a particular
 fragmentation of a read. We use these p-values to determine the optimal
 number of fragments on a read.
 %
