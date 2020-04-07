@@ -54,7 +54,7 @@ a shorter duration once a pore is loaded, followed by waiting for a pore
 to be reloaded (but the reload time is usually shorter due to the higher
 molar concentration). Moreover, technical nucleotides are sequenced
 every $\sim$150bp, increasing the fraction of time a nanopore sequences
-the technical bases (Fig.~\ref{naive_counting}).
+technical bases (Fig.~\ref{naive_counting}).
 
 \begin{figure}[b!]
 \centering
@@ -86,9 +86,9 @@ per run than sequencing long or short molecules directly.
 \includegraphics{smurf.pdf}
 \caption[SMURF-seq approach to sequencing short fragments]{
   SMURF-seq approach to sequencing short fragments.
-  SMURF-seq efficiently sequences short fragments of DNA for
-  read-counting applications with a reference genome on long-read
-  sequencers, and yields up to 30 countable fragments per sequenced read.
+  SMURF-seq efficiently sequences short fragments of DNA, as required
+  for read-counting applications, with a reference genome on long-read
+  sequencers.
   SMURF-seq sequences short DNA molecules by generating long concatenated
   molecules from these.  SMURF-seq reads are aligned by splitting them
   into multiple fragments, each aligning to a distinct region in the
@@ -185,8 +185,8 @@ are given below:
 \begin{figure}[b!]
 \centering
 \includegraphics{ch3_fig3.pdf}
-\caption[Restriction digestion and ligation of DNA molecules.]{
-  Restriction digestion and ligation of DNA molecules.
+\caption[Restriction enzyme digestion and ligation of DNA molecules.]{
+  Restriction enzyme digestion and ligation of DNA molecules.
   (a) Length distribution between restriction sites computed
   by measuring the distance between the recognition sites on the human
   reference genome. SaqAI recognizes the sequence TTAA and leaves a 2 bp
@@ -199,7 +199,7 @@ are given below:
 \end{figure}
 
 %% Library construnction using standard protocols
-DNA molecules that are resultant of the SMURF-seq protocol are long DNA
+DNA molecules that are resultant of the SMURF-seq protocol are long
 molecules that are typically several kilobases, and therefore, any
 standard library preparation kits that are available for nanopore
 machines can be used with SMURF-seq molecules. These molecules can also
@@ -617,9 +617,9 @@ per sequencing run.
 The length of the fragmented DNA molecules can be reduced by digestion
 with a combination of restriction enzymes, as these would recognize more
 sites on the genome. Depending on the choice of enzymes used, the
-fragmented molecules could have blunts ends, sticky ends that are not
+fragmented molecules could have blunts-ends, sticky-ends that are not
 compatible with one another for ligation, or a combination of blunt and
-sticky ends.
+sticky-ends.
 %
 These fragmented DNA could be end-repaired to have blunt ends on all
 molecules prior to ligation. However, this step adds an end-repair and a
@@ -653,7 +653,7 @@ application.
 % pre-fragmented DNA molecules
 Some read-counting applications, such as Ribo-seq
 \citep{ingolia2009genome}, involve extensive steps to produce the
-molecules of interest. These resultant DNA molecules from these
+molecules of interest. The resultant DNA molecules from these
 protocols could already be fragmented to length optimal for SMURF-seq.
 Other applications such are targeted-capture methods and whole-exome
 sequencing protocols typically produce molecules that are $\sim$150-200
