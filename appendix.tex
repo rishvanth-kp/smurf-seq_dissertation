@@ -121,23 +121,22 @@ was performed using ONT Guppy (2.3.5).
 
 \section*{Estimation of copy number variations}
 CNV profiles were generated using the procedure described in
-\citep{baslan2012genome,kendall2014computational} with the modification
-employed in \citep{gerdtsson2018multiplex,malihi2018clonal}.  Briefly,
-the human reference genome (hg19) was split into 5,000 (20,000 or
-50,000) bins containing an equal number of uniquely mappable locations
-and the bin counts were determined using uniquely mapped fragments.
-Bins with spuriously high counts (`bad bins', typically around
-centromeric and telomeric regions) were masked for downstream analysis
-\citep{kendall2014computational}.  This procedure normalizes bin counts
-for biases correlated with GC content by fitting a LOWESS curve to the
-GC content by bin count, and subtracting the LOWESS estimate from each
-bin \citep{kendall2014computational}.  Circular binary segmentation
-(CBS) \citep{olshen2004circular}, implemented in DNAcopy
-\citep{seshan2010dnacopy} package, then identifies breakpoints in the
-normalized bin counts.  Following
-\citep{gerdtsson2018multiplex,malihi2018clonal}, after CBS, spurious
-segmentation calls were removed.  The influence of the GC content
-correction can be seen in Additional file 1: Figure~S14.
+\cite{baslan2012genome} and \cite{kendall2014computational} with the
+modification employed in \cite{gerdtsson2018multiplex} and
+\cite{malihi2018clonal}.  Briefly, the human reference genome (hg19) was
+split into 5,000 (20,000 or 50,000) bins containing an equal number of
+uniquely mappable locations and the bin counts were determined using
+uniquely mapped fragments.  Bins with spuriously high counts (`bad
+bins', typically around centromeric and telomeric regions) were masked
+for downstream analysis \citep{kendall2014computational}.  This
+procedure normalizes bin counts for biases correlated with GC content by
+fitting a LOWESS curve to the GC content by bin count, and subtracting
+the LOWESS estimate from each bin \citep{kendall2014computational}.
+Circular binary segmentation (CBS) \citep{olshen2004circular},
+implemented in DNAcopy \citep{seshan2010dnacopy} package, then
+identifies breakpoints in the normalized bin counts.  Following
+\cite{gerdtsson2018multiplex} and \cite{malihi2018clonal}, after CBS,
+spurious segmentation calls were removed.
 
 \section*{Comparison with Illumina WGS of SK-BR-3 genome.}
 DNA from SK-BR-3 cells was used to construct WGS library with the
@@ -160,24 +159,23 @@ Pearson correlations comparing the CNV profiles were produced using R.
 \chapter{Mapping SMURF-seq reads with long-read aligners}
 \label{appendB}
 \section*{Simulating SMURF-seq reads to evaluate mapping programs}
-To test these mapping tools, we chose to create simulated reads with the
-technical characteristics we expect in idealized SMURF-seq data. We
+To test long-read mapping tools, we chose to create simulated reads with
+the technical characteristics we expect in idealized SMURF-seq data. We
 first selected a fragment length $\ell$ and a number $k$ of fragments
 per read. Then, for a given WGS nanopore data set, we took the set of
 mapped long reads as determined by BWA-MEM (with \texttt{-x ont2d}
-option).
-Each of the mapped reads was split into fragments of length $\ell$ (with
-a random offset of $0$ to $\ell-1$ at the start of the long read). Each
-fragment was validated by requiring that it did not overlap a deadzone
-in the genome (as determined by the deadzone program available from
-https://github.com/smithlabcode/utils for 40 bp). The reason for
-excluding deadzones is that even when a short fragment has a ``known''
-mapping location when it is part of a longer read, we cannot compare its
-reported mapping location as a short fragment with that known location,
-since we expect any good mapping algorithm to identify that the fragment
-maps ambiguously. Among these validated fragments, subsets of $k$ were
-sampled uniformly at random and concatenated (in random order and
-orientation) to form simulated SMURF-seq reads.
+option).  Each of the mapped reads was split into fragments of length
+$\ell$ (with a random offset of $0$ to $\ell-1$ at the start of the long
+read). Each fragment was validated by requiring that it did not overlap
+a deadzone in the genome (as determined by the deadzone program
+available from https://github.com/smithlabcode/utils for 40 bp). The
+reason for excluding deadzones is that even when a short fragment has a
+``known'' mapping location when it is part of a longer read, we cannot
+compare its reported mapping location as a short fragment with that
+known location, since we expect any good mapping algorithm to identify
+that the fragment maps ambiguously. Among these validated fragments,
+subsets of $k$ were sampled uniformly at random and concatenated (in
+random order and orientation) to form simulated SMURF-seq reads.
 
 The first and last fragments in a read should be slightly easier to
 identify and map than the rest, since one of their boundaries is
@@ -189,7 +187,7 @@ results. There is no need to have large $k$ otherwise.
 By lowering $\ell$ and making the fragments shorter, the task of
 mapping the fragments becomes more challenging. Real SMURF-seq reads
 have fragment lengths determined by restriction site density, size
-selection and other aspects of the experiments. But in testing mapping
+selection, and other aspects of the experiments. But in testing mapping
 algorithms and optimizing parameters, there is no disadvantage to
 making the task more challenging. We only need to be able to
 distinguish the relative performance of different mapping tools and
@@ -272,10 +270,10 @@ ERR2184722) and base-called these with Guppy (version: 2.3.5).
 
 
 \section*{Initial selection of mapping tools}
-We tested the following mapping tools: BWA-MEM\citep{li2013aligning},
-Minimap2\citep{li2018minimap2}, LAST\citep{kielbasa2011adaptive},
-GraphMap\citep{sovic2016fast}, BLASR\citep{chaisson2012mapping},
-rHAT\citep{liu2015rhat}, and LAMSA\citep{liu2017lamsa}. These were
+We tested the following mapping tools: BWA-MEM \citep{li2013aligning},
+Minimap2 \citep{li2018minimap2}, LAST \citep{kielbasa2011adaptive},
+GraphMap \citep{sovic2016fast}, BLASR \citep{chaisson2012mapping},
+rHAT \citep{liu2015rhat}, and LAMSA \citep{liu2017lamsa}. These were
 selected either because they are known to perform well on certain
 mapping tasks or have unique properties that plausibly could help in
 mapping SMURF-seq reads. We tested each of these using default
@@ -338,10 +336,10 @@ penalty from 6 to 10, open and extend penalties from 2 to 6, and fixed
 the match score at 4 (125 combinations).
 %
 Based on these results, the highest accuracy was obtained with the
-mismatch, open, and extension penalty of 2.5, 1.5, 0.75 respectively
-(corresponding scaled values are 10, 6 and 3). We used these optimal
-alignment scores for mapping real SMURF-seq read, and all the CNV
-profiles presented are based on these.
+mismatch, open, and extension penalty of 2.5, 1.5, and 0.75,
+respectively (corresponding scaled values are 10, 6, and 3). We used
+these optimal alignment scores for mapping real SMURF-seq read, and all
+the CNV profiles presented are based on these.
 
 
 

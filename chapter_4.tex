@@ -430,7 +430,7 @@ number of fragments as the optimal solution, i.e. $|P| =
 |P_{\mathrm{opt}}|$.
 
 The first iteration of the greedy algorithm will find the longest prefix
-match. If the optimal solution has its first fragmentation ending before
+match. If the optimal solution has its first fragment ending before
 $P_1$, i.e. $P_{\mathrm{opt1}} < P_1$. Then the longest match starting at
 $P_{\mathrm{opt1}}$ will end at or before $P_2$, the end of the second
 fragment found by the greedy algorithm. If it ends at $P_2$ then the
@@ -551,9 +551,9 @@ The initial step in any traditional mapping algorithm is to determine
 the approximate mapping locations of the read on the reference genome
 using a seeding approach.
 %
-Some algorithms further generate proto-alignments using the initial
-seeds.  For example, BWA-MEM joins seeds that are close to on the read
-and reference coordinates and have the same orientation into a ``chain''
+Some algorithms further generate proto alignments using the initial
+seeds.  For example, BWA-MEM joins seeds that are close on the read and
+reference coordinates and have the same orientation into a ``chain''
 \citep{li2013aligning}.
 %
 Typically, the final step is to perform a Smith-Waterman alignment
@@ -563,13 +563,13 @@ between the read and a small region on the reference genome.
 Any algorithm to aligning SMURF-seq reads can be expected to have
 similar steps. After seeding a SMURF-seq read, seeds from different
 fragments on a read would cluster at different locations on the genome;
-likely several different location for each fragment due to repeats or
+likely several different locations for each fragment due to repeats or
 seeding parameters (such as seed length).
 %
 These seed hits could be further processed to generate preliminary
 alignments between parts of the read and the reference genome.
 %
-Thus, after these steps it is reasonable to assume that approximate
+Thus, after these steps it is reasonable to assume that the approximate
 number of fragments and the boundaries of these fragments are known.
 
 %% Final step
@@ -777,7 +777,7 @@ We verified that score distribution of $score_T(S,1)$ is well
 approximated by an extreme value distribution by generating a random
 genome of length 50 kb from the DNA alphabet with equal probabilities,
 and reads of length 40 bp and 100 bp. For each read length, we
-determined the score distribution by aligning 5,000 reads generated at
+determined the score distribution by aligning 100,000 reads generated at
 random (Fig.~\ref{evd_approx}a, b). The parameters for the EVD was
 estimated using the method of moments.
 %% Distribution as a function of fragment length
@@ -836,10 +836,10 @@ of independent distributions.
   Normal approximation for $score_T(S,k)$ with random fragment lengths.
   Empirical score distribution of $score_T(S,k)$ with a fitted
   normal using the method of moments estimator. The fragment lengths are
-  generated from a geometric distribution with mean 100. Q-Q plot comparing
+  generated from a distribution with mean 40. Q-Q plot comparing
   the theoretical and empirical distributions are shown.
-  (a) $m=2188, k=20$.
-  (b) $m=3332, k=40$.}
+  (a) $m=744, k=20$.
+  (b) $m=1627, k=40$.}
 \label{norm_geom}
 \end{figure}
 
@@ -862,7 +862,7 @@ be equal. The distribution of $score_T(S,k)$, when the fragment lengths
 differ, is a sum of independent, but not identical, random variables. We
 empirically verified that this distribution is well approximated by a
 normal (Fig.~\ref{norm_geom}). For each $k$, the fragment lengths were
-generated from at random from a geometric distribution.
+generated from at random from a distribution with mean 40.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1012,7 +1012,7 @@ be used in practice.
   of $k$ distributions.
   (a-b) Reads with $k=20$ and $k=40$ fragments of constant 40 bp length.
   (c-d) Reads with $k=20$ and $k=40$ fragments of length generated at
-  random from a geometric distribution with mean 100.}
+  random from a distribution with mean 40.}
 \label{fast_pval}
 \end{figure}
 
@@ -1128,7 +1128,7 @@ $score_T(S,1)$, can still be approximated using an EVD when scoring a
 match as 1, and mismatch and indels scored as $-1$. We generated a
 random genome of length 50 kb from the DNA alphabet with equal
 probabilities, and reads of length 40 bp and 100 bp. For each read
-length, we determined the score distribution by aligning 5,000 reads
+length, we determined the score distribution by aligning 15,000 reads
 generated at random (Fig.~\ref{gen_score_evd}a, b). The parameters for
 the EVD was estimated using the method of moments.
 
@@ -1217,7 +1217,7 @@ expected to be significantly larger (e.g. the human genome).
 
 % Estimating null parameters
 After determining the appropriate random model and the score function
-use use, the parameters for the null distribution need to be estimated.
+use use, the parameters for the null distribution needs to be estimated.
 For example, if the method described in section~\ref{fast_pval_comp} is
 used, the mean and variance of aligning fragments of different lengths
 needs to be estimated.
