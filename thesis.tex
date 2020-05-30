@@ -88,11 +88,6 @@
 \pagenumbering{roman}
 \setcounter{page}{2}
 
-%% Abstract
-\phantomsection
-\addcontentsline{toc}{chapter}{Abstract}
-\include{abstract}
-
 %% Epigraph
 \setlength{\epigraphwidth}{1.0\textwidth}
 \setlength{\epigraphrule}{0pt}
@@ -112,10 +107,15 @@
 \listoffigures
 \newpage
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Abstract
 \doublespacing
+\phantomsection
+\addcontentsline{toc}{chapter}{Abstract}
+\include{abstract}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \pagenumbering{arabic}
 
 %% Introduction
